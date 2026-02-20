@@ -1,0 +1,3835 @@
+# -*- Mode:Org; Coding:utf-8; fill-column:158 -*-
+# ######################################################################################################################################################.H.S.##
+# FILE:        tool-info.org
+#+TITLE:       Test Equipment
+#+SUBTITLE:    Hardware, Usage, & Automation Notes
+#+AUTHOR:      Mitch Richling
+#+EMAIL:       http://www.mitchr.me/
+#+DATE:        2025-11-20
+#+DESCRIPTION: Test Automation Tools & Notes
+#+KEYWORDS:    gpib ethernet lxi scpi dmm oscilloscope multimeter awg power supply signal generator measure instruments bench electronics
+#+LANGUAGE:    en
+#+OPTIONS:     num:t toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t skip:nil d:nil todo:t pri:nil H:5 p:t author:t html-scripts:nil broken-links:t
+#+SEQ_TODO:    TODO:NEW(t)                         TODO:WORK(w)    TODO:HOLD(h)    | TODO:FUTURE(f)   TODO:DONE(d)    TODO:CANCELED(c)
+#+PROPERTY: header-args :eval never-export
+#+HTML_HEAD: <style>body { width: 95%; margin: 2% auto; font-size: 18px; line-height: 1.4em; font-family: Georgia, serif; color: black; background-color: white; }</style>
+#+HTML_HEAD: <style>body { min-width: 500px; max-width: 1024px; }</style>
+#+HTML_HEAD: <style>h1,h2,h3,h4,h5,h6 { color: #A5573E; line-height: 1em; font-family: Helvetica, sans-serif; }</style>
+#+HTML_HEAD: <style>h1,h2,h3 { line-height: 1.4em; }</style>
+#+HTML_HEAD: <style>h1.title { font-size: 3em; }</style>
+#+HTML_HEAD: <style>.subtitle { font-size: 0.6em; }</style>
+#+HTML_HEAD: <style>h4,h5,h6 { font-size: 1em; }</style>
+#+HTML_HEAD: <style>.org-src-container { border: 1px solid #ccc; box-shadow: 3px 3px 3px #eee; font-family: Lucida Console, monospace; font-size: 80%; margin: 0px; padding: 0px 0px; position: relative; }</style>
+#+HTML_HEAD: <style>.org-src-container>pre { line-height: 1.2em; padding-top: 1.5em; margin: 0.5em; background-color: #404040; color: white; overflow: auto; }</style>
+#+HTML_HEAD: <style>.org-src-container>pre:before { display: block; position: absolute; background-color: #b3b3b3; top: 0; right: 0; padding: 0 0.2em 0 0.4em; border-bottom-left-radius: 8px; border: 0; color: white; font-size: 100%; font-family: Helvetica, sans-serif;}</style>
+#+HTML_HEAD: <style>pre.example { white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -o-pre-wrap; font-family: Lucida Console, monospace; font-size: 80%; background: #404040; color: white; display: block; padding: 0em; border: 2px solid black; }</style>
+#+HTML_HEAD: <style>blockquote { margin-bottom: 0.5em; padding: 0.5em; background-color: #FFF8DC; border-left: 2px solid #A5573E; border-left-color: rgb(255, 228, 102); display: block; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 5em; margin-inline-end: 5em; } </style>
+#+HTML_LINK_HOME: https://www.mitchr.me/
+#+HTML_LINK_UP: https://www.mitchr.me/FIXME
+# ######################################################################################################################################################.H.E.##
+
+#+ATTR_HTML: :border 2 solid #ccc :frame hsides :align center
+|          <r> | <l>                                          |
+|    *Author:* | /{{{author}}}/                               |
+| *Generated:* | /{{{time(%Y-%m-%d %H:%M:%S)}}}/              |
+|   *Updated:* | /{{{modification-time(%Y-%m-%d %H:%M:%S)}}}/ |
+#+ATTR_HTML: :align center
+Copyright {{{time(%Y)}}} Mitch Richling. All rights reserved.
+
+#+MACRO: MRSCPI [[https://richmit.github.io/mrSCPI/][=mrSCPI=]]
+
+This document originally started as a place to keep operational notes about my test equipment.  The sort of stuff I found myself looking up while at the
+bench like DMM resister test current or the IP address I used for my counter.  Later I added web links to product information & downloads.
+After discovering Zotero, I added documentation links to my local laptop's Zotero repository.  When I developed {{{MRSCPI}}} I started adding little bits of
+executable code to the notes for various equipment configurations and measurements. 
+
+I decided to publish these notes as a response to requests for {{{MRSCPI}}} examples -- the {{{MRSCPI}}} blocks below being ready-made examples!  I expect most of the
+remaining content here isn't very useful to anyone other than myself.
+
+
+* Links For Emacs                                                  :noexport:
+
+                                           |----------------------------------------+----------------------|
+                                           | Device                                 | Link                 |
+                                           |----------------------------------------+----------------------|
+                                           | R&S HMC8043 Power Supply               | [[#MSIDhmc8043]]     |
+                                           | Rigol DG2052 AWG                       | [[#MSIDdg2052]]      |
+                                           | Agilent 33210A AWG                     | [[#MSID33210a]]      |
+                                           | Keysight 34401A Bench DMM              | [[#MSID34401a]]      |
+                                           | HP 53131A Universal Counter            | [[#MSID53131a]]      |
+                                           | Keithly DMM6500 Bench DMM              | [[#MSIDdmm6500]]     |
+                                           | Rigol DHO4204 Oscilloscope             | [[#MSIDdho4204]]     |
+                                           | Siglent SDS2504X+ Oscilloscope         | [[#MSIDsds2504xp]]   |
+                                           | Tektronix TDS2024 Oscilloscope         | [[#MSIDtds2024]]     |
+                                           | Tektronix TDS3052B Oscilloscope        | [[#MSIDtds3052b]]    |
+                                           | HIOKI 3030 Analog VOM                  | [[#MSIDHIOKI3030]]   |
+                                           | SANWA EM7000 FET Analog VOM            | [[#MSIDSANWAEM7000]] |
+                                           | Gossen-Metrawatt METRAmax 2 Multimeter | [[#MSIDGMMETRAM2]]   |
+                                           | Keysight U1233A DMM                    | [[#MSIDU1233A]]      |
+                                           | Thurlby Thandar WA301 HF Amplifier     | [[#MSIDTTWA301]]     |
+                                           | Fluke 107 Pocket DMM                   | [[#MSIDF107]]        |
+                                           |----------------------------------------+----------------------|
+                                           | Bus Pirate 2                           | [[#MSIDbuspirate5]]  |
+                                           | i2c Driver                             | [[#MSIDi2cd]]        |
+                                           | SPI Driver                             | [[#MSIDspid]]        |
+                                           | Analog/Digital Discovery 2             | [[#MSIDdadddd]]      |
+                                           |----------------------------------------+----------------------|
+
+The links in the above table are to sections of this document I frequently use inside Emacs.  This section is not exported to HTML.
+
+* Table of Contents
+:PROPERTIES:
+:ID:       64f32d6b-fb85-4b5a-bf20-7f2142cb964d
+:END:
+
+[[#DTOC][Detailed TOC]]
+#+TOC: headlines 2
+
+* Instrument Connection Data Table                                 :noexport:
+:PROPERTIES:
+:CUSTOM_ID: data-and-code
+:END:
+
+** Main Table 
+
+#+TBLNAME:connect-data
+|------------+-----------+----------------+-----------+----------+----------------+-----------------------------+-----------------+------------+-----------+--------+-------|
+| Instrument | Model     | Type           | Mfg       | Protocal | SSH Local Port | Instrument IP               | Instrument Port | cname      | dnam      | snam   | sanam |
+|------------+-----------+----------------+-----------+----------+----------------+-----------------------------+-----------------+------------+-----------+--------+-------|
+|            | SDS2504X+ | Oscilloscope   | Siglent   | vnc      |           5900 | oscope-sig.home.mitchr.me   |            5900 |            |           |        |       |
+| 33210a     | 33210A    | AWG            | Agilent   | raw      |           9001 | awg-agilent.home.mitchr.me  |            5025 | 33210ae    | 33210a    | aawge  | aawg  |
+| 33210a     | 33210A    | AWG            | Agilent   | https    |           9002 | awg-agilent.home.mitchr.me  |             443 | 33210aw    |           | aawgw  |       |
+| 34401a     | 34401A    | DMM            | Keysight  | plgx     |           9003 | gpib-rover.home.mitchr.me   |            1234 | 34401ap    |           | dmmp   |       |
+| 34401a     | 34401A    | DMM            | Keysight  | soip     |           9004 | serial.home.mitchr.me       |           10001 | 34401as    | 34401a    | dmms   | dmm   |
+| 53131a     | 53131A    | Counter        | HP        | plgx     |           9005 | gpib-rover.home.mitchr.me   |            1234 | 53131ap    | 53131a    | countp | count |
+| dg2052     | DG2052    | AWG            | Rigol     | raw      |           9006 | awg-rigol.home.mitchr.me    |            5555 | dg2052e    | dg2052    | dg2ke  | dg2k  |
+| dg2052     | DG2052    | AWG            | Rigol     | http     |           9007 | awg-rigol.home.mitchr.me    |              80 | dg2052w    |           | dg2kw  |       |
+| dho4204    | DHO4204   | Oscilloscope   | Rigol     | raw      |           9008 | oscope-rigol.home.mitchr.me |            5555 | dho4204e   | dho4204   | dho4ke | dho4k |
+| dho4204    | DHO4204   | Oscilloscope   | Rigol     | http     |           9009 | oscope-rigol.home.mitchr.me |              80 | dho4204w   |           | dho4kw |       |
+| dmm6500    | DMM6500   | DMM            | Keithley  | raw      |           9010 | dmm-keithley.home.mitchr.me |            5025 | dmm6500e   | dmm6500   | 6500e  | 6500  |
+| dmm6500    | DMM6500   | DMM            | Keithley  | http     |           9011 | dmm-keithley.home.mitchr.me |              80 | dmm6500w   |           | 6500w  |       |
+| hmc8043    | HMC8043   | Power Supply   | R&S       | raw      |           9012 | ps-rns.home.mitchr.me       |            5025 | hmc8043e   | hmc8043   | pse    | ps    |
+| hmc8043    | HMC8043   | Power Supply   | R&S       | http     |           9013 | ps-rns.home.mitchr.me       |              80 | hmc8043w   |           | psw    |       |
+| sds2504xp  | SDS2504X+ | Oscilloscope   | Siglent   | raw      |           9014 | oscope-sig.home.mitchr.me   |            5025 | sds2504xpe | sds2504xp | sig2ke | sig2k |
+| sds2504xp  | SDS2504X+ | Oscilloscope   | Siglent   | http     |           9015 | oscope-sig.home.mitchr.me   |              80 | sds2504xpw |           | sig2kw |       |
+| serial     | serial    | Serial Console | Lantronix | http     |           9016 | serial.home.mitchr.me       |              80 | serialw    |           | serial |       |
+| tds2024    | TDS2024   | Oscilloscope   | Tektronix | soip     |           9017 | serial.home.mitchr.me       |           10002 | tds2024s   |           | tek2ks | tek2k |
+| tds3052b   | TDS3052B  | Oscilloscope   | Tektronix | t3k      |           9018 | oscope-tek.home.mitchr.me   |              80 | tds3052bh  | tds3052b  | tek3kh | tek3k |
+| tds3052b   | TDS3052B  | Oscilloscope   | Tektronix | plgx     |           9019 | gpib-rover.home.mitchr.me   |            1234 | tds3052bp  |           | tek3kp |       |
+| tds3052b   | TDS3052B  | Oscilloscope   | Tektronix | soip     |           9020 | serial.home.mitchr.me       |           10003 | tds3052bs  |           | tek3ks |       |
+| tds3052b   | TDS3052B  | Oscilloscope   | Tektronix | http     |           9021 | oscope-tek.home.mitchr.me   |              80 | tds3052bw  |           | tek3kw |       |
+|------------+-----------+----------------+-----------+----------+----------------+-----------------------------+-----------------+------------+-----------+--------+-------|
+
+** Ethernet Ports
+
+| Device IP    | Switch Port | Cable ID       |
+|--------------+-------------+----------------|
+| oscope-tek   | G05         | white/grey     |
+| oscope-sig   | G06         | red/grey       |
+| oscope-rigol | G07         | black/grey     |
+| gpib-rover   | G10         | sleeved yellow |
+| awg-agilent  | G12         | red/black      |
+| awg-rigol    | G13         | black/black    |
+| dmm-keithley | G14         | green/black    |
+| ps-rns       | G15         | blue/black     |
+| serial       | G16         | short grey     |
+
+** Serial Ports On Lantronix Console
+
+| cname     | Serial port | cable marker |
+|-----------+-------------+--------------|
+| 34401as   |           1 | pink         |
+| tds2024s  |           2 | blue         |
+| tds3052bs |           3 | orange       |
+| NC        |           4 | NC           |
+
+** Instrument Information
+
+| Instrument  | Model     | Type         | Mfg       | Description                                                       |
+|-------------+-----------+--------------+-----------+-------------------------------------------------------------------|
+| 33210a      | 33210A    | AWG          | Agilent   | 1 channel, 10MHz, 14-bit, 50 MSa/s, 8Kpt, isolated                |
+| 34401a      | 34401A    | DMM          | Keysight  | 6.5 Digit                                                         |
+| 53131a      | 53131A    | Counter      | HP        | 2 channels, 10 digits/s, 0-225MHz, 500ps, 5Vac+dc                 |
+| 53131a-c    | 53131A    | Counter(RF)  | HP        | 1 channel, 10 digits/s, 100MHz-3GHz, 500ps, 5Vac+dc               |
+| dg2052      | DG2052    | AWG          | Rigol     | 2 channel, 15-50MHz, 16-bit, 250 MSa/s, 16 Mpts/channal, grounded |
+| dg2052-c    | DG2052    | Counter      | Rigol     | 1 channel, 7 digits/s, 1μHz-240MHz, 4ns-1Ms, 2.5 Vac+dc           |
+| dho4204     | DHO4204   | Oscilloscope | Rigol     | DPO, 12-bit, 800MHz, 4 analog channels, 1-4GS/s                   |
+| dho4204     | DHO4204   | Counter      | Rigol     | 1 channels, 3-6 digits/s, 500MHz                                  |
+| dmm6500     | DMM6500   | DMM          | Keithley  | 6.5 Digit                                                         |
+| hmc8043     | HMC8043   | Power Supply | R&S       | 3 channel                                                         |
+| sds2504xp   | SDS2504X+ | Oscilloscope | Siglent   | DPO/MSO, 8-bit, 400MHz, 4 analog channels, 1-2GS/s, 16digital     |
+| sds2504xp-a | SDS2504X+ | AWG          | Siglent   | 1 channel, 10-50MHz, 14-bit, 150 MSa/s, 16 Kpts/channal, grounded |
+| sds2504xp-c | SDS2504X+ | Counter      | Siglent   | 1 channel, 7 digits/s                                             |
+| tds2024     | TDS2024   | Oscilloscope | Tektronix | DSO, 8-bit, 200MHz, 4 analog channels, 2GS/s                      |
+| tds3052b    | TDS3052B  | Oscilloscope | Tektronix | DPO, 9-bit, 500MHz, 2 analog channels, 5GS/s                      |
+
+** Unicode Chars
+:PROPERTIES:
+:CUSTOM_ID: uchars
+:END:
+
+Ω
+
+μ
+
+±
+
+≤
+
+** Macros
+
+#+MACRO: cn2con (eval (TEQD-cname2con $1))
+#+MACRO: cn2dns (eval (format "=%s=" (or (TEQD-cname2dns $1) "N/A")))
+
+** Code
+
+#+begin_src elisp :exports none :results value :var  condat=connect-data :lexical yes
+
+(defun TEQD-getelt (title-or-number row)  ;; title can be a string (title) or number (column number) or a list of strings and/or numbers.
+  (if (listp title-or-number)
+      (mapcar (lambda (x) (TEQD-getelt x row)) title-or-number)
+      (if (stringp title-or-number)
+          (nth (seq-position (car condat) title-or-number) row)
+          (nth title-or-number row))))
+
+(defun TEQD-getcol (title-or-number)
+  "Pull a column or list of columns.  Columns given by string (title) or index (integer)."
+  (let ((cn (if (stringp title-or-number)
+                (seq-position (car condat) title-or-number)
+                title-or-number)))
+    (mapcar (lambda (x) (elt x cn)) condat)))
+
+(defun TEQD-cname2con (cname)
+  "Find instrument with cname and return string with connection data"
+  (let ((mp (seq-position condat cname (lambda (a b) (string-equal (TEQD-getelt "cname" a) b)))))
+    (if mp
+        (cl-destructuring-bind 
+            (iproto lport rip rport) (TEQD-getelt '("Protocal" "SSH Local Port" "Instrument IP" "Instrument Port") (nth mp condat))
+          (format "%s://%s:%s (DIRECT) or %s://%s:%s (SSH)" iproto rip rport iproto "127.0.0.1" lport))
+        "N/A")))
+
+(defun TEQD-cname2dns (cname)
+  "Find instrument with cname and return string with DNS name"
+  (let ((mp (seq-position condat cname (lambda (a b) (string-equal (TEQD-getelt "cname" a) b)))))
+    (if mp
+        (TEQD-getelt "Instrument IP" (nth mp condat)))))
+
+(defun TEQD-cname2ip (cname)
+  "Find instrument with cname and return IP address from DNS"
+  (let ((dnsn (TEQD-cname2dns cname)))
+    (if dnsn
+        (dns-query dnsn))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(TEQD-getelt "cname"               (nth 3 condat))
+;(TEQD-getelt 0                     (nth 3 condat))
+;(TEQD-getelt '(0 1 2)              (nth 3 condat))
+;(TEQD-getelt '("cname" "Protocal") (nth 3 condat))
+
+;(TEQD-getcol "cname")
+;(TEQD-getcol 6)
+
+;(TEQD-cname2con "tds3052bw")
+;(TEQD-cname2dns "tds3052bw")
+;(TEQD-cname2ip "tds3052bw")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+TEQD-cname2ip
+#+end_example
+
+* SCPI Connected Instruments
+:PROPERTIES:
+:CUSTOM_ID: scpi-inst
+:END:
+
+** Rohde & Schwarz HMC8043 Power Supply
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-link
+:END:
+
+  - Product Page: https://www.rohde-schwarz.com/us/products/test-and-measurement/dc-power-supplies/rs-hmc804x-dc-power-supply-series_63493-61542.html
+  - Documentation: https://www.rohde-schwarz.com/manual/hmc804x/
+  - Firmware: https://www.rohde-schwarz.com/firmware/hmc804x/
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_D7EEVLYM'>HMC8043 Power Supply: User Manual version 5</a></li>
+  <li><a href='zotero://select/items/0_QAVPMB45'>HMC8043 Power Supply: Programmers Manual version 2</a></li>
+  <li><a href='zotero://select/items/0_4LKBERGC'>HMC8043 Power Supply: User Manual version 4</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-lan
+:END:
+
+ - Host name: {{{cn2dns(hmc8043w)}}}
+ - Device Web Server: {{{cn2con(hmc8043w)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-notes
+:END:
+
+**** Remote control notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-notes-remote
+:END:
+
+This instrument has a very robust SCPI stack.  It has never crashed on me from poor network communication or invalid SCPI commands.  
+
+Results are always terminated by a single newline character.  If a SCPI command line with multiple, semicolon separated commands has a result, then it is
+returned as a single line with the individual results separated by semicolons.
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-idn
+:END:
+
+#+NAME: btn-hmc8043-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @hmc8043
+:cmd *IDN?
+#+end_src
+
+#+RESULTS: btn-hmc8043-idn
+#+begin_src text :eval never :tangle no
+>>*IDN?>>
+Rohde&Schwarz,HMC8043,042973185,HW42000000,SW01.400
+#+end_src
+
+**** Default Setup
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-rst
+:END:
+
+#+NAME: btn-hmc8043-default-setup
+#+begin_src mrscpi :output verbatum :exports code
+:url @hmc8043
+:result_type nil
+:echo false
+:delay_after_complete 50
+:cmd *RST
+#+end_src
+
+#+RESULTS: btn-hmc8043-default-setup
+
+**** Set voltage & current for each channel
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-setmeasv
+:END:
+
+#+NAME: btn-hmc8043-set-10-10-5
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" :var avol=15.0 dvol=5.0 acur=150.0e-3 dcur=70.0e-3
+:url @hmc8043
+:result_type nil
+:delay_after_complete 200
+:cmd :OUTPut:MASTer:STATe OFF
+:cmd :INSTrument:NSELect 1; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${avol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${acur}; :OUTPut:CHANnel:STATe ON
+:cmd :INSTrument:NSELect 2; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${avol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${acur}; :OUTPut:CHANnel:STATe ON
+:cmd :INSTrument:NSELect 3; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${dvol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${dcur}; :OUTPut:CHANnel:STATe ON
+:result_type :string
+:delay_after_complete 10
+:cmd :INSTrument:NSELect 1; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?
+:cmd :INSTrument:NSELect 2; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?
+:cmd :INSTrument:NSELect 3; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?
+#+end_src
+
+#+RESULTS: btn-hmc8043-set-10-10-5
+#+begin_src text :eval never :tangle no
+>>:OUTPut:MASTer:STATe OFF>>
+>>:INSTrument:NSELect 1; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude 15.0; :SOURce:CURRent:LEVel:IMMediate:AMPLitude 0.15; :OUTPut:CHANnel:STATe ON>>
+>>:INSTrument:NSELect 2; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude 15.0; :SOURce:CURRent:LEVel:IMMediate:AMPLitude 0.15; :OUTPut:CHANnel:STATe ON>>
+>>:INSTrument:NSELect 3; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude 5.0; :SOURce:CURRent:LEVel:IMMediate:AMPLitude 0.07; :OUTPut:CHANnel:STATe ON>>
+>>:INSTrument:NSELect 1; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?>>
+1.5000E+01;1.5000E-01
+>>:INSTrument:NSELect 2; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?>>
+1.5000E+01;1.5000E-01
+>>:INSTrument:NSELect 3; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude?; :SOURce:CURRent:LEVel:IMMediate:AMPLitude?>>
+5.000E+00;7.0000E-02
+#+end_src
+
+**** Turn on master output
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-masterout
+:END:
+
+Check the values above to make sure the settings are correct, and then activate the supply output like this:
+
+#+NAME: btn-hmc8043-master-on
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @hmc8043
+:result_type nil
+:delay_after_complete 50
+:cmd OUTPut:MASTer:STATe ON
+:result_type string
+:delay_after_complete 10
+:cmd OUTPut:MASTer:STATe?
+#+end_src
+
+#+RESULTS: btn-hmc8043-master-on
+#+begin_src text :eval never :tangle no
+>>OUTPut:MASTer:STATe ON>>
+>>OUTPut:MASTer:STATe?>>
+1
+#+end_src
+
+**** Check voltage and current
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-readv
+:END:
+
+We can check the current voltage and current like so:
+
+#+NAME: btn-hmc8043-measure-VA
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @hmc8043
+:delay_after_complete 10
+:read_timeout_next_byte 20
+:result_type nil
+:cmd :INSTrument:NSELect 1
+:result_split :ssv # Note: R&S devices return semicolon seporated values from compound SCPI statements
+:result_type :float
+:cmd :MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?
+:result_type nil # Note: We don't have to turn off split because a nil type means we don't even try and read a result
+:cmd :INSTrument:NSELect 2
+:result_type :float
+:cmd :MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?
+:result_type nil
+:cmd :INSTrument:NSELect 3
+:result_type :float
+:cmd :MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?
+#+end_src
+
+#+RESULTS: btn-hmc8043-measure-VA
+#+begin_src text :eval never :tangle no
+>>:INSTrument:NSELect 1>>
+>>:MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?>>
+[0.0, 0.0]
+>>:INSTrument:NSELect 2>>
+>>:MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?>>
+[0.0, 0.0]
+>>:INSTrument:NSELect 3>>
+>>:MEASure:SCALar:VOLTage:DC?; :MEASure:SCALar:CURRent:DC?>>
+[0.0, 0.0]
+#+end_src
+
+**** Sequenceing
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-remote-seq
+:END:
+
+Here we sequence the thrid channel to come on 90ms after the first two.
+
+#+NAME: btn-hmc8043-set-10-10-5-seq
+#+begin_src mrscpi :output verbatum :exports code :var avol=15.0 dvol=5.0 acur=150.0e-3 dcur=70.0e-3 del1=10.0 del2=100.0
+:url @hmc8043
+:echo false
+:result_type nil
+:delay_after_complete 200
+:cmd :OUTPut:MASTer:STATe OFF
+# Set 9V & 08mA on Ch1 & Ch2.  Set 5V @ 60mA on Ch1.
+:cmd :INSTrument:NSELect 1; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${avol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${acur};
+:cmd :INSTrument:NSELect 2; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${avol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${acur};
+:cmd :INSTrument:NSELect 3; :SOURce:VOLTage:LEVel:IMMediate:AMPLitude ${dvol}; :SOURce:CURRent:LEVel:IMMediate:AMPLitude ${dcur};
+# Set Ch1 & Ch2 to start first, and then Ch3 90ms later.
+:cmd :SEQuence:STATe OFF
+:cmd :INSTrument:NSELect 1; :SEQuence:CHANnel:STATe ON; :SEQuence:DELay ${del1}; :SEQuence:TRIGgered OFF
+:cmd :INSTrument:NSELect 2; :SEQuence:CHANnel:STATe ON; :SEQuence:DELay ${del1}; :SEQuence:TRIGgered OFF
+:cmd :INSTrument:NSELect 3; :SEQuence:CHANnel:STATe ON; :SEQuence:DELay ${del2}; :SEQuence:TRIGgered OFF
+:cmd :SEQuence:STATe ON
+# Activate all the channels
+:cmd :INSTrument:NSELect 1; :OUTPut:CHANnel:STATe ON
+:cmd :INSTrument:NSELect 2; :OUTPut:CHANnel:STATe ON
+:cmd :INSTrument:NSELect 3; :OUTPut:CHANnel:STATe ON
+# At this point, the master enable needs to be pressed.
+#+end_src
+
+#+RESULTS: btn-hmc8043-set-10-10-5-seq
+#+begin_src text :eval never :tangle no
+#+end_src
+
+** Agilent 33210A Arbitrary Waveform Generator
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-link
+:END:
+
+  - Product Page: https://www.keysight.com/us/en/product/33210A/33210a-waveform-and-function-generator.html
+  - Firmware & Documentation: https://www.keysight.com/us/en/support/33210A/33210a-waveform-and-function-generator.html
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_RUM7LWR8'>33210A AWG: Quick Start</a></li>
+  <li><a href='zotero://select/items/0_FNX3Q4JI'>33210A AWG: User Guide 1ed</a></li>
+  <li><a href='zotero://select/items/0_VJ3RMDBS'>33210A AWG: Service Guide 2ed</a></li>
+  <li><a href='zotero://select/items/0_IGNKYQ73'>33210A AWG: Option 001 External Timebase Reference Install</a></li>
+  <li><a href='zotero://select/items/0_VGWLZPHH'>33210A AWG: Generating Narrow Pulses with a Function Generator</a></li>
+  <li><a href='zotero://select/items/0_LZ3FRENJ'>33210A AWG: Maximum Output Current</a></li>
+  <li><a href='zotero://select/items/0_DP2K99XP'>33210A AWG: Transferring Arbitrary Waveform Data to the 33200A Family of Function/Arbitrary Waveform Gene(...)</a></li>
+  <li><a href='zotero://select/items/0_ANQ4RXRN'>33210A AWG: 10 Hints for Getting More from Your Function Generator</a></li>
+  <li><a href='zotero://select/items/0_7DN4INN4'>33210A AWG: Waveform Capture, Modification and Playback Using a Function Generator</a></li>
+  <li><a href='zotero://select/items/0_QL9PBEEF'>33210A AWG: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_683Y6E4A'>33210A AWG: User Guide 3ed</a></li>
+  <li><a href='zotero://select/items/0_3F6E8AJ8'>33210A AWG: Service Guide 1ed</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-lan
+:END:
+
+ - Host name: {{{cn2dns(33210aw)}}}
+ - Device Web Server: {{{cn2con(33210aw)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-notes-perf
+:END:
+
+ - Primary Output
+   - 50 Ω typical
+   - Isolation 42 Vp maximum to earth
+   - Short-circuit protected. Overload disables main output.
+   - Typical Current
+     - 10 Vpp sine wave at 1 kHz into a 0.5 Ω load: 135 mArms
+     - 1 Vpp sine wave at 1 kHz into a 0.5 Ω load: 13 mArms
+     - Current is a linear function of V between 1 Vpp and 10 Vpp
+ - 10 MHz Reference Clock (input/output)
+   - Input
+     - Lock range: 10 MHz ± 500 Hz;
+     - Level: 100 mVpp to 5 Vpp
+     - Impedance: 1 kΩ
+   - Output
+     - Frequency: 10 MHz
+     - Level: 632 mVpp
+     - Impedance: 50 Ω AC coupled
+ - Arb Spec
+   - Frequency: 1 mHz to 3 MHz
+   - Points: 2 pts to 8 kPts
+   - Resolution: 14 bits
+   - Sample rate: 50 MSa/s
+   - Minimum rise/fall time: 70 ns (vs 20 ns for square & pulse waveforms)
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-notes-backIO
+:END:
+
+ - Right Side Top (4 ports arranged in a square)
+   - Top Right: BNC External 10 MHz Reference Input (Option 001)
+   - Top Left: BNC External 10 MHz Reference Output (Option 001)
+   - Bottom Right: BNC External Modulation Input Terminal
+   - Bottom Left: BNC External Trigger Input, Burst Gate Input, or rigger Output
+ - Bottom Center Right To Left
+   - USB 2.0 Device
+   - 10/100 Base-T Ethernet
+   - GPIB Interface
+ - Left Side Top: IEC C14/C13: AC Power Connector
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-remote-idn
+:END:
+
+#+NAME: btn-33210a-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @33210a
+:cmd *IDN?
+#+end_src
+
+#+RESULTS: btn-33210a-idn
+#+begin_src text :eval never :tangle no
+>>"*IDN?\n">>
+Agilent Technologies,33210A,MY48001014,1.04-1.02-22-2
+#+end_src
+
+**** Standard Waveforms
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-remote-stdwav
+:END:
+
+=APPLy= arguments are frequency, amplitude, and offset:
+
+#+begin_src mrscpi :output verbatum :exports code 
+:url @33210a
+:echo false
+:result_type nil
+:cmd APPLy:SINusoid 5 KHZ, 3.0 VPP, -1.0V
+#+END_SRC
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+#+end_src
+
+**** ARB
+:PROPERTIES:
+:CUSTOM_ID: MSID33210a-remote-arb
+:END:
+
+We use the command =DATA= for floating point values in the range [-1.0, 1.0].  
+
+#+begin_src mrscpi :output verbatum :exports code
+:url @33210a
+:echo false
+:result_type nil
+# Turn off the output
+:cmd OUTPut OFF
+# upload 4 floating point values for the waveform to VOLATILE memory
+:cmd DATA VOLATILE,-1.0,1.0,0.0
+# Select the waveform in VOLATILE memory
+:cmd FUNCtion:USER VOLATILE
+# Set waveform properties
+:cmd FREQuency 5 kHz
+:cmd VOLTage 3.0 VPP
+:cmd VOLTage:OFFS 0
+# Turn on the output
+:cmd OUTPut ON
+#+END_SRC
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+#+end_src
+
+We use the command =DATA:DAC= for integer values in the range [-8191, 8191].
+
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @33210a
+:result_type nil
+# Turn off the output
+:cmd OUTPut OFF
+# upload 4 (up to 8k supported) integer values for the waveform
+:cmd DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191
+# Move the VOLATILE waveform into non-VOLATILE storage.  The system can store 4 non-VOLATILE waveforms.  Names for waveforms may be up to 12 characters.
+:cmd DATA:COPY AN_ARB_NAME
+:result_type :string
+# List non-VOLATILE waveforms stored.
+:cmd DATA:NVOLatile:CATalog?
+:result_type nil
+# Select the waveform we just saved
+:cmd FUNCtion:USER AN_ARB_NAME
+# Set waveform properties
+:cmd FREQuency 5 kHz
+:cmd VOLTage 3.0 VPP
+:cmd VOLTage:OFFS 0
+# Turn on the output
+:cmd OUTPut ON
+#+END_SRC
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+>>OUTPut OFF>>
+>>DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191>>
+>>DATA:COPY AN_ARB_NAME>>
+>>DATA:NVOLatile:CATalog?>>
+"AN_ARB_NAME"
+>>FUNCtion:USER AN_ARB_NAME>>
+>>FREQuency 5 kHz>>
+>>VOLTage 3.0 VPP>>
+>>VOLTage:OFFS 0>>
+>>OUTPut ON>>
+#+end_src
+
+** Keysight 34401A Bench Digital Multimeter
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-link
+:END:
+
+  - Product Page: https://www.keysight.com/us/en/product/34401A/digital-multimeter-6-digit.html
+  - Documentation: https://www.keysight.com/us/en/support/34401A/digital-multimeter-6-digit.html
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_DPPK2XY9'>34401A DMM: User Guide</a></li>
+  <li><a href='zotero://select/items/0_5JPREIH7'>34401A DMM: Service Guide</a></li>
+  <li><a href='zotero://select/items/0_UUX6CSE4'>34401A DMM: Quick Guide</a></li>
+  <li><a href='zotero://select/items/0_DYXBIU5Y'>34401A DMM: Manual Updates</a></li>
+  <li><a href='zotero://select/items/0_PE3VEZMS'>34401A DMM: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_ITUB3BLC'>DMM6500 DMM: Keysight 34401A Application Emulation and Migration Guide</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-lan
+:END:
+
+ - Serial over IP access: {{{cn2con(34401as)}}}
+
+*** Serial Settings (Lantronix console server)
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-serial
+:END:
+
+#+ATTR_HTML: :align center :cellpadding 2px
+| Parameter    |        Setting         |
+| <l>          |          <c>           |
+|--------------+------------------------|
+| Cable        | crossover (null modem) |
+| Line         |           1            |
+| TCP/IP Port  |         10001          |
+| Serial       |         RS232          |
+| Baud         |          9600          |
+| Parity       |          Even          |
+| Data Bits    |           7            |
+| Stop Bits    |           2            |
+| Flow Control |          SOFT          |
+| Xon          |           ^Q           |
+| Xof          |           ^S           |
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-perf
+:END:
+
+ - Voltage Measurement Input Impedance
+   - With =INPut:IMPedance:AUTO= set to =OFF= (startup default), 10MΩ for all ranges
+   - With =INPut:IMPedance:AUTO= set to =ON=, 10 Gohm for 100 mVdc, 1 Vdc, and 10 Vdc ranges and 10MΩ for the rest.
+ - Front Panel Digits Buttons (Resolution) for DC measurements
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Digits | Description  | Integration Time |
+   |  <c>   |     <c>      |       <c>        |
+   |--------+--------------+------------------|
+   |   4    | Slow 4 Digit |      1 PLC       |
+   |   5    | Slow 5 Digit |      10 PLC      |
+   |   6    | Fast 6 Digit |      10 PLC      |
+ - Digits/Resolution for AC measurements
+   - Fixed at 6.5 digits
+   - Fixed at 5.5 digits for continuity and diode tests
+ - AC Current Shunt Resistance: 0.1Ωfor 1A& 3 A. 5Ωfor 10mA and 100mA.
+ - AC Bandwidth: 300kHz
+ - Resistance Test Current
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Current |
+   |  <c>  |   <c>   |
+   |-------+---------|
+   | 100Ω  |   1mA   |
+   |  1kΩ  |   1mA   |
+   | 10kΩ  |  100μA  |
+   | 100kΩ |  10μA   |
+   |  1MΩ  |   5μA   |
+   | 10MΩ  |  500nA  |
+   | 100MΩ |  500nA  |
+ - Continuity & Diode Test Current: 1mA
+
+**** Remote control notes
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-note-remote
+:END:
+
+Results read from this instrument use MS-DOS line ending conventions -- i.e. they end with a carriage return and newline (\r\n).  For this reason I generally
+set =:result_chomp= to =true= in {{{MRSCPI}}} scripts.
+
+For reliable results over the serial interface, the instrument must be set to "remote" mode before any other commands are issued.  When finished, the
+instrument should be released to "local" mode.  Simple, single SCPI command sessions may sometimes be preformed without this mode switching -- for example,
+sending a simple =*IDN?= command generally works.  See: [[#MSID34401a-serialrc-notes][Serial Remote Control Best Practice]].
+
+I have tested the Prologix Ethernet adapter with this meter's GPIB interface and it works perfectly.  That said, I normally use the serial interface.
+
+**** Undocumented 
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-note-undoc
+:END:
+
+***** PEEK & POKE
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-note-undoc-peek
+:END:
+
+| SCPI Command                 | Function                                                                          |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:POKE   25,0,<1/0>~     | Enable/Disable 10mA AC range                                                      |
+| ~DIAG:POKE   27,0,<1/0>~     | Enable/Disable 10kHz AC filter                                                    |
+| ~DIAG:POKE   28,0,<1191/0>~  | Enable/Disable standard deviation and peak-to-peak                                |
+| ~DIAG:POKE   30,0,<1191/0>~  | Enable/Disable internal and external temperature sensors                          |
+| ~DIAG:POKE   31,0,<1191/0>~  | Enable/Disable scale calculations                                                 |
+| ~DIAG:POKE   32,0,<1191/0>~  | Enable/Disable custom conversion apertures                                        |
+| ~DIAG:POKE   33,0,<1191/0>~  | Enable/Disable state storage and power-on auto-recall                             |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:POKE   29,0,1~         | Display original measured values in temperature measurement mode                  |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:PEEK? -10,1,0~         | Check feature: Standard deviation and peak-to-peak                                |
+| ~DIAG:PEEK? -10,2,0~         | Check feature: Internal temperature and external temperature sensors              |
+| ~DIAG:PEEK? -10,3,0~         | Check feature: Scale calculation                                                  |
+| ~DIAG:PEEK? -10,4,0~         | Check feature: Custom conversion aperture                                         |
+| ~DIAG:PEEK? -10,5,0~         | Check feature: state store                                                        |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:PEEK?   0,<ADDR>,0~    | Read RAM byte                                                                     |
+| ~DIAG:PEEK?   1,<ADDR>,0~    | Read RAM word                                                                     |
+| ~DIAG:PEEK?   2,<ADDR>,0~    | Read RAM double word                                                              |
+| ~DIAG:PEEK?   3,<ADDR>,0~    | Read RAM floating-point                                                           |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:PEEK?  -1,<ADDR>,0~    | reads the EEPROM low zone (set) word and returns it in decimal                    |
+| ~DIAG:PEEK?  -2,<ADDR>,0~    | reads the EEPROM high zone (calibration) word and returns it in a specific format |
+| ~DIAG:PEEK?  -3,<BLOCK>,0~   | ROM ref values for specified block                                                |
+| ~DIAG:PEEK?  -4,0,0~         | reads power line frequency 1=50/400Hz                                             |
+| ~DIAG:PEEK?  -5,0,0~         | Whether there is a waiting interrupt                                              |
+| ~DIAG:PEEK?  -6,0,0~         | Read the stack dump from the previous interrupt                                   |
+| ~DIAG:PEEK?  -7,0,0~         | reads ADC raw data                                                                |
+| ~DIAG:PEEK?  -8,0,0~         | *DANGEROUS:* [unsecured] enable: ZERO DCV                                         |
+| ~DIAG:PEEK?  -9,0,0~         | Number of rows in the block table                                                 |
+| ~DIAG:PEEK? -11,0,0~         | lookup NVRAM data by block using the index to stored address                      |
+| ~DIAG:PEEK? -12,0,0~         | lookup block table in ROM data using index to stored address                      |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:POKE 34,0,0~           | *DANGEROUS:* reset CPU                                                            |
+| ~DIAG:POKE 23,0,0~           | *DANGEROUS:* resets calibration count                                             |
+| ~DIAG:POKE  0,0,0~           | *DANGEROUS:* increases the calibration count                                      |
+| ~DIAG:POKE -2,<ADDR>,<DATA>~ | *DANGEROUS:* Write RAM bytes                                                      |
+| ~DIAG:POKE -3,<ADDR>,<DATA>~ | *DANGEROUS:* Write RAM words                                                      |
+| ~DIAG:POKE -4,<ADDR>,<DATA>~ | *DANGEROUS:* Write RAM floating-point                                             |
+|------------------------------+-----------------------------------------------------------------------------------|
+| ~DIAG:PEEK? -2,<RANGE>,0~    | Obtain 34401 calibration data                                                     |
+
+The range numbers for "~DIAG:PEEK? -2~" are:
+| Func | RANGE values |
+|------+--------------|
+| DCV  |        75-79 |
+| DCI  |        82-85 |
+| OHM  |        87-92 |
+| OHM4 |        94-99 |
+| ACV  |      104-108 |
+
+The returned value for "~DIAG:PEEK? -2~" is: "~<coefficient>,<left shift number>,<0>,<front panel offset>,<rear panel offset>~".
+
+NVRAM storage is split into numbered blocks.  The low part is for safe changes.  The high part is for calibration data and can only be written when unsecured.  
+
+Example blocks:
+| BLOCK | Description                                                                                      |
+|-------+--------------------------------------------------------------------------------------------------|
+|    70 | Count gain between T2 ticks and residual on 80C196 AD                                            |
+|    71 | Non-linear correction coeff1 (quadratic)                                                         |
+|    73 | Non-linear correction coeff2 (cubic)                                                             |
+|    76 | Transform params for DC 1V range (multiplier, shift, NA, offset, ?) must be scaled for line/NPLC |
+
+***** Features
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-note-undoc-feat
+:END:
+
+ - Standard deviation and peak-to-peak (~DIAG:POKE 28~) ::
+   - New SCPI Commands:
+     - ~CALCulate:AVERage:SDEViation?~ ::
+     - ~CALCulate:AVERage:PTPeak?~ ::
+   - New Menu: 
+     - ~math menu -> min-max: sdev, pp~ ::
+ - Internal and external temperature sensors (~DIAG:POKE 30~) ::
+   - New SCPI Commands:
+     - ~CONF:TEMPerature?~ ::
+     - ~CONF:TEMPerature {TCouple|RTD|FRTD|THERmistor|DEFault},{TC type, or (F)RTD alpha, or Thermistor type},{<range>|MIN|MAX|DEF},{<resolution>|MIN|MAX|DEF}~ ::
+        Temperature measurement mode/transducer/subtype. \\
+        No query possible. \\
+        Transducer value of ~DEFault~ means "last used" \\
+        Range is ignored \\
+     - ~CONF?~ ::
+        With temperature enabled, this also returns transducer type and subtype in addition to range/resolution (range fixed as "1")
+     - ~UNIT:TEMPerature?~ ::
+     - ~UNIT:TEMPerature {Cel|Far|K}~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TYPE?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TYPE {TCouple|RTD|FRTD|THERmistor|DEFault}~ ::
+        FRTD is 4W RTD \\
+        RTD is 2W \\
+        DEFault = TC -- WARNING: this behaviour is diffrent from CONF:TEMP
+     - ~SENSe:TEMPerature:NPLCycles?~ ::
+     - ~SENSe:TEMPerature:NPLCycles {0.02|0.2|1|10|100|MINimum|MAXimum}~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TCouple:TYPE?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TCouple:TYPE {B|E|J|K|N|R|S|T}~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TCouple:RJUNction?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:TCouple:RJUNction {MIN|MAX}~ ::
+     - ~[SENSe]:TEMPerature:TRANsducer:TCouple:RJUNction?~ ::
+     - ~[SENSe]:TEMPerature:TRANsducer:TCouple:RJUNction {<temperature>|MIN|MAX}~ ::
+        Reference junction temperature for TC, -1 to 55C range
+     - ~SENSe:TEMPerature:TRANsducer:RTD:TYPE?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:RTD:TYPE {85|91}~ ::
+        RTD alpha value, 0.00385 or 0.00391
+     - ~SENSe:TEMPerature:TRANsducer:RTD:RESistance:REFerence?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:RTD:RESistance:REFerence {R0 resistance>|MIN|MAX}~ ::
+        RTD reference (25C) resistance, 4.9 - 2100 ohm range
+     - ~SENSe:TEMPerature:TRANsducer:THERMistor:TYPE?~ ::
+     - ~SENSe:TEMPerature:TRANsducer:THERMistor:TYPE {2200,5000,10000}~ ::
+        Thermistor type (in ohms) \\
+        The first two are B=3975.  The last is B=3695
+     - ~DIAGnostic:TEMPerature?~ ::
+        Read internal on-chip temperature sensor.  \\
+        This causes relay(s) to activate regardless of selected function.
+   - New Menu: 
+     - ~temp menu~
+ - Scale calculations (~DIAG:POKE 31~) ::
+   - New SCPI Commands:
+     - ~CALCulate:FUNCtion SCALe?~ ::
+     - ~CALCulate:FUNCtion SCALe~ ::
+        Only one math operation is available at a time.  For example min/max can't be used at the same time as SCALE.
+     - ~CALCulate:SCALe:GAIN?~ ::
+     - ~CALCulate:SCALe:GAIN~ ::
+     - ~CALCulate:SCALe:OFFSet?~ ::
+     - ~CALCulate:SCALe:OFFSet~ ::
+   - New Menu: 
+     - ~menu -> scale~
+ - Custom conversion apertures (~DIAG:POKE 32~) ::
+   - New SCPI Commands:
+     - ~<Measure>:APERture?~ ::
+     - ~<Measure>:APERture {<Time>|MIN|MAX}~ ::
+        Without the custom aperture option enabled: Only accepts values which correspont to the standard NPLC settings.  \\
+        When the custom aperture option is enabled: Accepts values anywhere in the range of 0.4ms to 2s.  \\
+        The NPLC option will not accept "non-standard" values - when set to a non-standard value the next highest standard value will be used instead.
+   - New Menu: 
+     - ~resolution menu -> custom aperture~
+ - State storage and power-on auto-recall (~DIAG:POKE 33~) ::
+   - New SCPI Commands:
+     - ~*RCL 0~ ::
+     - ~*SAV 0~ ::
+     - ~MEMory:STATe:RECall:AUTO?~ ::
+     - ~MEMory:STATe:RECall:AUTO {OFF|0|ON|1}~ ::
+   - New Menu: 
+     - ~system menu -> store state, recall state~
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-idn
+:END:
+
+#+NAME: btn-34401a-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_chomp true
+:cmd *IDN?
+#+end_src
+
+#+RESULTS: btn-34401a-idn
+#+begin_src text :eval never :tangle no
+>>*IDN?>>
+HEWLETT-PACKARD,34401A,0,11-5-2
+#+end_src
+
+**** Default Setup
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-rst
+:END:
+
+#+NAME: btn-34401a-default-setup
+#+begin_src mrscpi :output verbatum :exports code 
+:url @34401a
+:result_type nil
+:cmd :SYSTem:REMote
+:cmd *RST
+:cmd *CLS
+:cmd :SYSTem:BEEPer:STATe ON
+:cmd :CALCulate:DBM:REFerence 600
+:cmd :SYSTem:LOCal
+#+end_src
+
+**** Query For Errors
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-errq
+:END:
+
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_chomp true
+:cmd :SYSTem:ERRor?
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+>>:SYSTem:ERRor?>>
++0,"No error"
+#+end_src
+
+Here is an example showing an error
+
+#+begin_src text :eval never :tangle no
+>>:SYSTem:ERRor?>>
+-113,"Undefined header"
+#+end_src
+
+Note: In {{{MRSCPI}}} we can use =:result_split :csv= to split this result into components.
+
+**** Serial Remote Control Best Practice
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-serialrc
+:END:
+
+For RS-232 remote control, one *must* run:
+
+#+NAME: btn-34401a-remote
+#+begin_src mrscpi :results none :exports code
+:url bench@34401a
+:result_type nil
+:cmd :SYSTem:REMote
+:cmd :DISPlay:TEXT "Remote" # It's good to display a message when in remote mode so it's easy to notice:
+#+end_src
+
+Return to local control by pressing the "shift/local" button on the front panel or running the following SCPI command:
+
+#+NAME: btn-34401a-local
+#+begin_src mrscpi :results none :exports code
+:url bench@34401a
+:result_type nil
+:cmd :SYSTem:LOCal
+#+end_src
+
+**** Measure DC Voltage
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-dcv
+:END:
+
+Normal accuracy: Read a voltage with high resolution and 10 NPLC.
+
+For more accuracy, bump =:SENSe:VOLTage:DC:NPLCycles= up to 100, and the =:delay_before_first_read= up to 3500.
+
+#+NAME: btn-34401a-dcV-hia
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_type nil
+:cmd :SYSTem:REMote                        # Only required for rs-232, but no harm over GPIB
+:cmd *CLS
+:cmd :SENSe:FUNCtion "VOLTage:DC"
+:cmd :SENSe:VOLTage:DC:RANGe:AUTO ON
+:cmd :INPut:IMPedance:AUTO ON
+:cmd :SENSe:VOLTage:DC:RESolution MAXimum
+:cmd :SENSe:ZERO:AUTO ON
+:cmd :SENSe:VOLTage:DC:NPLCycles 10
+:result_chomp true
+:result_type :string
+:delay_before_first_read 600               # It takes about 600ms for the meter to respond
+:read_timeout_first_byte 500
+:read_timeout_next_byte 20
+:cmd :READ?
+:result_type nil
+:cmd SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
+#+end_src
+
+#+RESULTS: btn-34401a-dcV-hia
+#+begin_src text :eval never :tangle no
+>>:SYSTem:REMote>>
+>>*CLS>>
+>>:SENSe:FUNCtion "VOLTage:DC">>
+>>:SENSe:VOLTage:DC:RANGe:AUTO ON>>
+>>:INPut:IMPedance:AUTO ON>>
+>>:SENSe:VOLTage:DC:RESolution MAXimum>>
+>>:SENSe:ZERO:AUTO ON>>
+>>:SENSe:VOLTage:DC:NPLCycles 10>>
+>>:READ?>>
++1.00103070E+00
+>>SYSTem:LOCal>>
+#+end_src
+
+**** Measure AC Voltage
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-acv
+:END:
+
+For AC voltage, we should be carefull about setting the bandwidth.
+
+#+NAME: btn-34401a-acV-hia
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_type nil
+:cmd :SYSTem:REMote                        # Only required for rs-232, but no harm over GPIB
+:cmd *CLS
+:cmd :SENSe:FUNCtion "VOLTage:AC"
+:cmd :SENSe:VOLTage:AC:RANGe:AUTO ON
+:cmd :SENSe:DETector:BANDwidth 200         # Typical values are 3, 20, & 200
+:cmd :SENSe:VOLTage:AC:RESolution MAXimum
+:result_chomp true
+:result_type :string
+:delay_before_first_read 1000               # 1000 for BANDwidth of 200, 1300 for BW of 10, 700 for BW of 3 TODO?????
+:read_timeout_first_byte 500
+:read_timeout_next_byte 20
+:cmd :READ?
+:result_type nil
+:cmd SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
+#+end_src
+
+#+RESULTS: btn-34401a-acV-hia
+#+begin_src text :eval never :tangle no
+>>:SYSTem:REMote>>
+>>*CLS>>
+>>:SENSe:FUNCtion "VOLTage:AC">>
+>>:SENSe:VOLTage:AC:RANGe:AUTO ON>>
+>>:SENSe:DETector:BANDwidth 200>>
+>>:SENSe:VOLTage:AC:RESolution MAXimum>>
+>>:READ?>>
++3.52256990E-01
+>>SYSTem:LOCal>>
+#+end_src
+
+**** Measure Frequency
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-acf
+:END:
+
+#+NAME: btn-34401a-acF-hia
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_type nil
+:cmd :SYSTem:REMote                          # Only required for rs-232, but no harm over GPIB
+:cmd *CLS
+:cmd :SENSe:FUNCtion "FREQuency"
+:cmd :SENSe:FREQuency:APERture 1             # Use 1, 0.1, or 0.01
+:cmd :SENSe:FREQuency:VOLTage:RANGe:AUTO ON
+:result_chomp true
+:result_type :string
+:delay_before_first_read 2000                # 2000 for APERture of 1, 1000 for 0.1 & 0.01
+:read_timeout_first_byte 500
+:read_timeout_next_byte 20
+:cmd :READ?
+:result_type nil
+:cmd SYSTem:LOCal                            # Only required for rs-232, but no harm over GPIB
+#+end_src
+
+#+RESULTS: btn-34401a-acF-hia
+#+begin_src text :eval never :tangle no
+>>:SYSTem:REMote>>
+>>*CLS>>
+>>:SENSe:FUNCtion "FREQuency">>
+>>:SENSe:FREQuency:APERture 1>>
+>>:SENSe:FREQuency:VOLTage:RANGe:AUTO ON>>
+>>:READ?>>
++1.99999870E+02
+>>SYSTem:LOCal>>
+#+end_src
+
+**** Measure Period
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-remote-acp
+:END:
+
+#+NAME: btn-34401a-acP-hia
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @34401a
+:result_type nil
+:cmd :SYSTem:REMote                          # Only required for rs-232, but no harm over GPIB
+:cmd *CLS
+:cmd :SENSe:FUNCtion "PERiod"
+:cmd :SENSe:PERiod:APERture 1                # Use 1, 0.1, or 0.01
+:cmd :SENSe:PERiod:VOLTage:RANGe:AUTO ON
+:result_chomp true
+:result_type :string
+:delay_before_first_read 2000                # 2000 for APERture of 1, 1000 for 0.1 & 0.001
+:read_timeout_first_byte 1000
+:read_timeout_next_byte 20
+:cmd :READ?
+:result_type nil
+:cmd SYSTem:LOCal                            # Only required for rs-232, but no harm over GPIB
+#+end_src
+
+#+RESULTS: btn-34401a-acP-hia
+#+begin_src text :eval never :tangle no
+>>:SYSTem:REMote>>
+>>*CLS>>
+>>:SENSe:FUNCtion "PERiod">>
+>>:SENSe:PERiod:APERture 1>>
+>>:SENSe:PERiod:VOLTage:RANGe:AUTO ON>>
+>>:READ?>>
++4.99999720E-03
+>>SYSTem:LOCal>>
+#+end_src
+
+** HP 53131A Counter
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-link
+:END:
+
+  - Product Page: https://www.keysight.com/us/en/product/53131A/225-mhz-universal-frequency-countertimer.html
+  - Documentation: https://www.keysight.com/us/en/support/53131A/225-mhz-universal-frequency-countertimer.html
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_U4GEMTFV'>53131A Counter: Operateing Guide</a></li>
+  <li><a href='zotero://select/items/0_H2A29JSM'>53131A Counter: Programming Guide</a></li>
+  <li><a href='zotero://select/items/0_CFA7BN37'>53131A Counter: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_5K2F582P'>53131A Counter: Assembly Level Service Guide</a></li>
+  <li><a href='zotero://select/items/0_HSKBK5KI'>53131A Counter: Component Level Information</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-lan
+:END:
+
+ - GPIB adapter host name & port: gpib-rover.home.mitchr.me  :1234
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-perf
+:END:
+
+ - Channel 1-3 Input Characteristics
+   - 50 ohm OR 1MΩ + 30pF
+   - Damage level 5 Vrms
+ - External Time Base Input
+   - Voltage Range: 200 mVrms to 10 Vrms
+   - Damage Level: 10Vrms
+   - Impedance: 1kΩ + 23pF
+ - Time base output
+   - Voltage > 1 Vpp into 50Ω (centered around 0V)
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-backIO
+:END:
+
+ - Bottom Right To Left
+   - BNC External Arm Trigger
+   - BNC External 10 MHz Reference Input
+   - BNC External 10 MHz Reference Output
+   - GPIB Interface (near center)
+   - RS232 Output
+ - Bottom Center Left: IEC C14/C13: AC Power Connector
+
+**** Quirks
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-quirks
+:END:
+
+When it's plugged in, it consume power and runs the fan.  Presumably this is to keep a fancy OCXO warmed up and ready for when the unit is needed.  At least
+the fan is pretty quiet.  Still, I don't have a fancy oscillator option installed in my unit making the fan wear and tear a waste.  My solution is an IEC C14
+to IEC C13 power cable with an inline switch.
+
+**** Remote control notes
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-remote
+:END:
+
+The RS-232 interface is "talk-only" -- i.e. for logging, printing, or limit-detect output.  It can not be used for SCPI control.
+
+A Prologix Ethernet to GPIB adapter works well with this device.  I have one of these adapters semi-permanently attached.
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-remote-idn
+:END:
+
+#+NAME: btn-53131a-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @53131a
+:cmd *IDN?
+#+end_src
+
+#+RESULTS: btn-53131a-idn
+#+begin_src text :eval never :tangle no
+>>*IDN?>>
+HEWLETT-PACKARD,53131A,0,3703
+#+end_src
+
+**** Default Setup & Measure Frequency
+:PROPERTIES:
+:CUSTOM_ID: MSID53131a-remote-rst
+:END:
+
+#+NAME: btn-53131a-default-setup
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @53131a
+:result_type nil
+:cmd *RST                              # Reset the counter
+:cmd *CLS                              # Clear event registers and error queue
+:cmd *SRE 0                            # Clear service request enable register
+:cmd *ESE 0                            # Clear event status enable register
+:cmd :STATus:PRESet                    # Preset enable registers and transition filters for operation and questionable status structures
+:cmd :SENSe:FUNCion 'FREQuency 1'      # Measure frequency on channel 1
+:cmd :SENSe:EVENt1:LEVel:ABSolute 0.0  # Set trigger level 
+:cmd :INITiate:IMMediate               # Trigger a measurement
+:result_type :float
+:cmd :FETCh:SCALar:VOLTage:FREQuency?  # Pull the frequency
+:cmd :FETCh:SCALar:VOLTage:PERiod?     # Pull the period
+
+#+end_src
+
+#+RESULTS: btn-53131a-default-setup
+#+begin_src text :eval never :tangle no
+>>*RST>>
+>>*CLS>>
+>>*SRE 0>>
+>>*ESE 0>>
+>>:STATus:PRESet>>
+>>:SENSe:FUNCion 'FREQuency 1'>>
+>>:SENSe:EVENt1:LEVel:ABSolute 0.0>>
+>>:INITiate:IMMediate>>
+>>:FETCh:SCALar:VOLTage:FREQuency?>>
+1000.000419
+>>:FETCh:SCALar:VOLTage:PERiod?>>
+0.000999999581
+#+end_src
+
+** Keithley DMM6500 Bench Digital Multimeter
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-link
+:END:
+
+  - Product Page: https://www.tek.com/tektronix-and-keithley-digital-multimeter/dmm6500
+  - Firmware & Documentation: https://www.tek.com/product-support?series=DMM6500%206%C2%BD-Digit%20Graphical%20Touchscreen%20Digital%20Multimeter
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_6SREGLJU'>DMM6500 DMM: Quick Start</a></li>
+  <li><a href='zotero://select/items/0_ELTUUB7T'>DMM6500 DMM: User Manual</a></li>
+  <li><a href='zotero://select/items/0_MC58QMU4'>DMM6500 DMM: Reference Manual</a></li>
+  <li><a href='zotero://select/items/0_6CBVURUR'>DMM6500 DMM: Version 1.7.3 Firmware Release Notes</a></li>
+  <li><a href='zotero://select/items/0_DWHZG9JU'>DMM6500 DMM: Calibration Manual</a></li>
+  <li><a href='zotero://select/items/0_JWSR3BB4'>DMM6500 DMM: 2001-TCSCAN: User Manual</a></li>
+  <li><a href='zotero://select/items/0_UZMZZWGL'>DMM6500 DMM: 2000-SCAN: User Manual</a></li>
+  <li><a href='zotero://select/items/0_U8EKJ424'>DMM6500 DMM: How to Write Scripts for Test Script Processing</a></li>
+  <li><a href='zotero://select/items/0_MKV9CGQN'>DMM6500 DMM: Scan Card Support</a></li>
+  <li><a href='zotero://select/items/0_JCS4PGEC'>DMM6500 DMM: Model 2000 Application Emulation and Migration Guid</a></li>
+  <li><a href='zotero://select/items/0_ITUB3BLC'>DMM6500 DMM: Keysight 34401A Application Emulation and Migration Guide</a></li>
+  <li><a href='zotero://select/items/0_RY9IZ7VQ'>DMM6500 DMM: Data Acquisition Primer: An Introduction to MultiChannel Measurement Systems</a></li>
+  <li><a href='zotero://select/items/0_SGR3AYTV'>DMM6500 DMM: How to Transition Code to TSP from SCPI</a></li>
+  <li><a href='zotero://select/items/0_EN53KMPS'>DMM6500 DMM: Specs</a></li>
+  <li><a href='zotero://select/items/0_QGNHNVM7'>DMM6500 DMM: Datasheet</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-lan
+:END:
+
+ - Host name: {{{cn2dns(dmm6500w)}}}
+ - Device Web Server: {{{cn2con(dmm6500w)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-notes-perf
+:END:
+
+ - Voltage Measurement Input Impedance
+   - 100 mV to 10V Ranges: Selectable: (>10GΩ or 10MΩ ±1%) in parallel with <400pF.
+   - 100V to 1000V Ranges: 10MΩ ±1% in parallel with <400pF
+ - Current Shunt Resistance: 
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Resistance |
+   |  <c>  |    <c>     |
+   |-------+------------|
+   | 10μA  |    10kΩ    |
+   | 100μA |    1kΩ     |
+   |  1mA  |    100Ω    |
+   | 10mA  |    10Ω     |
+   | 100mA |     1Ω     |
+   |  1A   |   100mΩ    |
+   |  3A   |   100mΩ    |
+   |  10A  |    5mΩ     |
+ - AC Bandwidth: 300kHz
+ - Resistance Test Current
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Current |
+   |  <c>  |   <c>   |
+   |-------+---------|
+   |  1Ω   |  10mA   |
+   |  10Ω  |  10mA   |
+   | 100Ω  |   1mA   |
+   |  1kΩ  |   1mA   |
+   | 10kΩ  |  100μA  |
+   | 100kΩ |  10μA   |
+   |  1MΩ  |  10μA   |
+   | 10MΩ  |  700nA  |
+   | 100MΩ |  700nA  |
+ - Continuity Test Current: 1mA @ 9.2V
+ - Diode Test (bias) Current (selectable): 
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Bias Current | Test Voltage |
+   |     <c>      |     <c>      |
+   |--------------+--------------|
+   |     10μA     |     12V      |
+   |    100μA     |     10V      |
+   |     1mA      |      7V      |
+   |     10mA     |      7V      |
+ - Capacitance Test Current:
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Charge Current |
+   |  <c>  |      <c>       |
+   |-------+----------------|
+   |  1nF  |      1μA       |
+   | 10nF  |      10μA      |
+   | 100nF |     100μA      |
+   |  1µF  |     100μA      |
+   | 10µF  |      1mA       |
+   | 100µF |      1mA       |
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-remote-idn
+:END:
+
+#+NAME: btn-dmm6500-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @dmm6500
+:cmd *idn?
+#+end_src
+
+#+RESULTS: btn-dmm6500-idn
+#+begin_src text :eval never :tangle no
+>>*idn?>>
+KEITHLEY INSTRUMENTS,MODEL DMM6500,04467350,1.7.12b
+#+end_src
+
+**** High accruacy DCV Measurement (10V Range)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-remote-dcv
+:END:
+
+For this one, we set NPLC 1o 10 with 100 averages -- that takes about 17 seconds.
+
+#+NAME: btn-dmm6500-dcV-hia
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @dmm6500
+:result_type nil
+:cmd *RST
+:cmd :SENS:FUNCtion "VOLT:DC"
+:cmd :SENSe1:VOLTage:DC:RANGe:UPPer 10
+:cmd :SENSe1:VOLTage:DC:INPutimpedance AUTO
+:cmd :SENSe1:VOLTage:DC:NPLCycles 10
+:cmd :SENSe1:VOLTage:DC:AZERo:STATe ON
+:cmd :SENSe1:VOLTage:DC:AVERage:TCONtrol REP
+:cmd :SENSe1:VOLTage:DC:AVERage:COUNt 100
+:cmd :SENSe1:VOLTage:DC:AVERage:STATe ON
+:result_type :string
+# It takes 17 seconds to get measurement
+:delay_before_first_read 20000
+:read_timeout_first_byte 1000
+:cmd :READ?
+#+end_src
+
+#+RESULTS: btn-dmm6500-dcV-hia
+#+begin_src text :eval never :tangle no
+>>*RST>>
+>>:SENS:FUNCtion "VOLT:DC">>
+>>:SENSe1:VOLTage:DC:RANGe:UPPer 10>>
+>>:SENSe1:VOLTage:DC:INPutimpedance AUTO>>
+>>:SENSe1:VOLTage:DC:NPLCycles 10>>
+>>:SENSe1:VOLTage:DC:AZERo:STATe ON>>
+>>:SENSe1:VOLTage:DC:AVERage:TCONtrol REP>>
+>>:SENSe1:VOLTage:DC:AVERage:COUNt 100>>
+>>:SENSe1:VOLTage:DC:AVERage:STATe ON>>
+>>:READ?>>
+1.000837E+00
+#+end_src
+
+** Rigol DHO4204 High Resolution Digital Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-link
+:END:
+
+  - Product Page: https://www.rigolna.com/products/digital-oscilloscopes/dho4000/
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_98ULMQMU'>HDO4000 Digital OScope: Quick Guide</a></li>
+  <li><a href='zotero://select/items/0_9PLCAEGU'>HDO4000 Digital OScope: User Guide</a></li>
+  <li><a href='zotero://select/items/0_9XWNSA3L'>HDO4000 Digital OScope: Programming Manual</a></li>
+  <li><a href='zotero://select/items/0_X5832ABN'>HDO4000 Digital OScope: Data Sheet</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-lan
+:END:
+
+ - Host name: {{{cn2dns(dho4204w)}}}
+ - Device Web Server: {{{cn2con(dho4204w)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-notes-perf
+:END:
+
+ - Trigger Input
+   - Sensitivity: 200 mVpp from DC-100 MHz, and 500 mVpp from 100 MHz - 200 MHz
+   - Input Impedance: 1 MΩ
+   - Voltage Limit: ±5 V
+   - Bandwidth: 200 MHz
+   - Jitter: <1 nsrms
+ - 10 MHz Reference Clock (input/output mode)
+   - Input Mode:  50 Ω impedance with the amplitude 130 mVpp to 4.1 Vpp at 10 MHz ± 10 ppm
+   - Output Mode: 50 Ω impedance with a 1.5 Vpp sine waveform
+ - Trigger & Pass/Fail output:
+   - High: ≥ 2.5 V open circuit; ≥ 1.0 V 50 Ω to GND
+   - Low:  ≤ 0.7 V to load ≤ 4 mA; ≤ 0.25 V 50 Ω to GND
+   - Pulse polarity and width are user selectable.  Rise Time is ≤ 1.5 ns
+
+**** Sampleing Modes
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-notes-samp
+:END:
+
+ - Single Channel :: Only one channel is turned on.
+   - Max sample rate: 4 GSa/s  
+   - Max record length: 500 Mpts
+ - Half Channel   :: Two channels are turned on.
+   - Max sample rate: 2 GSa/s  
+   - Max record length: 250 Mpts
+ - All Channel   :: Three or four channels are turned on.
+   - Max sample rate: 1 GSa/s  
+   - Max record length: 125 Mpts
+   - Maximum analog bandwidth is only 400MHz.
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-notes-backIO
+:END:
+
+ - Back
+   - Right Side Top To Bottom
+     - BNC 10 MHz Reference Clock Output
+     - BNC 10 MHz Reference Clock Input
+     - BNC External Trigger Input
+     - BNC Trigger Output
+   - Left Side Top To Bottom
+     - HDMI output
+     - USB 3.0 Device
+     - 10/100/1000 Base-T Ethrenet
+     - IEC C14/C13: AC Power Connector
+
+**** Undocumented: Test mode
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-notes-test-mode
+:END:
+
+"Test mode" is enabled via 3 taps on "About" under "Utility".
+
+ - Enables "Advanced Settings" in XY dialog.
+ - Utility -> Debug (new menu)
+   - XY: This dialog is the same one that is available from other locations in the UI (like the hamburger menu on XY-windows). 
+   - DDR: Text in Chinese (address, length, name, file path, load).   duno what this is for
+   - ADC Clock: duno what this is for
+   - ADC Ser: For each ADC channel, TCMP 0 to 4, TDMX on or off, "save" button
+   - Logcat: logging with a filter textbox.  The buttons, labeled in Chinese, are "refresh" and "save" on the right.
+ - Utility -> SelfCal
+   - Adds a checkbox selection of what things to calibrate
+   - Adds Default, User, & Export option buttons at the bottom
+ - Utility -> Other
+   - HDMI resolution can be adjusted
+   - DSP option (on/off) -- duno what this is for.
+ - Utility -> About
+   - Adds more information
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-remote-idn
+:END:
+
+#+NAME: btn-dho4204-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @dho4204
+:cmd *idn?
+#+end_src
+
+#+RESULTS: btn-dho4204-idn
+#+begin_src text :eval never :tangle no
+>>*idn?>>
+RIGOL TECHNOLOGIES,DHO4204,HDO4A244801592,00.02.14
+#+end_src
+
+**** Screenshot
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-remote-screenshot
+:END:
+
+The =:DISPlay:DATA? TYPE= command returns a screenshot (=TYPE= is =PNG=, =JPG=, or =BMP=).  The return is wrapped with a TMC header, and the binary payload is
+followed by a terminator.
+
+#+NAME: btn-dho4204-screenshot
+#+begin_src mrscpi :output verbatum :exports code 
+:url @dho4204
+:result_macro_block true
+# For mrSCPI "scripts", :print_cmd and :print_result are set to true.
+:print_cmd false
+:out_file screenshot.png
+:cmd :DISPlay:DATA? PNG
+#+end_src
+
+#+RESULTS:
+#+ATTR_HTML: :width 90% :align center
+[[file:screenshot-dho4k.png][file:screenshot-dho4k.png]]
+
+**** Two sinusoidal waveforms
+:PROPERTIES:
+:CUSTOM_ID: MSIDdho4204-remote-two-sin
+:END:
+
+#+NAME: btn-dho4204-measure-two-sin
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  :var chan1="CHANnel1" chan2="CHANnel2"
+:url  @dho4204
+# Setup the measurements
+:print_cmd false
+:verbose 1
+:result_type nil
+:cmd :MEASure:CLEar
+:cmd :MEASure:AMSource OFF
+:cmd :MEASure:ITEM RRPHase,${chan1},${chan2}
+:cmd :MEASure:ITEM VRMS,${chan1}
+:cmd :MEASure:ITEM VRMS,${chan2}
+:cmd :MEASure:ITEM FREQuency,${chan1}
+:cmd :MEASure:ITEM FREQuency,${chan2}
+:cmd :MEASure:STATistic:COUNt 50
+# Wait 3 seconds after we reset the stats before we measure things
+:delay_after_complete 3000
+:cmd :MEASure:STATistic:RESet
+:delay_after_complete 0
+:print_cmd true
+:result_type :string
+:read_timeout_next_byte 10
+:delay_before_first_read 10
+:delay_after_complete 0
+:read_retry_delay 100
+:cmd :MEASure:STATistic:ITEM? CNT,RRPHase,${chan1},${chan2}
+:cmd :MEASure:STATistic:ITEM? AVERages,RRPHase,${chan1},${chan2}
+:cmd :MEASure:STATistic:ITEM? AVERages,VRMS,${chan1}
+:cmd :MEASure:STATistic:ITEM? AVERages,VRMS,${chan2}
+:cmd :MEASure:STATistic:ITEM? AVERages,FREQuency,${chan1}
+:cmd :MEASure:STATistic:ITEM? AVERages,FREQuency,${chan2}
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+>>:MEASure:STATistic:ITEM? CNT,RRPHase,CHANnel1,CHANnel2>>
+5.000E+01
+>>:MEASure:STATistic:ITEM? AVERages,RRPHase,CHANnel1,CHANnel2>>
+3.350E+01
+>>:MEASure:STATistic:ITEM? AVERages,VRMS,CHANnel1>>
+6.974E-01
+>>:MEASure:STATistic:ITEM? AVERages,VRMS,CHANnel2>>
+5.753E-01
+>>:MEASure:STATistic:ITEM? AVERages,FREQuency,CHANnel1>>
+5.000E+03
+>>:MEASure:STATistic:ITEM? AVERages,FREQuency,CHANnel2>>
+4.999E+03
+#+end_src
+
+** Siglent SDS2504X Plus Super Phosphor Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-link
+:END:
+
+  - Product Page: https://siglentna.com/digital-oscilloscopes/sds2000x/
+  - Firmware: https://siglentna.com/service-and-support/firmware-software/digital-oscilloscopes/#sds2000x-series
+  - Documentation: https://siglentna.com/resources/documents/digital-oscilloscopes/#sds2000x-series
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_EHW75ZJ6'>SDS2000XP Digital OScope: User Manual version EN01E</a></li>
+  <li><a href='zotero://select/items/0_F345MXZW'>SDS2000XP Digital OScope: Programming Guide  version EN11F</a></li>
+  <li><a href='zotero://select/items/0_48J6PLDP'>SDS2000XP Digital OScope: Quick Start  version EN01C</a></li>
+  <li><a href='zotero://select/items/0_P2VSYUTT'>SDS2000XP Digital OScope: Service Manual version E01A</a></li>
+  <li><a href='zotero://select/items/0_QYAWT3MG'>SDS2000XP Digital OScope: Binary Files version EN03B</a></li>
+  <li><a href='zotero://select/items/0_QVGTVHNW'>SDS2000XP Digital OScope: IVI-C-Programming Guide version E01A</a></li>
+  <li><a href='zotero://select/items/0_59AZ5S4T'>SDS2000XP Digital OScope: Programming Example: Screen Capture</a></li>
+  <li><a href='zotero://select/items/0_ZZYLC32W'>SDS2000XP Digital OScope: Bode Plot of a filter</a></li>
+  <li><a href='zotero://select/items/0_ADDE7YQ5'>SDS2000XP Digital OScope: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_V7CKHQGQ'>SDS2000XP Digital OScope: User Manual version EN01D</a></li>
+  <li><a href='zotero://select/items/0_5ES34Y7D'>SDS2000XP Digital OScope: Quick Start  version E01A</a></li>
+  <li><a href='zotero://select/items/0_QAJG8JW5'>SDS2000XP Digital OScope: Programming Guide  version EN11C</a></li>
+  <li><a href='zotero://select/items/0_5IU2ZE5E'>SDS2000XP Digital OScope: Binary Files</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-lan
+:END:
+
+ - Host name: {{{cn2dns(sds2504xpw)}}}
+ - Device Web Server: {{{cn2con(sds2504xpw)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-notes-perf
+:END:
+
+ - Triger Inputs
+   - Sensitivity
+     - EXT: 200 mVpp for DC-10 MHz, and 300 mVpp for 10 MHz - 300 MHz
+     - EXT/5: 1 Vpp for DC-10 MHz, and 1.5 Vpp for 10 MHz - 300 MHz
+   - Level
+     - EXT: ±0.61 V
+     - EXT/5: ±3.05 V
+   - Voltage Limits
+     - Ext:   ≤ 1.5 Vrms
+     - EXT/5: ≤ 7.5 Vrms
+ - Analog Output
+   - Triger: 3.3 V LVCMOS (Hi: 2.4 V, Low: 0.4 V)
+   - PASS/FAIL: 3.3 V TTL (Hi: 2.4 V, Low: 0.4 V)
+   - Probe compensation: 3 Vpp square wave at 1 kHz
+ - C1-C2 Max Voltage
+   - 1 MΩ:  ≤ 400 Vpk (DC+AC), DC-10 kHz
+   - 50 Ω:  ≤ 5 Vrms, ±10 V Peak
+ - C1-C2 frequency responce at 50 Ω in single-channel mode
+   - Bandwidth: 500 MHz
+   - Risetime: 800 ps
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-notes-backIO
+:END:
+
+ - Right Side Top (4 ports arranged in a square)
+   - Top Right: BNC Auxilaury Output (Trigger (default) or pass/fail)
+   - Top Left: BNC External Trigger Input
+   - Bottom Right USB 2.0 Device
+   - Bottom Left: 10/100 Base-T Ethrenet
+ - Right Side Bottom: IEC C14/C13: AC Power Connector
+
+**** Sampleing Modes
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-notes-samp
+:END:
+
+ - Single-channel mode (interleaving mode)   :: Only one of C1/C2 is turned on, and only one of C3/C4 is turned on.
+   - Max sample rate: 2 GSa/s
+   - Max record length: 200M 
+ - Dual-channel mode (non-interleaving mode) :: Both C1/C2 are turned on, or both C3/C4 are turned on.
+   - Max sample rate: 1 GSa/s
+   - Max record length: 100M 
+   - If channel bandwidth is set to 350MHz on a 500MHz scope, the anti-aliasing filter with bandwidth of 350MHz is automatically turned on.
+
+**** Record Length & Memory Management
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-notes-mem
+:END:
+
+Vocabulary:
+ - Acquisition memory :: All of the scope's memory used for trace storage.  Size is measured in terms of samples.
+ - Record             :: A single capture associated with a trigger event.  Size is measured in terms of samples.
+ - Sequence Mode      :: Acquisition memory contains multiple records.  These records generally have time gaps (dead space) between them.
+ - Continuous Capture :: Acquisition memory contains a single record.
+
+SDS2000X+ record length is fixed (not user adjustable) to the screen width, and the scope operates in segmented memory mode by default.  In this mode the
+scope displays one record width of data on screen and automatically stores as many records (available to view via the "history" button) as will fit in
+acquisition memory.
+
+Many scopes allow the record length to be larger than the screen size, and provide a way to scroll the screen around to view these longer records.  This is
+usually achieved in the UI with a small (just a few pixels tall) schematic of the record at the top or bottom of the screen with a little box indicating the
+part of the record currently being displayed.
+
+Sequence mode can usually meet my needs for off screen data.  That said, the dead space gaps between records can miss fast waveform features.  In addition,
+smoothly scrolling in time can be more natural than flipping through the records for some waveforms.  In these cases the solution provided by the SDS2000X+ is
+to simply expand the time base (and thus the record length) to include the data in question and then hit the "zoom" key to see the details.
+
+| Time Base | Time Base | Screen Width | Max Record Length @2Gs | Max Signal Frequency |
+|-----------+-----------+--------------+------------------------+----------------------|
+|           |       <r> |          <r> |                    <r> |                  <r> |
+|     2e-10 | 200ps/div |          2ns |                   4 pt |              500MHz |
+|     5e-10 | 500ps/div |          5ns |                  10 pt |              200MHz |
+|     1e-09 |   1ns/div |         10ns |                  20 pt |              100MHz |
+|     2e-09 |   2ns/div |         20ns |                  40 pt |               50MHz |
+|     5e-09 |   5ns/div |         50ns |                 100 pt |               20MHz |
+|     1e-08 |  10ns/div |        100ns |                 200 pt |               10MHz |
+|     2e-08 |  20ns/div |        200ns |                 400 pt |                5MHz |
+|     5e-08 |  50ns/div |        500ns |                  1 Kpt |                2MHz |
+|     1e-07 | 100ns/div |          1us |                  2 Kpt |                1MHz |
+|     2e-07 | 200ns/div |          2us |                  4 Kpt |              500kHz |
+|     5e-07 | 500ns/div |          5us |                 10 Kpt |              200kHz |
+|     1e-06 |   1us/div |         10us |                 20 Kpt |              100kHz |
+|     2e-06 |   2us/div |         20us |                 40 Kpt |               50kHz |
+|     5e-06 |   5us/div |         50us |                100 Kpt |               20kHz |
+|     1e-05 |  10us/div |        100us |                200 Kpt |               10kHz |
+|     2e-05 |  20us/div |        200us |                400 Kpt |                5kHz |
+|     5e-05 |  50us/div |        500us |                  1 Mpt |                2kHz |
+|     1e-04 | 100us/div |          1ms |                  2 Mpt |                1kHz |
+|     2e-04 | 200us/div |          2ms |                  4 Mpt |               500 Hz |
+|     5e-04 | 500us/div |          5ms |                 10 Mpt |               200 Hz |
+|     1e-03 |   1ms/div |         10ms |                 20 Mpt |               100 Hz |
+|     2e-03 |   2ms/div |         20ms |                 40 Mpt |                50 Hz |
+|     5e-03 |   5ms/div |         50ms |                100 Mpt |                20 Hz |
+|     1e-02 |  10ms/div |        100ms |                200 Mpt |                10 Hz |
+|     2e-02 |  20ms/div |        200ms |                400 Mpt |                 5 Hz |
+|     5e-02 |  50ms/div |        500ms |                  1 Gpt |                 2 Hz |
+|     1e-01 | 100ms/div |           1s |                  2 Gpt |                 1 Hz |
+
+*** VNC Movie
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-vncmovie
+:END:
+
+Put vnc viewer at upper left of screen -- if using RealVNC set the autoscale to "off", and drag to left of the screen, hit escape to get out of the "select
+second window" bit, and it will put it at the top left.  On windows the border is 36px.  Capture with VLC via the media capture device "display".  The advanced
+options should be something like this:
+
+#+begin_src text
+:screen-fps=12.000000 :live-caching=300 :screen-left=265 :screen-top=75 :screen-width=490 :screen-height=490 :stop-time=30.000
+#+end_src
+
+Set fps to whatever works for the application (5fps is good for a rotating Lorenz demonstration).
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-remote-idn
+:END:
+
+#+NAME: btn-sds2504xp-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @sds2504xp
+:cmd *idn?
+#+end_src
+
+#+RESULTS: btn-sds2504xp-idn
+#+begin_src text :eval never :tangle no
+>>*idn?>>
+Siglent Technologies,SDS2504X Plus,SDS2PCBX4R0395,5.4.0.1.6.2
+#+end_src
+
+**** Simple AWG Use
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-remote-awg
+:END:
+
+#+begin_src mrscpi :output verbatum :exports code 
+:url @sds2504xp
+:echo false
+:result_type nil
+# Turn off output:
+:cmd C1:OUTPut OFF
+# Set waveform type (SINE, SQUARE, RAMP, PULSE, NOISE, ARB, DC, PRBS, IQ)
+:cmd :C1:BaSic_WaVe WVTP,SQUARE
+# Set frequency
+:cmd :C1:BaSic_WaVe FRQ,30000
+# Set Vpp:
+:cmd :C1:BaSic_WaVe AMP,1.5
+# Set offset
+:cmd :C1:BaSic_WaVe OFST,0.2
+# Turn on output:
+:cmd C1:OUTPut ON
+#+end_src
+
+#+RESULTS:
+
+**** Two sinusoidal waveforms
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-remote-measure2sin
+:END:
+
+#+NAME: btn-sds2504xp-measure-two-sin
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  :var chan1="C3" chan2="C4"
+:url @sds2504xp
+# Setup the measurements
+:print_cmd false
+:verbose 1
+:result_type nil
+:cmd :MEASure ON
+:cmd :MEASure:MODE ADVanced
+:cmd :MEASure:ADVanced:LINenumber 5
+:cmd :MEASure:ADVanced:P1 ON; :MEASure:ADVanced:P1:SOURce1 ${chan1}; :MEASure:ADVanced:P1:SOURce2 ${chan2}; :MEASure:ADVanced:P1:TYPE PHA
+:cmd :MEASure:ADVanced:P2 ON; :MEASure:ADVanced:P2:SOURce1 ${chan1}; :MEASure:ADVanced:P2:TYPE CRMS
+:cmd :MEASure:ADVanced:P3 ON; :MEASure:ADVanced:P3:SOURce1 ${chan2}; :MEASure:ADVanced:P3:TYPE CRMS
+:cmd :MEASure:ADVanced:P4 ON; :MEASure:ADVanced:P4:SOURce1 ${chan1}; :MEASure:ADVanced:P4:TYPE FREQ
+:cmd :MEASure:ADVanced:P5 ON; :MEASure:ADVanced:P5:SOURce1 ${chan2}; :MEASure:ADVanced:P5:TYPE FREQ
+# Now we verify everything is set, and pull the current measurement
+:print_cmd true
+:result_type :string
+:read_timeout_next_byte 10
+:delay_before_first_read 10
+:delay_after_complete 0
+:read_retry_delay 100
+:cmd :MEASure?; :MEASure:MODE?; :MEASure:ADVanced:LINenumber?
+:cmd :MEASure:ADVanced:P1?; :MEASure:ADVanced:P1:SOURce1?; :MEASure:ADVanced:P1:SOURce2?; :MEASure:ADVanced:P1:TYPE?; :MEASure:ADVanced:P1:VALue?
+:cmd :MEASure:ADVanced:P2?; :MEASure:ADVanced:P2:SOURce1?; :MEASure:ADVanced:P2:TYPE?; :MEASure:ADVanced:P2:VALue?
+:cmd :MEASure:ADVanced:P3?; :MEASure:ADVanced:P3:SOURce1?; :MEASure:ADVanced:P3:TYPE?; :MEASure:ADVanced:P3:VALue?
+:cmd :MEASure:ADVanced:P4?; :MEASure:ADVanced:P4:SOURce1?; :MEASure:ADVanced:P4:TYPE?; :MEASure:ADVanced:P4:VALue?
+:cmd :MEASure:ADVanced:P5?; :MEASure:ADVanced:P5:SOURce1?; :MEASure:ADVanced:P5:TYPE?; :MEASure:ADVanced:P5:VALue?
+#+end_src
+
+#+RESULTS: btn-sds2504xp-measure-two-sin
+#+begin_src text :eval never :tangle no
+>>:MEASure?; :MEASure:MODE?; :MEASure:ADVanced:LINenumber?>>
+ON;ADVanced;5
+>>:MEASure:ADVanced:P1?; :MEASure:ADVanced:P1:SOURce1?; :MEASure:ADVanced:P1:SOURce2?; :MEASure:ADVanced:P1:TYPE?; :MEASure:ADVanced:P1:VALue?>>
+ON;C3;C4;PHA;-5.9131E+01
+>>:MEASure:ADVanced:P2?; :MEASure:ADVanced:P2:SOURce1?; :MEASure:ADVanced:P2:TYPE?; :MEASure:ADVanced:P2:VALue?>>
+ON;C3;CRMS;1.75569E+01
+>>:MEASure:ADVanced:P3?; :MEASure:ADVanced:P3:SOURce1?; :MEASure:ADVanced:P3:TYPE?; :MEASure:ADVanced:P3:VALue?>>
+ON;C4;CRMS;1.75451E+01
+>>:MEASure:ADVanced:P4?; :MEASure:ADVanced:P4:SOURce1?; :MEASure:ADVanced:P4:TYPE?; :MEASure:ADVanced:P4:VALue?>>
+ON;C3;FREQ;9.99931670E+02
+>>:MEASure:ADVanced:P5?; :MEASure:ADVanced:P5:SOURce1?; :MEASure:ADVanced:P5:TYPE?; :MEASure:ADVanced:P5:VALue?>>
+ON;C4;FREQ;9.99955476E+02
+#+end_src
+
+#+ATTR_HTML: :width 90% :align center
+[[file:screenshot-sds2k-pha.png][file:screenshot-sds2k-pha.png]]
+
+**** Screenshot
+:PROPERTIES:
+:CUSTOM_ID: MSIDsds2504xp-remote-screenshot
+:END:
+
+#+NAME: btn-sds2504xp-screenshot
+#+begin_src mrscpi :results none :exports code
+:url @sds2504xp
+:read_timeout_next_byte 200
+:read_timeout_first_byte 2000
+:read_retry_delay 1
+:echo false
+:print_raw_result true
+:out_file screenshot-sds2k.png
+:cmd :PRINt? PNG
+#+end_src
+
+#+ATTR_HTML: :width 90% :align center
+[[file:screenshot-sds2k.png][file:screenshot-sds2k.png]]
+
+** Tektronix TDS2024 Digital Storage Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024-links
+:END:
+
+  - TekWiki (scope): https://w140.com/tekwiki/wiki/TDS2024
+  - TekWiki (probes): https://w140.com/tekwiki/wiki/P2200
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_67HCC9T7'>TDS2000 Digital OScope: User Manual</a></li>
+  <li><a href='zotero://select/items/0_7XHUL7Z6'>TDS2000 Digital OScope: User Manual Change</a></li>
+  <li><a href='zotero://select/items/0_28QQBSNJ'>TDS2000 Digital OScope: Programmer Manual</a></li>
+  <li><a href='zotero://select/items/0_LGHXZV6T'>TDS2000 Digital OScope: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_QLF3EJPC'>TDS2000 Digital OScope: Extension Module Install</a></li>
+  <li><a href='zotero://select/items/0_SMHVT6JD'>TDS2000 Digital OScope: tds2mem User Guide</a></li>
+  <li><a href='zotero://select/items/0_BBQQJ4DX'>TDS2000/3000b- Digital OScope: FFT Applications</a></li>
+  <li><a href='zotero://select/items/0_NJSWNCSL'>P2220 Passive OScope Probe: 200MHz 1X/10X Passive Prob</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024-lan
+:END:
+
+ - Serial over IP access: {{{cn2con(tds2024s)}}}
+
+*** Serial Settings (Lantronix console server)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024-serial
+:END:
+
+#+ATTR_HTML: :align center :cellpadding 2px
+| Parameter    |        Setting         |
+| <l>          |          <c>           |
+|--------------+------------------------|
+| Cable        | crossover (null modem) |
+| Line         |           2            |
+| TCP/IP Port  |         10002          |
+| Serial       |         RS232          |
+| Baud         |         19200          |
+| Parity       |          Even          |
+| Data Bits    |           8            |
+| Stop Bits    |           2            |
+| Flow Control |        Hardware        |
+| Xon          |           ^Q           |
+| Xof          |           ^S           |
+
+*** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds2024-idn
+:END:
+
+#+NAME: btn-tds2024-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @tds2024
+:cmd *idn?
+#+end_src
+
+#+begin_src text :eval never :tangle no
+>>*idn?>>
+TEKTRONIX,TDS 2024,0,CF:91.1CT TDS2MEM:FV:v6.08
+#+end_src
+
+** Tektronix TDS3052B Digital Phosphor Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-links
+:END:
+
+  - TekWiki (scope): https://w140.com/tekwiki/wiki/TDS3052
+  - TekWiki (probes): https://w140.com/tekwiki/wiki/P6139
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_77YHJGA7'>TDS3000B Digital OScope: User Manual</a></li>
+  <li><a href='zotero://select/items/0_XQ6KY8WC'>TDS3000B Digital OScope: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_I636STNW'>TDS3000B Digital OScope: Programmer Manual</a></li>
+  <li><a href='zotero://select/items/0_6538CDQ3'>TDS3000 Digital OScope: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_VVU5NEL9'>TDS3000 Digital OScope: Module Install</a></li>
+  <li><a href='zotero://select/items/0_877QBRIC'>TDS3000 Digital OScope: Module: TDS3VID</a></li>
+  <li><a href='zotero://select/items/0_N6KAT7DD'>TDS3000 Digital OScope: Module: TDS3TRG</a></li>
+  <li><a href='zotero://select/items/0_VII593HT'>TDS3000 Digital OScope: Module: TDS3TMT</a></li>
+  <li><a href='zotero://select/items/0_PKXSBXV8'>TDS3000 Digital OScope: Module: TDS3LIM</a></li>
+  <li><a href='zotero://select/items/0_94UEX6YV'>TDS3000 Digital OScope: Module: TDS3FFT</a></li>
+  <li><a href='zotero://select/items/0_8ELDHJRG'>TDS3000 Digital OScope: Module: TDS3AAM</a></li>
+  <li><a href='zotero://select/items/0_MVJVHI57'>TDS3000 Digital OScope: Module: eeprom_m24c16</a></li>
+  <li><a href='zotero://select/items/0_W79P86KS'>TDS3000 Digital OScope: Module: eeprom_m24c02.pdf</a></li>
+  <li><a href='zotero://select/items/0_HFHTEBPH'>TDS3000 Digital OScope: Undocumented Notes</a></li>
+  <li><a href='zotero://select/items/0_YER3FI5Q'>TDS3000B Digital OScope: Training Kit</a></li>
+  <li><a href='zotero://select/items/0_T964E2JS'>CT3290RA-PRO Passive OScope Probe: 500MHz 3.5 mm Compact Oscilloscope Probe</a></li>
+  <li><a href='zotero://select/items/0_JU4QRGRR'>P61xx Passive OScope Probe: Passive Voltage Probes</a></li>
+  <li><a href='zotero://select/items/0_ESAXCZET'>P6139A Passive OScope Probe: 10X Passive Probe</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-lan
+:END:
+
+ - Host name: {{{cn2dns(tds3052bw)}}}
+ - Serial over IP access: {{{cn2con(tds3052bs)}}}
+ - Device Web Server: {{{cn2con(tds3052bw)}}}
+ - =t3k= protocal IP access: {{{cn2con(tds3052bh)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-notes
+:END:
+
+**** Remote control notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-notes-remote
+:END:
+
+This scope has serial, GPIB, & ethernet interfaces.  The serial and GPIB interfaces are provided by a TDS3GV add-on board.  Via ethernet the instrument
+provides a web interface and LXI for SCPI; however, it doesn't provide a raw sockets interface for SCPI.  I find the lack of support for raw sockets a truly
+baffling omission.
+
+The web interface provides some cool features:
+ - An HTML form accepting SCPI commands and returning the result.  The form doesn't support binary data or semicolon separated SCPI commands.  The lack of
+   binary data support isn't necessarly an issue for waveform data because the record length of this scope is so short that using ASCII mode for the transfer
+   is more than acceptable.  See: [[#tds3052b-http-scpi][SCPI via HTTP]].
+ - A static link for a screen shot in PNG format. See: [[#tds3052b-http-screenshot][grab a screenshot via HTTP]].
+ - An HTML form that can produce a CSV, with both time & voltage, for any channel. See:  [[#tds3052b-http-waveform][grab a waveform via HTTP]]
+
+The =mrSCPI.rb= script supports a protocol named "=t3k=" which actually uses the SCPI web form to facilitate SCPI control.  This is my primary method
+of running SCPI commands on this scope.  As for the other interfaces, I have tested them:
+  - The Prologix Ethernet adapter via the scope's GPIB interface works perfectly.  
+  - A Lantronix serial console works well with the scope's RS-232 interface.
+
+*** Serial Settings (Lantronix console server)
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-serial
+:END:
+
+#+ATTR_HTML: :align center :cellpadding 2px
+| Parameter    |        Setting         |
+| <l>          |          <c>           |
+|--------------+------------------------|
+| Cable        | crossover (null modem) |
+| Line         |           3            |
+| TCP/IP Port  |         10003          |
+| Serial       |         RS232          |
+| Baud         |         38400          |
+| Parity       |          None          |
+| Data Bits    |           8            |
+| Stop Bits    |           1            |
+| Flow Control |        Hardware        |
+| Xon          |           ^Q           |
+| Xof          |           ^S           |
+
+*** View scope VGA output via video capture device on bench-pi
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-vga-capture
+:END:
+
+- Start up =vlc=:
+  - Open capture device
+     - Webcam
+     - =/dev/video0=
+  - Advanced options
+    - Width 640
+    - Height 480
+    - Framerate 24 to 60
+
+To crop just to waveform part of display: top: 17, bot: 57, left: 19, right: 57
+
+
+
+*** Web Interface
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-http
+:END:
+
+**** Grab screen from web interface with curl
+:PROPERTIES:
+:CUSTOM_ID: tds3052b-http-screenshot
+:END:
+
+#+begin_src sh :exports code
+curl -s `teAlias.rb @tds3052bw`"/Image.png" > screencap-tek3k.png
+#+end_src
+
+#+RESULTS:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:screencap-tek3k.png][file:screencap-tek3k.png]]
+
+**** SCPI command from web interface with curl
+:PROPERTIES:
+:CUSTOM_ID: tds3052b-http-scpi
+:END:
+
+#+begin_src sh :exports code
+curl -s -H 'Content-Type: text/plain' -d 'COMMAND=*IDN?' -X POST "`./my_prog/teAlias.rb @tds3052bw`/Comm.html" | sed 's/^.*name">//; s/<\/TEXTAREA.*$/\n/;'
+#+end_src
+
+#+begin_src text
+TEKTRONIX,TDS 3052B,0,CF:91.1CT FV:v3.41 TDS3FFT:v1.00 TDS3TRG:v1.00
+#+end_src
+
+**** Capture an analog waveform CSV from web interface with curl
+:PROPERTIES:
+:CUSTOM_ID: tds3052b-http-waveform
+:END:
+
+TODO: Verify command.  Check preamble bit.  Add link to script.
+
+Grab a waveform.  Note that you can [[#tds3052b-scpi-waveform][grab a waveform via SCPI]] too.
+
+#+begin_src sh :exports code
+curl -i -H 'Content-Type: text/plain' -d 'command=select:ch1 on' -d 'command=save:waveform:fileformat spreadsheet' -d 'wfmsend=Get' -X POST "`teAlias.rb @tds3052bw`/getwfm.isf" > waveform.txt
+#+end_src
+
+Valid channels are: =CH1=, =CH2=, =MATH=, =MATH1=, =REF1=, & =REF2=.
+
+The file =waveform.txt= will contain a preamble that needs to be deleted:
+
+#+begin_src sh :exports code
+tail -n +11 waveform.txt | waveform.csv
+#+end_src
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-remote-idn
+:END:
+
+#+NAME: btn-tds3052b-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no"  
+:url @tds3052b
+:cmd *idn?
+#+end_src
+
+#+RESULTS: btn-tds3052b-idn
+#+begin_src text :eval never :tangle no
+>>*idn?>>
+TEKTRONIX,TDS 3052B,0,CF:91.1CT FV:v3.41 TDS3FFT:v1.00 TDS3TRG:v1.00
+#+end_src
+
+**** Setup the serial interface
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-remote-serialsetup
+:END:
+
+If the serial interface somehow got setup funny, we can set it up via the web interface with =mrSCPI.rb=:
+
+#+begin_src mrscpi :output verbatum :exports code 
+:url @tds3052b
+:echo false
+:result_type nil
+:cmd :RS232:BAUd 38400
+:cmd :RS232:HARDFlagging ON
+:result_type :string
+:cmd :RS232?
+#+end_src
+
+**** Capture an analog waveform
+:PROPERTIES:
+:CUSTOM_ID: tds3052b-scpi-waveform
+:END:
+
+TODO: Add link to script.  Test this.  Check -m 3000 arg.
+
+Note that you can [[#tds3052b-http-waveform][grab a waveform via HTTP]] too.
+
+Possible channels: CH1, CH2, REFA, REFB, MATH
+
+#+begin_src mrscpi :output verbatum :exports code :var chan="CH1"
+:url @3052
+:echo false
+:result_type nil
+:cmd DATa:SOUrce ${chan}; DATa:ENCdg ASCII; DATa:WIDth 2; DATa:STARt 1; DATa:STOP 10000
+:result_type :string
+:print_raw_result true
+:out_file waveform.pre
+:cmd WFMPRe?
+:out_file waveform.dat
+:cmd CURVe?
+#+end_src
+
+Plot it like so:
+
+#+BEGIN_SRC sh
+tdsRAW2CSV.rb waveform.pre waveform.dat > waveform.csv
+printf "set datafile separator ','\nplot 'waveform.csv' using 1:2 with linespoints\npause mouse\n" > waveform.gplt
+gnuplot -c waveform.gplt
+#+END_SRC
+
+Plot an 'ENVelope' type waveform -- max and min point per time value
+
+#+begin_src sh
+tdsRAW2CSV.rb waveform.pre waveform.dat > waveform.csv
+printf "set datafile separator ','\nplot 'waveform.csv' using 1:(\$2+\$3)/2:2:3 with yerrorlines, 'waveform.csv' using 1:2 with points, 'waveform.csv' using 1:3 with points\npause mouse\n" > waveform.gplt
+gnuplot -c waveform.gplt
+#+end_src
+
+Notes:
+  - Binary data is not supported via HTTP (-m 3000), so you MUST use 'ASCIi' for the encoding
+  - Semicolon separated SCPI commands are not supported
+  - The TDS3052B has a 9-bit ADC so width should always be set to 2 bytes.
+
+If we do it over serial or GPIB, then we can use binary and group commands with semicolons.
+
+#+begin_src mrscpi :output verbatum :exports code :var chan="CH1"
+:url @tds3052bs
+:echo false
+:result_type nil
+:cmd DATa:SOUrce ${chan}; DATa:ENCdg RIBinary; DATa:WIDth 2; DATa:STARt 1; DATa:STOP 10000
+:result_type :string
+:print_raw_result true
+:out_file waveform.pre
+:cmd WFMPRe?
+:out_file waveform.dat
+:cmd CURVe?
+#+end_src
+
+**** Programatically Measure two sinusoidal waveforms
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-remote-progsin
+:END:
+
+Given two channels, pull the following measurements:
+  - Cyclic RMS for both
+  - Frequency for both
+  - Phase difference between them
+
+#+NAME: btn-tds3052b-measure-two-sin
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" :var chan1="CH1" chan2="CH2"
+:url @tds3052b
+:verbose 1
+:result_type nil
+:cmd :MEASUrement:IMMed:SOUrce1 ${chan1}
+:cmd :MEASUrement:IMMed:SOUrce2 ${chan2}
+:cmd :MEASUrement:IMMed:TYPe Phase
+:result_type :string
+:cmd :MEASUrement:IMMed:SOUrce1? # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:SOUrce2? # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:TYPe?    # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:VALue?
+:cmd :MEASUrement:IMMed:UNIts?
+:result_type nil
+:cmd :MEASUrement:IMMed:SOUrce1 ${chan1}
+:cmd :MEASUrement:IMMed:TYPe CRMs
+:result_type :string
+:cmd :MEASUrement:IMMed:SOUrce?  # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:TYPe?    # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:VALue?
+:cmd :MEASUrement:IMMed:UNIts?
+:result_type nil
+:cmd :MEASUrement:IMMed:SOUrce1 ${chan2}
+:cmd :MEASUrement:IMMed:TYPe CRMs
+:result_type :string
+:cmd :MEASUrement:IMMed:SOUrce?  # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:TYPe?    # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:VALue?
+:cmd :MEASUrement:IMMed:UNIts?
+:result_type nil
+:cmd :MEASUrement:IMMed:SOUrce1 ${chan1}
+:cmd :MEASUrement:IMMed:TYPe FREQuency
+:result_type :string
+:cmd :MEASUrement:IMMed:SOUrce?  # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:TYPe?    # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:VALue?
+:cmd :MEASUrement:IMMed:UNIts?
+:result_type nil
+:cmd :MEASUrement:IMMed:SOUrce1 ${chan2}
+:cmd :MEASUrement:IMMed:TYPe FREQuency
+:result_type :string
+:cmd :MEASUrement:IMMed:SOUrce?  # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:TYPe?    # Just to make sure it's set correctly
+:cmd :MEASUrement:IMMed:VALue?
+:cmd :MEASUrement:IMMed:UNIts?
+#+end_src
+
+#+RESULTS: btn-tds3052b-measure-two-sin
+#+begin_src text :eval never :tangle no
+>>:MEASUrement:IMMed:SOUrce1 CH1>>
+>>:MEASUrement:IMMed:SOUrce2 CH2>>
+>>:MEASUrement:IMMed:TYPe Phase>>
+>>:MEASUrement:IMMed:SOUrce1?>>
+CH1
+>>:MEASUrement:IMMed:SOUrce2?>>
+CH2
+>>:MEASUrement:IMMed:TYPe?>>
+PHASE
+>>:MEASUrement:IMMed:VALue?>>
+-5.9603E1
+>>:MEASUrement:IMMed:UNIts?>>
+"degrees"
+>>:MEASUrement:IMMed:SOUrce1 CH1>>
+>>:MEASUrement:IMMed:TYPe CRMs>>
+>>:MEASUrement:IMMed:SOUrce?>>
+CH1
+>>:MEASUrement:IMMed:TYPe?>>
+CRMS
+>>:MEASUrement:IMMed:VALue?>>
+1.79E0
+>>:MEASUrement:IMMed:UNIts?>>
+"V"
+>>:MEASUrement:IMMed:SOUrce1 CH2>>
+>>:MEASUrement:IMMed:TYPe CRMs>>
+>>:MEASUrement:IMMed:SOUrce?>>
+CH2
+>>:MEASUrement:IMMed:TYPe?>>
+CRMS
+>>:MEASUrement:IMMed:VALue?>>
+1.7757E0
+>>:MEASUrement:IMMed:UNIts?>>
+"V"
+>>:MEASUrement:IMMed:SOUrce1 CH1>>
+>>:MEASUrement:IMMed:TYPe FREQuency>>
+>>:MEASUrement:IMMed:SOUrce?>>
+CH1
+>>:MEASUrement:IMMed:TYPe?>>
+FREQUENCY
+>>:MEASUrement:IMMed:VALue?>>
+9.986E2
+>>:MEASUrement:IMMed:UNIts?>>
+"Hz"
+>>:MEASUrement:IMMed:SOUrce1 CH2>>
+>>:MEASUrement:IMMed:TYPe FREQuency>>
+>>:MEASUrement:IMMed:SOUrce?>>
+CH2
+>>:MEASUrement:IMMed:TYPe?>>
+FREQUENCY
+>>:MEASUrement:IMMed:VALue?>>
+9.9798E2
+>>:MEASUrement:IMMed:UNIts?>>
+"Hz"
+#+end_src
+
+**** Setup Interactive Measurements for two sinusoidal waveforms
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-remote-sinint
+:END:
+
+Given two channels, set the system to measure the following:
+  - Cyclic RMS for both
+  - Frequency for both
+  - Phase difference between them
+
+#+NAME: btn-tds3052b-measure-two-sin-i
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" :var chan1="CH1" chan2="CH2"
+:url @tds3052b
+:verbose 1
+:result_type nil
+:cmd :MEASUrement:MEAS1:SOUrce1 ${chan1}
+:cmd :MEASUrement:MEAS1:SOUrce2 ${chan2}
+:cmd :MEASUrement:MEAS1:TYPe Phase
+:cmd :MEASUrement:MEAS1:STATE ON
+:cmd :MEASUrement:MEAS2:SOUrce1 ${chan1}
+:cmd :MEASUrement:MEAS2:TYPe CRMs
+:cmd :MEASUrement:MEAS2:STATE ON
+:cmd :MEASUrement:MEAS3:SOUrce1 ${chan2}
+:cmd :MEASUrement:MEAS3:TYPe CRMs
+:cmd :MEASUrement:MEAS3:STATE ON
+:cmd :MEASUrement:MEAS4:SOUrce1 ${chan1}
+:cmd :MEASUrement:MEAS4:TYPe FREQuency
+:cmd :MEASUrement:MEAS4:STATE ON
+:cmd :MEASUrement:MEAS5:SOUrce1 ${chan2}
+:cmd :MEASUrement:MEAS5:TYPe FREQuency
+:cmd :MEASUrement:MEAS5:STATE ON
+#+end_src
+
+#+RESULTS: btn-tds3052b-measure-two-sin-i
+#+begin_src text :eval never :tangle no
+>>:MEASUrement:MEAS1:SOUrce1 CH1>>
+>>:MEASUrement:MEAS1:SOUrce2 CH2>>
+>>:MEASUrement:MEAS1:TYPe Phase>>
+>>:MEASUrement:MEAS1:STATE ON>>
+>>:MEASUrement:MEAS2:SOUrce1 CH1>>
+>>:MEASUrement:MEAS2:TYPe CRMs>>
+>>:MEASUrement:MEAS2:STATE ON>>
+>>:MEASUrement:MEAS3:SOUrce1 CH2>>
+>>:MEASUrement:MEAS3:TYPe CRMs>>
+>>:MEASUrement:MEAS3:STATE ON>>
+>>:MEASUrement:MEAS4:SOUrce1 CH1>>
+>>:MEASUrement:MEAS4:TYPe FREQuency>>
+>>:MEASUrement:MEAS4:STATE ON>>
+>>:MEASUrement:MEAS5:SOUrce1 CH2>>
+>>:MEASUrement:MEAS5:TYPe FREQuency>>
+>>:MEASUrement:MEAS5:STATE ON>>
+#+end_src
+
+#+ATTR_HTML: :width 90% :align center
+[[file:screencap-tek3k-sin.png][file:screencap-tek3k-sin.png]]
+
+
+** Rigol DG2052 Function/Arbitrary Waveform Generator
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-link
+:END:
+
+  - Product Page: https://www.rigolna.com/products/waveform-generators/dg2000/
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_ADVWQP88'>DG2000 AWG: User Guide</a></li>
+  <li><a href='zotero://select/items/0_DIVGQ8GD'>DG2000 AWG: Programming Guide</a></li>
+  <li><a href='zotero://select/items/0_J6WITKM6'>DG2000 AWG: Performance Verification Guide</a></li>
+  <li><a href='zotero://select/items/0_Z2JLG55W'>DG2000 AWG: 16Bit and SiFi II Application Note</a></li>
+  <li><a href='zotero://select/items/0_SEV6AV4Q'>DG2000 AWG: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_EH5XW48S'>DG2000 AWG: AN: DG Series Function/Arbitrary Waveform Generator Files (RAF/TXT/CSV)</a></li>
+</ul>
+#+END_EXPORT
+
+*** Local LAN Settings & Addresses (These links only work on my home network)
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-lan
+:END:
+
+ - Host name: {{{cn2dns(dg2052w)}}}
+ - Device Web Server: {{{cn2con(dg2052w)}}}
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-notes-perf
+:END:
+
+ - External Reference Clock Input
+   - Impedance ~1kΩ, AC coupling
+   - Level 250 mVpp to 5 Vpp
+ - Clock Output
+   - Level 3.3 Vpp
+   - Output Impedance 50 Ohm, AC coupled
+ - Counter
+   - Damage level  2.5V
+   - Input Impedance 1MΩ
+ - Sync output and External trigger input/output are TTL (0-5 V)
+ - External modulation
+   - Input impedance is 1000 Ω.
+   - Voltage range: ±5 V
+
+**** Remote control notes
+
+When the DG2052 receives a remote SCPI command it will *usually* switch into "remote mode" (also called "remote programming command mode").  This mode is
+indicated on screen by an "S" shaped icon with arrows on the tips.  Use the =[SHIFT]= and =[HELP/LOCAL]= keys to return the device to "local mode".  I don't
+have a full list of SCPI sequences or conditions that will trigger "remote mode".  I have been unable to discover a way to switch the instrument to "local
+mode" via SCPI.
+
+This device is incredibly delicate when it comes to processing SCPI over TCP/IP.  Some SCPI commands take a very long time to execute during which the device
+becomes unresponsive.  Device lockups requiring a physical power cycle are common.  Such lockups can occur in response to completely correct SCPI statements,
+but are usually triggered by incorrect commands.  Returns *usually* are terminated by a single newline character, but malformed return strings appear
+occasionally.  The SCPI documentation is both incomplete and inaccurate.
+
+**** RAF File Format
+
+The format Rigol uses by arbitrary waveform files is known as "RAF".  This is one of the file types that the UltraStation software package can produce.
+
+[[#MSIDdg2052-doc][The file format is simple]].  It is a sequence of 16-bit integer values in little-endian order. The number 0 represents the minimum
+negative value and 16383 represents the maximum positive value.  File can have between 2 points and to 16 Mpts (16,777,216 points).
+
+*** Remote Control
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote
+:END:
+
+**** *IDN?
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-idn
+:END:
+
+#+NAME: btn-dg2052-idn
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @dg2052
+:cmd *IDN?
+#+end_src
+
+#+RESULTS: btn-dg2052-idn
+#+begin_src text :eval never :tangle no
+>>*IDN?>>
+Rigol Technologies,DG2052,DG2P242400590,00.02.06.00.01 
+#+end_src
+
+**** Default Setup
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-rst
+:END:
+
+#+NAME: btn-dg2052-default-setup
+#+begin_src mrscpi :output verbatum :exports code 
+:url @dg2052
+:echo false
+:result_type nil
+:cmd *RST
+#+end_src
+
+#+RESULTS: btn-dg2052-default-setup
+#+begin_src text :eval never :tangle no
+#+end_src
+
+**** Error Condition Query 
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-err
+:END:
+
+#+NAME: btn-dg2052-error-query
+#+begin_src mrscpi :output verbatum :exports both :wrap "src text :eval never :tangle no" 
+:url @dg2052
+:cmd :SYSTem:ERRor?
+#+end_src
+
+#+RESULTS: btn-dg2052-error-query
+#+begin_src text :eval never :tangle no
+>>:SYSTem:ERRor?>>
+0,"No error"
+#+end_src
+
+**** Basic Sine Wave
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-sine
+:END:
+
+The arguments to =:SOURce1:APPLy:SINusoid= are frequency, amplitude, offset, and phase.
+
+For example, the following will produce a 2kHz sine wave at 5v peek-peek with a zero offset and phase.
+
+#+NAME: btn-dg2052-1KHz-sine
+#+begin_src mrscpi :output verbatum :exports code 
+:url @dg2052
+:echo false
+:result_type nil
+:cmd :OUTPut1:STATe OFF
+:cmd :SOURce1:APPLy:SINusoid 2000,5,0,0
+:cmd :OUTPut1:VOLLimit:STATe OFF
+:cmd :OUTPut1:IMPedance INFinity
+:cmd :OUTPut1:STATe ON
+#+end_src
+
+#+RESULTS: btn-dg2052-1KHz-sine
+#+begin_src text :eval never :tangle no
+#+end_src
+
+**** Channel two phase
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-phase
+:END:
+
+Before we can set a phase diffrence between channel 1 and 2, we must "synchronize" the channels:
+  - Set channel 2 to the same settings as channel 1
+  - Make sure both channels have output enabled
+  - Execute a =SYNChronize= command
+
+If we set channel 1 as above, then the following will get us what we want.
+
+#+NAME: btn-dg2052-align
+#+begin_src mrscpi :output verbatum :exports code 
+:url @dg2052
+:echo false
+:result_type nil
+# Reset the device
+:delay_after_complete 100
+:cmd *RST
+# First we set chan 1
+:cmd :SOURce1:APPLy:SINusoid 1000,5,0,0
+:cmd :OUTPut1:VOLLimit:STATe OFF
+# Next we set chan 2 to the same thing
+:cmd :SOURce2:APPLy:SINusoid 1000,5,0,0
+:cmd :OUTPut2:VOLLimit:STATe OFF
+# Synchronize -- Note the outputs must be on to sync
+:delay_after_complete 100
+:cmd :OUTPut1:STATe ON
+:cmd :OUTPut2:STATe ON
+:cmd :SOURce2:PHASe:SYNChronize
+:delay_after_complete 10
+# Now we can set the phase for chan2
+:cmd :SOURce2:APPLy:SINusoid 1000,5,0,60
+# Finally we activate the two channels
+#+end_src
+
+#+RESULTS: btn-dg2052-align
+#+begin_src text :eval never :tangle no
+#+end_src
+
+**** Sweep with frequency marker
+:PROPERTIES:
+:CUSTOM_ID: MSIDdg2052-remote-sweepmark
+:END:
+
+One must turn on the sync signal as well set the marker
+
+#+NAME: btn-dg2052-sweep-1k-5k
+#+begin_src mrscpi :output verbatum :exports code 
+:url @dg2052
+:echo false
+:result_type nil
+# First set channel 1 to a sinusoid -- the frequncy & phase are irrelevent, but we want to set the voltage & offset to zero
+:cmd :SOURce1:APPLy:SINusoid 50000,5,0,0
+# Enable the sync output
+:cmd :OUTPut1:SYNC:STATe ON
+# Enable sweep function
+:cmd :SOURce1:SWEep:STATe ON
+# Linear sweep
+:cmd :SOURce1:SWEep:SPACing LINear
+# Set the sweep time to 3 seconds
+:cmd :SOURce1:SWEep:TIME 3
+# Set the return time of the sweep 0 seconds
+:cmd :SOURce1:SWEep:RTIMe 0
+# Set the start frequency to 1KHz
+:cmd :SOURce1:FREQuency:STARt 1000
+# Set the stop frequency to 5KHz
+:cmd :SOURce1:FREQuency:STOP 5000
+# Set the marker frequency to 3KHz
+:cmd :SOURce1:MARKer:FREQuency 3000
+:cmd :SOURce1:MARKer:STATe ON
+# Set the start hold time of the sweep to 0 seconds
+:cmd :SOURce1:SWEep:HTIMe:STARt 0
+# Set the stop hold time to 0 seconds
+:cmd :SOURce1:SWEep:HTIMe:STOP 0
+# Set for manual trigger
+:cmd :SOURce1:SWEep:TRIGger:SOURce MANual
+# Enable output
+:cmd :OUTPut1:STATe ON
+# Trigger a sweep (this can be repeated as required)
+:cmd :SOURce1:SWEep:TRIGger:IMMediate
+#+end_src
+
+#+RESULTS: btn-dg2052-sweep-1k-5k
+#+begin_src text :eval never :tangle no
+#+end_src
+
+
+* Virtual Instruments
+:PROPERTIES:
+:CUSTOM_ID: virti
+:END:
+
+
+** Bus Pirate 5
+:PROPERTIES:
+:CUSTOM_ID: MSIDbuspirate5
+:END:
+
+*** Links
+
+  - Product page: https://buspirate.com/
+  - Docs: https://docs.buspirate.com/docs/overview/hardware/
+  - Latest Firmware: https://forum.buspirate.com/t/bus-pirate-5-auto-build-main-branch/20/99999
+  - Repos
+    - Firmware: https://github.com/DangerousPrototypes/BusPirate5-firmware
+    - Hardware: https://github.com/DangerousPrototypes/BusPirate5-hardware
+    - Firmware docs: https://github.com/DangerousPrototypes/BusPirate5-docs-firmware
+    - Hardware: https://github.com/DangerousPrototypes/BusPirate5-docs-hardware
+
+*** Serial Settings (tio config)
+
+#+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
+sed -n '/^\[buspirate5\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+[buspirate5]
+device = /dev/buspirate5
+baudrate = 115200
+databits = 8
+parity = none
+stopbits = 1
+flow = none
+map = INLCRNL,ODELBS
+
+#+end_src
+
+*** Host Computer Configuration
+
+  - [[#benchcomp-conf-udev-MSIDbuspirate5][udev Configuration]]
+
+** I2CDriver I2CD Protocol USB Host Adapter + display
+:PROPERTIES:
+:CUSTOM_ID: MSIDi2cd
+:END:
+
+*** Links
+
+  - Product page: https://i2cdriver.com/
+  - Software: https://github.com/alandoherty/i2cdriver-net
+
+*** Serial Settings (tio config)
+
+#+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
+sed -n '/^\[i2cdriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+[i2cdriver]
+device = /dev/i2cdriver
+baudrate = 1000000
+flow = none
+parity = none
+databits = 8
+stopbits = 1
+input-mode = line
+local-echo = true
+
+#+end_src
+
+*** Host Computer Configuration
+
+  - [[#benchcomp-conf-soft-MSIDi2cd][Software Install]]
+  - [[#benchcomp-conf-udev-MSIDi2cd][udev Configuration]]
+
+
+** SPIDriver SPI Protocol USB Host Adapter + display
+:PROPERTIES:
+:CUSTOM_ID: MSIDspid
+:END:
+
+*** Links
+
+  - Product page: https://spidriver.com/
+  - Software: https://github.com/alandoherty/spidriver-net
+
+*** Serial Settings (tio config)
+
+#+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
+sed -n '/^\[spidriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+[spidriver]
+device = /dev/spidriver
+baudrate = 460800
+flow = none
+parity = none
+databits = 8
+stopbits = 1
+input-mode = line
+local-echo = true
+#+end_src
+
+*** Host Computer Configuration
+
+  - [[#benchcomp-conf-soft-MSIDspid][Software Install]]
+  - [[#benchcomp-conf-udev-MSIDspid][udev Configuration]]
+
+** Digilent Analog & Digital Discovery
+:PROPERTIES:
+:CUSTOM_ID: MSIDdadddd
+:END:
+
+*** Waveforms Software                                                  :WIP:
+**** Links
+
+  - Product Page: https://store.digilentinc.com/digilent-waveforms/
+  - Resources: https://reference.digilentinc.com/software/waveforms/waveforms-3/start?redirect=1
+**** Screenshot
+
+Grab all waveforms windows
+
+#+BEGIN_SRC sh
+~/bin/screenshot_waveforms.sh
+#+END_SRC
+
+Grab a window you click on
+
+#+BEGIN_SRC sh
+import -screen `date +%Y%m%d%H%M%S`_AD2_screenshot.png
+#+END_SRC
+
+*** Analog Discovery 2
+**** Links
+
+  - Resources: https://reference.digilentinc.com/reference/instrumentation/analog-discovery-2/start?redirect=1
+
+**** Documentation (These links only work on my personal laptop)
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_NATV3UTR'>Analog Discovery 2: Calibration</a></li>
+  <li><a href='zotero://select/items/0_9GJNI74T'>Analog Discovery 2: Refrence</a></li>
+  <li><a href='zotero://select/items/0_4CCRBCNY'>Analog Discovery 2: Module: BNC Adapter: Refrence</a></li>
+  <li><a href='zotero://select/items/0_R4QFNJID'>Analog Discovery 2: Module: BNC Adapter: Schematic</a></li>
+  <li><a href='zotero://select/items/0_WLU6ZXPK'>Analog Discovery 2: Module: Impedance Analyzer: Quick Start</a></li>
+  <li><a href='zotero://select/items/0_DPH5U9XH'>Analog Discovery 2: Module: Impedance Analyzer: Refrence</a></li>
+  <li><a href='zotero://select/items/0_YIH5BVAE'>Analog Discovery 2: Module: Impedance Analyzer: Schematic</a></li>
+  <li><a href='zotero://select/items/0_56GPXPR3'>Analog Discovery 2: Module: Impedance Analyzer: User Guide</a></li>
+  <li><a href='zotero://select/items/0_GBN2JK4B'>Analog Discovery 2: Module: Transistor Adapter: Quick Start</a></li>
+  <li><a href='zotero://select/items/0_C9NDGNY3'>Analog Discovery 2: Module: Transistor Adapter: Refrence</a></li>
+  <li><a href='zotero://select/items/0_APLTWJV9'>Analog Discovery 2: Module: Transistor Adapter: Schematic</a></li>
+  <li><a href='zotero://select/items/0_SLJABK2A'>Analog Discovery 2: Module: Transistor Adapter: User Guide</a></li>
+</ul>
+#+END_EXPORT
+
+*** Digital Discovery
+**** Links
+
+  - Resources: https://reference.digilentinc.com/reference/instrumentation/digital-discovery/start
+
+**** Documentation (These links only work on my personal laptop)
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_ETAL67DX'>Digital Discovery: Quick Start</a></li>
+  <li><a href='zotero://select/items/0_XVLQJXMB'>Digital Discovery: Refrence</a></li>
+  <li><a href='zotero://select/items/0_YQYFYRE3'>Digital Discovery: Specs</a></li>
+</ul>
+#+END_EXPORT
+
+* Disconnected Instruments
+:PROPERTIES:
+:CUSTOM_ID: disconnected
+:END:
+
+** Tektronix AN/USM-488 or 2235 Analog Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSID2235
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSID2235-link
+:END:
+
+  - TekWiki (2235): https://w140.com/tekwiki/wiki/2235
+  - TekWiki (AN/USM-488): https://w140.com/tekwiki/wiki/AN/USM-488
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSID2235-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_C8KDCH92'>tek2235 Analog OScope: ANUSM488: User Manual</a></li>
+  <li><a href='zotero://select/items/0_U49XCFJD'>tek2235 Analog OScope: ANUSM488: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_X7EH5SSQ'>tek2235 Analog OScope: 2235 Service Upgrade: 050-2242-03</a></li>
+  <li><a href='zotero://select/items/0_UJMRP76C'>tek2235 Analog OScope: 2235 Service Manual Foldouts.pdf</a></li>
+  <li><a href='zotero://select/items/0_EB4ZJG8H'>tek2235 Analog OScope: 2235 UserManual (Small)</a></li>
+  <li><a href='zotero://select/items/0_UPQY2HIN'>tek2235 Analog OScope: 2235 UserManual (Large)</a></li>
+  <li><a href='zotero://select/items/0_ZBJJHAPR'>tek2235 Analog OScope: 2235 Service Manual (Small)</a></li>
+  <li><a href='zotero://select/items/0_C2MSZSHB'>tek2235 Analog OScope: 2235 Service Manual (Large)</a></li>
+</ul>
+#+END_EXPORT
+
+** Tektronix 2205 Analog Oscilloscope
+:PROPERTIES:
+:CUSTOM_ID: MSID2205
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSID2205-link
+:END:
+
+  - TekWiki: https://w140.com/tekwiki/wiki/2205
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSID2205-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_PMRFSYJ7'>tek2205 Analog OScope: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_R9NWEBAC'>tek2205 Analog OScope: Operators Manual</a></li>
+</ul>
+#+END_EXPORT
+
+
+** Fluke 54 II Data Logging Thermometer with Dual Input
+:PROPERTIES:
+:CUSTOM_ID: MSIDF54T
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDF54T-link
+:END:
+
+  - https://www.fluke.com/en-us/product/temperature-measurement/ir-thermometers/fluke-54-ii
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDF54T-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_8DJHI8FK'>54s2 Thermometer: Users Manual</a></li>
+  <li><a href='zotero://select/items/0_F64WMFX3'>54s2 Thermometer: Users Manual Supplement 2</a></li>
+  <li><a href='zotero://select/items/0_I8F7WQIM'>54s2 Thermometer: Service Manual</a></li>
+  <li><a href='zotero://select/items/0_HSVBFJAI'>54s2 Thermometer: Datasheet</a></li>
+</ul>
+#+END_EXPORT
+
+** B&K Precision 1621A Power Supply
+:PROPERTIES:
+:CUSTOM_ID: MSIDBK1621A
+:END:
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDBK1621A-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_TH877XXJ'>1621A Power Supply: Manual</a></li>
+</ul>
+#+END_EXPORT
+
+** HIOKI 3030-10 HiTESTER
+:PROPERTIES:
+:CUSTOM_ID: MSIDHIOKI3030
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDHIOKI3030-link
+:END:
+
+  - https://www.hioki.com/us-en/products/testers/analog/id_5895
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDHIOKI3030-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_QDHK49YF'>3030-10 VOM: User Guide</a></li>
+</ul>
+#+END_EXPORT
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDHIOKI3030-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDHIOKI3030-notes-perf
+:END:
+
+ - The 60μA & 0.3V range are wired right across the meeter, trimmer, & fuse.
+ - This is a simple average reading meter
+ - DC Voltage Input Impedance (measured)
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Impedance |
+   |  <c>  |    <c>    |
+   |-------+-----------|
+   | 600V  |   12MΩ    |
+   | 300V  |    6MΩ    |
+   | 120V  |   2.4MΩ   |
+   |  30V  |   600kΩ   |
+   |  12V  |   240kΩ   |
+   |  3V   |   60kΩ    |
+   | 0.3V  |    5kΩ    |
+ - Current Shunt Resistance (measured) 
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range  | Resistance |
+   |  <c>   |    <c>     |
+   |--------+------------|
+   |  60μA  |    5kΩ     |
+   |  30mA  |   12.7Ω    |
+   | 300mA  |    3.7Ω    |
+
+** Sanwa EM7000 FET multitester
+:PROPERTIES:
+:CUSTOM_ID: MSIDSANWAEM7000
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDSANWAEM7000-link
+:END:
+
+  - https://www.sanwa-america.com/products/em7000-analog-multimeter-high-sensitivity-for-measurement-of-lower-capacitance
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDSANWAEM7000-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_ABKVPD4K'>EM700 VOM: FET Multitester Instruction Manual</a></li>
+</ul>
+#+END_EXPORT
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDSANWAEM7000-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDSANWAEM7000-notes-perf
+:END:
+
+ - This is a p-p measureing meter.  i.e. it indicates the value between positive and negative peak values of the input.
+   - A 10 μs pulse train at 1 Hz will cause the needle to deflect to halfway between 0 and 1 on the scale where it will visibally oscilate a bit.
+ - DC Voltage Input Impedance
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range  | Impedance |
+   |  <c>   |    <c>    |
+   |--------+-----------|
+   |  0.3V  |  2.50MΩ   |
+   |  1.2V  |   12MΩ    |
+   |   3V   |   11MΩ    |
+   | Others |   10MΩ    |
+ - DC/AC Voltage Accuracy is about 3% in positive mode, and 7% in plus/minus mode
+ - AC Voltage Input Impedance
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range (rms) | Range (p-p) | Impedance |
+   |     <c>     |     <c>     |    <c>    |
+   |-------------+-------------+-----------|
+   |     3V      |    8.4V     |  2.50MΩ   |
+   |     12V     |     33V     |  1.10MΩ   |
+   |     30V     |     84V     |   800kΩ   |
+   |    120V     |    300V     |   800kΩ   |
+   |    300V     |    840V     |   800kΩ   |
+   |    750V     |      -      |   10MΩ    |
+ - AC Voltage Bandwidth
+   - Accuracy at 50 Hz is around 3%
+   - On ranges 12 Vrms and below it is around 5% up to 1 MHz.
+   - On 8.4 Vpp range for symmetric square/triangle waves it is 4% up to 100 kHz.
+   - Observation: On 8.4 Vpp range, the needle doesn't move till we hit 4 MHz.
+   - If computing the ratio of two voltage measurements, the meter is accurate well beyond 10 MHz.
+ - Resistance measurement applies a 3V test voltage at full scale
+
+
+** Gossen-Metrawatt METRAmax2 Analog Multimeter
+:PROPERTIES:
+:CUSTOM_ID: MSIDGMMETRAM2
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDGMMETRAM2-link
+:END:
+
+  - https://www.gossenmetrawattusa.com/products/measurement-and-testing-technology/portable-measurement-technology/multimeters/analog-multimeters/metramax2/
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDGMMETRAM2-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_2KPFALJT'>METRAmax 2 VOM: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_MC885SRF'>METRAmax 2 VOM: User Guide</a></li>
+</ul>
+#+END_EXPORT
+
+*** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDGMMETRAM2-notes
+:END:
+
+**** Performance & Operational Facts
+:PROPERTIES:
+:CUSTOM_ID: MSIDGMMETRAM2-notes-perf
+:END:
+
+ - AC/DC Voltage Input Impedance: 10MΩ
+ - AC Voltage Measurement Bandwidth
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Frequency Range | Accuracy |
+   |       <c>       |   <c>    |
+   |-----------------+----------|
+   |    DC - 30Hz    |    2%    |
+   |  30Hz - 1.5kHz  |   2.5%   |
+   |  1.5kHz - 3kHz  |    5%    |
+ - DC Current Shunt (measured)
+#+ATTR_HTML: :align center :rules all  :cellpadding 2px
+   | Range | Resistance |
+   |  <c>  |    <c>     |
+   |-------+------------|
+   |  3A   |    0.1Ω    |
+   |  1A   |   0.14Ω    |
+   | 100mA |   0.64Ω    |
+   | 10mA  |   5.6Ω     |
+   |  1mA  |   55.6Ω    |
+   | 100μA |    5kΩ     |
+
+** Keysight U1233A Handheld DMM
+:PROPERTIES:
+:CUSTOM_ID: MSIDU1233A
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDU1233A-link
+:END:
+
+  - Product Page: https://www.keysight.com/us/en/product/U1233A/handheld-digital-multimeter-3-5-digit.html
+  - Documentation Page: https://www.keysight.com/us/en/support/U1233A/handheld-digital-multimeter-3-5-digit.html
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDU1233A-doc
+:END:
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_VZCD23ZI'>U1233A DMM: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_WK4F2PYG'>U1233A DMM: User Guide</a></li>
+  <li><a href='zotero://select/items/0_TE45FVPJ'>U1233A DMM: Service Guide</a></li>
+  <li><a href='zotero://select/items/0_QMQ3T77W'>U1233A DMM: Quick Start</a></li>
+</ul>
+#+END_EXPORT
+
+** Thurlby Thandar Instruments WA301 Wideband Amplifier
+:PROPERTIES:
+:CUSTOM_ID: MSIDTTWA301
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDTTWA301-link
+:END:
+
+  - Product Page: https://www.aimtti.com/product-category/waveform-amplifiers/aim-wa301
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDTTWA301-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_45UNE7YX'>WA301: Datasheet</a></li>
+  <li><a href='zotero://select/items/0_ZIDVJEPH'>WA301: Instruction Leaflet</a></li>
+  <li><a href='zotero://select/items/0_P5WBD4NV'>WA301: Instruction Manual</a></li>
+</ul>
+#+END_EXPORT
+
+**** Notes
+:PROPERTIES:
+:CUSTOM_ID: MSIDTTWA301-notes
+:END:
+
+** Fluke 107 Pocket Digital Multimeter
+:PROPERTIES:
+:CUSTOM_ID: MSIDF107
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDF107-link
+:END:
+
+  - Product Page: https://www.fluke.com/en-us/product/electrical-testing/digital-multimeters/pocket-107
+    
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDF107-doc
+:END:
+
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_MCELXIJE'>Fluke 107 Data Sheet</a></li>
+  <li><a href='zotero://select/items/0_CYGRBTXR'>Fluke 107 User Guide</a></li>
+  <li><a href='zotero://select/items/0_73CFHN6K'>Fluke 107 Saftey Information</a></li>
+</ul>
+#+END_EXPORT
+
+* Sending SCPI commands over IP network from command line
+:PROPERTIES:
+:CUSTOM_ID: scpiip
+:END:
+
+** =mrSCPI.rb=
+:PROPERTIES:
+:CUSTOM_ID: scpiip-mrscpi
+:END:
+
+#+begin_src sh
+mrSCPI.rb -a my-scope-ip -c '*IDN?'
+#+end_src
+
+** =netcat=
+:PROPERTIES:
+:CUSTOM_ID: scpiip-nc
+:END:
+
+#+begin_src sh
+printf '*IDN?\n' | nc -w 3 -N my-scope-ip 5025
+#+end_src
+
+** =lxi-tool=
+:PROPERTIES:
+:CUSTOM_ID: scpiip-lxitool
+:END:
+
+#+begin_src sh
+lxi scpi -a my-scope-ip -p 5025 -r '*IDN?'
+#+end_src
+
+
+* Bench Computer
+:PROPERTIES:
+:CUSTOM_ID: benchcomp
+:END:
+
+** Configuration
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf
+:END:
+
+*** Install stuff
+
+#+BEGIN_SRC sh
+apt --fix-broken install
+sudo apt update
+sudo apt upgrade -y
+sudo apt install                                             \
+    emacs emacs-common-non-dfsg emacs-editing-major-modes    \
+    zsh zsh-doc                                              \
+    tmux                                                     \
+    gitk git-doc                                             \
+    cu xterm                                                 \
+    ruby ruby-dev ri                                         \
+    telnet                                                   \
+    imagemagick imagemagick-7-doc nomacs                     \
+    kicad kicad-packages3d kicad-doc-en                      \
+    gnuplot gnuplot-doc                                      \
+    octave octave-dev                                        \
+    ckermit minicom tio                                      \
+    gtkwave                                                  \
+    sbcl sbcl-doc sbcl-source                                \
+    maxima maxima-doc xmaxima maxima-emacs                   \
+    liblxi-dev lxi-tools                                     \
+    pulseview sigrok-cli sigrok                              \
+    default-jre swaks enscript graphviz gawk  mplayer povray \
+#+END_SRC
+
+*** /usr/local/bin links
+
+#+begin_src sh
+for f in ruby perl sbcl; do
+  sudo ln -s /usr/bin/$f /usr/local/bin/$f
+done
+#+end_src
+
+*** Acount Setup
+
+**** Create directories
+#+begin_src sh
+mkdir -p ~/bin
+mkdir -p ~/tmp
+mkdir -p ~/tmp/tmux/sockets
+mkdir -p ~/synced/from-bench/;
+mkdir -p ~/synced/to-bench/;
+mkdir -p ~/synced/rpi-software/;
+mkdir -p ~/synced/DataSheets/;
+mkdir -p ~/synced/ee_parts/;
+mkdir -p ~/synced/world/ee/;
+mkdir -p ~/synced/world/dotfiles/;
+mkdir -p ~/synced/world/dotfilesSecure/;
+mkdir -p ~/synced/world/stuff/homeNetwork/;
+mkdir -p ~/synced/world/stuff/my_ref/;
+mkdir -p ~/synced/world/stuff/notes/;
+mkdir -p ~/synced/world/my_prog/dir-inventory/;
+mkdir -p ~/synced/world/my_prog/learn/ex-ruby/;
+mkdir -p ~/synced/world/my_prog/mpms/;
+mkdir -p ~/synced/world/my_prog/verGo/;
+mkdir -p ~/synced/world/my_prog/lineSets/;
+mkdir -p ~/synced/world/my_prog/tmuxHelper/;
+mkdir -p ~/synced/world/my_prog/UNIXutils/;
+mkdir -p ~/synced/world/my_prog/utils/;
+mkdir -p ~/synced/core/;
+#+end_src
+
+**** Create Links
+
+#+begin_src sh
+ln -s synced/world world
+ln -s synced/core core
+#+end_src
+
+**** Change my shell
+
+#+begin_src sh
+sudo usermod -s /usr/bin/zsh richmit
+#+end_src
+
+**** Setup up dot files
+
+Sync home directory data to the system first!  See [[#bench-data-sync][Bench Data Sync]] 
+
+#+begin_src sh
+~/world/my_prog/UNIXutils/SelectSetup.rb --loc=HOME; ~/world/my_prog/UNIXutils/SetupBin.rb
+#+end_src
+
+*** Bench Data Sync From Off Bench
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-datasync
+:END:
+
+#+begin_src sh
+date; echo back-sync;            rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2                  --rsh='ssh' bench-pi.home.mitchr.me:synced/from-bench/                 /c/Users/richmit/MJR/world/bench-pi/from-bench/;
+date; echo forw-sync;            rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2                  --rsh='ssh' /c/Users/richmit/MJR/world/bench-pi/to-bench/              bench-pi.home.mitchr.me:synced/to-bench/;
+date; echo rpi-soft;             rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/softwareArchive/rpi/                  bench-pi.home.mitchr.me:synced/rpi-software/;
+date; echo datasheets;           rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/reading/Doc2/ee/DataSheets/           bench-pi.home.mitchr.me:synced/DataSheets/;
+date; echo ee_parts;             rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/dataArch/ee_parts/                    bench-pi.home.mitchr.me:synced/ee_parts/;
+date; echo te-stuff;             rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/ee/                             bench-pi.home.mitchr.me:synced/world/ee/;
+date; echo dotfiles;             rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/dotfiles/                       bench-pi.home.mitchr.me:synced/world/dotfiles/;
+date; echo dotfilesSecure;       rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/dotfilesSecure/                 bench-pi.home.mitchr.me:synced/world/dotfilesSecure/;
+date; echo homeNetwork;          rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/stuff/homeNetwork/              bench-pi.home.mitchr.me:synced/world/stuff/homeNetwork/;
+date; echo my_ref;               rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/stuff/my_ref/                   bench-pi.home.mitchr.me:synced/world/stuff/my_ref/;
+date; echo notes;                rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/stuff/notes/                    bench-pi.home.mitchr.me:synced/world/stuff/notes/;
+date; echo dir-inventory;        rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/dir-inventory/          bench-pi.home.mitchr.me:synced/world/my_prog/dir-inventory/;
+date; echo ruby-examples;        rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/learn/ex-ruby/          bench-pi.home.mitchr.me:synced/world/my_prog/learn/ex-ruby/;
+date; echo ruby-examples;        rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/mpms/                   bench-pi.home.mitchr.me:synced/world/my_prog/mpms/;
+date; echo ruby-examples;        rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/verGo/                  bench-pi.home.mitchr.me:synced/world/my_prog/verGo/;
+date; echo lineSets;             rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/lineSets/               bench-pi.home.mitchr.me:synced/world/my_prog/lineSets/;
+date; echo tmuxHelper;           rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/tmuxHelper/             bench-pi.home.mitchr.me:synced/world/my_prog/tmuxHelper/;
+date; echo UNIXutils;            rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/UNIXutils/              bench-pi.home.mitchr.me:synced/world/my_prog/UNIXutils/;
+date; echo utils;                rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/world/my_prog/utils/                  bench-pi.home.mitchr.me:synced/world/my_prog/utils/;
+date; echo core;                 rsync -rlt --log-format=%f --delete --delete-excluded --modify-window=2 --exclude '.git' --rsh='ssh' /c/Users/richmit/MJR/core/                                 bench-pi.home.mitchr.me:synced/core/;
+date
+#+end_src
+
+*** Display
+
+We want screen blanking, but it can get confused if the display is blanked and then switches to another input.  Add the following to
+=/boot/firmware/config.txt=:
+
+#+begin_src R
+## Keep RPI screen connection when screen is switched to another computer
+# HDMI output with sound -- no DVI mode
+hdmi_drive=2
+# DMT (Display Monitor Timings) group.
+hdmi_group=2
+# 1920x1080 @ 60Hz.
+hdmi_mode=82
+# Force the RPI to act like the HDMI display is always connected
+#hdmi_force_hotplug=1
+hdmi_force_hotplug:0=1
+#+end_src
+
+*** Waveforms
+
+#+begin_src sh
+sudo dpkg -i ~/synced/rpi-software/digilent-2025-01/digilent.adept.runtime_2.27.9-arm64.deb
+sudo dpkg -i ~/synced/rpi-software/digilent-2025-01/digilent.waveforms_3.24.4_arm64.deb
+#+end_src
+
+*** Serial'ish Hardware Setup
+
+**** buspirate5
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf-udev-MSIDbuspirate5
+:END:
+
+#+begin_src sh :exports code
+echo 'SUBSYSTEM=="tty", ATTRS{interface}=="Bus Pirate CDC", GROUP="dialout", MODE="0660", SYMLINK+="buspirate5"' | sudo tee /etc/udev/rules.d/99-buspirate5.rules
+sudo chmod a+r /etc/udev/rules.d/99-buspirate5.rules
+#+end_src
+
+**** SPI Driver
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf-udev-MSIDspid 
+:END:
+
+#+begin_src sh :exports code
+echo 'SUBSYSTEM=="tty", ATTRS{serial}=="DO02C6OO", GROUP="dialout", MODE="0660", SYMLINK+="spidriver"' | sudo tee /etc/udev/rules.d/99-spidriver.rules
+sudo chmod a+r /etc/udev/rules.d/99-spidriver.rules
+#+end_src
+
+**** I2C Driver
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf-udev-MSIDi2cd
+:END:
+
+#+begin_src sh :exports code
+echo 'SUBSYSTEM=="tty", ATTRS{serial}=="DO02C6UI", GROUP="dialout", MODE="0660", SYMLINK+="i2cdriver"' | sudo tee /etc/udev/rules.d/99-i2cdriver.rules
+sudo chmod a+r /etc/udev/rules.d/99-i2cdriver.rules
+#+end_src
+
+**** HUP udev
+
+#+begin_src sh :exports code
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+#+END_SRC
+
+*** SPI Driver Software
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf-soft-MSIDspid 
+:END:
+
+**** Download Compile
+
+I install this stuff in the root of my home directory on the bench-pi.
+
+#+BEGIN_SRC sh :exports code
+cd ~
+rm -rf spidriver
+git clone 'https://github.com/jamesbowman/spidriver'
+cd spidriver
+gcc -o spicl -I c/common c/linux/spi.c c/common/spidriver.c
+#+END_SRC
+
+**** Test
+
+#+BEGIN_SRC sh :exports code
+./spicl /dev/spidriver i
+./spicl /dev/spidriver s a 1 a 0 w 0x2a u
+#+END_SRC
+
+*** I2CDriver Software
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-conf-soft-MSIDi2cd
+:END:
+
+**** Download & Compile
+
+I install this stuff in the root of my home directory on the bench-pi.
+
+#+BEGIN_SRC sh :exports code
+cd ~
+rm -rf i2cdriver
+git clone 'https://github.com/jamesbowman/i2cdriver.git'
+cd i2cdriver
+gcc -o i2ccl -I c/common c/linux/i2c.c c/common/i2cdriver.c
+#+END_SRC
+
+**** Test
+
+#+BEGIN_SRC sh :exports code
+./i2ccl /dev/i2cdriver i
+#+END_SRC
+
+** Access To Bench From Off Bench
+:PROPERTIES:
+:CUSTOM_ID: benchcomp-access
+:END:
+
+*** SSH
+
+#+begin_src sh :exports code
+ssh bench-pi.home.mitchr.me
+#+end_src
+
+*** SSH forwards
+
+For systems on networks unable to access the bench network, I use SSH tunnels via =bench-pi= to connect to the instruments directly.  I prefer to create these
+tunnels automatically when I ssh to =bench-pi=, and so I have several =LocalForward= statements in the =bench-pi= section of my =~/.ssh/config= file.  If we
+have an already running session that has created the tunnels, then starting a new ssh session will result in numerous warning messages about the tunnels
+already existing.  I automatically generate this part of the configuration file from the data table in this org-mode document via a bit of lisp.
+
+#+begin_src elisp :exports results :wrap "src text :eval never :tangle no" :var condat=connect-data
+(apply #'concat "\n" (cl-loop with resolve-names = nil
+                              for crow in condat
+                              for (iproto lport rip rport cname dnam snam sanam) = (TEQD-getelt '("Protocal" "SSH Local Port" "Instrument IP" "Instrument Port" "cname" "dnam" "snam" "sanam") crow)
+                              for rnip = (if resolve-names (TEQD-cname2ip cname) rip)
+                              when (not (string-equal "cname" cname))
+                              collect (format "  LocalForward 127.0.0.1:%s %s:%s\n" lport rnip rport)))
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+
+  LocalForward 127.0.0.1:5900 oscope-sig.home.mitchr.me:5900
+  LocalForward 127.0.0.1:9001 awg-agilent.home.mitchr.me:5025
+  LocalForward 127.0.0.1:9002 awg-agilent.home.mitchr.me:443
+  LocalForward 127.0.0.1:9003 gpib-rover.home.mitchr.me:1234
+  LocalForward 127.0.0.1:9004 serial.home.mitchr.me:10001
+  LocalForward 127.0.0.1:9005 gpib-rover.home.mitchr.me:1234
+  LocalForward 127.0.0.1:9006 awg-rigol.home.mitchr.me:5555
+  LocalForward 127.0.0.1:9007 awg-rigol.home.mitchr.me:80
+  LocalForward 127.0.0.1:9008 oscope-rigol.home.mitchr.me:5555
+  LocalForward 127.0.0.1:9009 oscope-rigol.home.mitchr.me:80
+  LocalForward 127.0.0.1:9010 dmm-keithley.home.mitchr.me:5025
+  LocalForward 127.0.0.1:9011 dmm-keithley.home.mitchr.me:80
+  LocalForward 127.0.0.1:9012 ps-rns.home.mitchr.me:5025
+  LocalForward 127.0.0.1:9013 ps-rns.home.mitchr.me:80
+  LocalForward 127.0.0.1:9014 oscope-sig.home.mitchr.me:5025
+  LocalForward 127.0.0.1:9015 oscope-sig.home.mitchr.me:80
+  LocalForward 127.0.0.1:9016 serial.home.mitchr.me:80
+  LocalForward 127.0.0.1:9017 serial.home.mitchr.me:10002
+  LocalForward 127.0.0.1:9018 oscope-tek.home.mitchr.me:80
+  LocalForward 127.0.0.1:9019 gpib-rover.home.mitchr.me:1234
+  LocalForward 127.0.0.1:9020 serial.home.mitchr.me:10003
+  LocalForward 127.0.0.1:9021 oscope-tek.home.mitchr.me:80
+#+end_src
+
+We use 5900 on local side for the oscope-sig VNC forward because the scope's built in web site uses client side javascript to grab screenshots via VNC. Ugh...
+
+** Using =teAlias.rb= For Access Information
+
+teAlias.rb provides a way to keep track of instrument IP addresses and access methods.
+To open Microsoft Edge and connect to my Tektronix TDS3052B:
+
+#+begin_src sh
+start msedge `teAlias.rb @3052w`
+#+end_src
+
+Fire up chromium and connect to my Tektronix TDS3052B.
+
+#+begin_src sh
+chromium-browser `teAlias.rb @3052w`
+#+end_src
+
+** mrSCPIrc file
+
+The "=nickname=" section of my =mrSCPIrc= configuration provides information that lets {{{MRSCPI}}} find test equipment using short aliases.  I generate this part
+of the configuration file from the data table in this org-mode document via a bit of lisp.  Here are the nicknames:
+
+#+begin_src elisp :exports results :wrap "src text :eval never :tangle no" :var condat=connect-data
+(apply #'concat "\n" (cl-loop for crow in condat
+                              for (iproto lport rip rport cname dnam snam sanam) = (TEQD-getelt '("Protocal" "SSH Local Port" "Instrument IP" "Instrument Port" "cname" "dnam" "snam" "sanam") crow)
+                              for badd = (format "bench@%s://%s:%s" iproto rip rport)
+                              for sadd = (format "ssh@%s://127.0.0.1:%s" iproto lport)
+                              when (and (not (string-equal "" cname)) (not (string-equal "cname" cname)))
+                              collect (format "nickname %-10s %-9s %-6s %-5s => %-44s %s   \n" cname dnam snam sanam badd sadd)))
+#+end_src
+
+#+RESULTS:
+#+begin_src text :eval never :tangle no
+
+nickname 33210ae    33210a    aawge  aawg  => bench@raw://awg-agilent.home.mitchr.me:5025  ssh@raw://127.0.0.1:9001   
+nickname 33210aw              aawgw        => bench@https://awg-agilent.home.mitchr.me:443 ssh@https://127.0.0.1:9002   
+nickname 34401ap              dmmp         => bench@plgx://gpib-rover.home.mitchr.me:1234  ssh@plgx://127.0.0.1:9003   
+nickname 34401as    34401a    dmms   dmm   => bench@soip://serial.home.mitchr.me:10001     ssh@soip://127.0.0.1:9004   
+nickname 53131ap    53131a    countp count => bench@plgx://gpib-rover.home.mitchr.me:1234  ssh@plgx://127.0.0.1:9005   
+nickname dg2052e    dg2052    dg2ke  dg2k  => bench@raw://awg-rigol.home.mitchr.me:5555    ssh@raw://127.0.0.1:9006   
+nickname dg2052w              dg2kw        => bench@http://awg-rigol.home.mitchr.me:80     ssh@http://127.0.0.1:9007   
+nickname dho4204e   dho4204   dho4ke dho4k => bench@raw://oscope-rigol.home.mitchr.me:5555 ssh@raw://127.0.0.1:9008   
+nickname dho4204w             dho4kw       => bench@http://oscope-rigol.home.mitchr.me:80  ssh@http://127.0.0.1:9009   
+nickname dmm6500e   dmm6500   6500e  6500  => bench@raw://dmm-keithley.home.mitchr.me:5025 ssh@raw://127.0.0.1:9010   
+nickname dmm6500w             6500w        => bench@http://dmm-keithley.home.mitchr.me:80  ssh@http://127.0.0.1:9011   
+nickname hmc8043e   hmc8043   pse    ps    => bench@raw://ps-rns.home.mitchr.me:5025       ssh@raw://127.0.0.1:9012   
+nickname hmc8043w             psw          => bench@http://ps-rns.home.mitchr.me:80        ssh@http://127.0.0.1:9013   
+nickname sds2504xpe sds2504xp sig2ke sig2k => bench@raw://oscope-sig.home.mitchr.me:5025   ssh@raw://127.0.0.1:9014   
+nickname sds2504xpw           sig2kw       => bench@http://oscope-sig.home.mitchr.me:80    ssh@http://127.0.0.1:9015   
+nickname serialw              serial       => bench@http://serial.home.mitchr.me:80        ssh@http://127.0.0.1:9016   
+nickname tds2024s             tek2ks tek2k => bench@soip://serial.home.mitchr.me:10002     ssh@soip://127.0.0.1:9017   
+nickname tds3052bh  tds3052b  tek3kh tek3k => bench@t3k://oscope-tek.home.mitchr.me:80     ssh@t3k://127.0.0.1:9018   
+nickname tds3052bp            tek3kp       => bench@plgx://gpib-rover.home.mitchr.me:1234  ssh@plgx://127.0.0.1:9019   
+nickname tds3052bs            tek3ks       => bench@soip://serial.home.mitchr.me:10003     ssh@soip://127.0.0.1:9020   
+nickname tds3052bw            tek3kw       => bench@http://oscope-tek.home.mitchr.me:80    ssh@http://127.0.0.1:9021   
+#+end_src
+
+* Retired Equipment :noexport:
+
+** Binho Nova Serial Protocol USB Host Adapter
+:PROPERTIES:
+:CUSTOM_ID: MSIDbhnha
+:END:
+*** Retirement:
+ - Date: 2026-01-30
+ - Why: I haven't used it in a long time preferring the bus pirate & digital discovery.
+*** Links
+
+  - Product page: https://binho.io/
+  - github: https://github.com/binhollc
+
+*** Serial Settings
+
+#+BEGIN_SRC text
+set line /dev/ttyACM0
+set modem none
+set speed 921600
+set flow none
+set serial 8N1
+set terminal echo local
+set terminal newline-mode on
+set carrier-watch off
+#+END_SRC
+
+*** bench-pi: udev rules
+
+Get the udev rules:
+
+#+BEGIN_SRC sh
+wget 'https://bitbucket.org/!api/2.0/snippets/binho-llc/eanz95/ae0b3f04efccb0ec3b3de11fd068d7af6d6e12dd/files/binhoHostAdapter.rules'
+#+END_SRC
+
+Put the following into a file =binhoHostAdapter.rules=:
+
+#+begin_src text
+# udev rules for binho Multi-Protocol USB Host Adapter
+#
+# Copy this file to the location of your distribution's udev rules, for example on Ubuntu:
+#   sudo cp binhoHostAdapter.rules /etc/udev/rules.d/
+# Then reload udev configuration by executing:
+#   sudo reload udev
+# Or if that doesn't work try:
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+
+# Rule to make binho Host Adapters accessible without running as root.
+# Tested with Ubuntu 14.04 and 12.04.  Other distributions might need to update GROUP="dialout"
+# to another group value like "users".
+SUBSYSTEM=="usb", ATTRS{idProduct}=="ED34", ATTRS{idVendor}=="04D8", MODE="0777", GROUP="dialout"
+
+# Rule to blacklist binho Host Adapters from being manipulated by ModemManager.
+# Fixes issue with hanging references to /dev/ttyACM* devices on Ubuntu 15.04.
+ATTRS{idProduct}=="ED34", ATTRS{idVendor}=="04D8", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# General rules
+ATTRS{idProduct}=="ED34", ATTRS{idVendor}=="04D8", MODE="0660", GROUP="adm"
+# pedantic rule: normal operation
+#SUBSYSTEM=="tty", ATTRS{idProduct}=="ED34", ATTRS{idVendor}=="04D8", MODE="0660", GROUP="adm"
+#+end_src
+
+Put the udev config in place and activate it
+
+#+BEGIN_SRC sh
+sudo cp binhoHostAdapter.rules /etc/udev/rules.d/98-binho.rules; sudo udevadm control --reload-rules; sudo service udev restart; sudo udevadm trigger
+#+END_SRC
+
+** Bus Pirate 3.6 Serial Protocol USB Host Adapter + Bench SAK
+:PROPERTIES:
+:CUSTOM_ID: MSIDbp36ha
+:END:
+
+*** Retirement Details
+
+ - Date: 2026-01-30
+ - Why: Replaced with Bus Pirate 5XL
+
+*** Links
+
+  - Product Page: http://dangerousprototypes.com/docs/Bus_Pirate
+
+*** Serial Settings
+
+#+BEGIN_SRC text
+set line /dev/buspirate36
+set modem none
+set speed 115200
+set flow-control none
+set parity none
+set serial 8N1
+
+set carrier-watch off
+set exit warning off
+#+END_SRC
+
+*** tio command line
+
+#+BEGIN_SRC sh
+tio -b 115200 -d 8 -p none -s 1 -f none /dev/buspirate36
+#+END_SRC
+
+*** bench-pi: udev rules
+
+Create the file
+
+#+BEGIN_SRC sh
+sudo vi /etc/udev/rules.d/98-buspirate36.rules
+#+END_SRC
+
+File should contain:
+#+BEGIN_SRC text
+SUBSYSTEM=="tty", ATTRS{serial}=="AB0JPNRM", GROUP="dialout", MODE="0660", SYMLINK+="buspirate36"
+#+END_SRC
+
+#+BEGIN_SRC sh
+sudo chmod a+r /etc/udev/rules.d/98-buspirate36.rules
+#+END_SRC
+
+* Document Meta Data
+
+ - The master location for org-mode source code for this document: 
+ - The master location for the HTML rendered from org-mode source for this document: 
+ - Repository with all code and data for this document:
+
+* Detailed TOC
+:PROPERTIES:
+:CUSTOM_ID: DTOC
+:END:
+
+#+TOC: headlines 4
+
+
+
+
+* udev Stuff :noexport:
+
+Use this to get serial data:
+#+begin_src sh :exports code
+  udevadm info -a -n /dev/ttyACM0
+#+end_src
+
+Plug in the device, and use this to get data.
+#+begin_src sh :exports code
+dmesg | grep -Ei '(usb|tty)' | tail -n 50
+#+end_src
+
