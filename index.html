@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-20 Fri 12:54 -->
+<!-- 2026-02-20 Fri 13:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=1024, initial-scale=1" />
 <title>Test Equipment</title>
@@ -242,7 +242,7 @@
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="https://www.mitchr.me/FIXME"> UP </a>
+ <a accesskey="h" href="https://github.com/richmit/TestEquipmentNotes"> UP </a>
  |
  <a accesskey="H" href="https://www.mitchr.me/"> HOME </a>
 </div><div id="content" class="content">
@@ -266,12 +266,12 @@
 
 <tr>
 <td class="org-right"><b>Generated:</b></td>
-<td class="org-left"><i>2026-02-20 12:54:43</i></td>
+<td class="org-left"><i>2026-02-20 13:20:47</i></td>
 </tr>
 
 <tr>
 <td class="org-right"><b>Updated:</b></td>
-<td class="org-left"><i>2026-02-20 12:54:41</i></td>
+<td class="org-left"><i>2026-02-20 13:20:44</i></td>
 </tr>
 </tbody>
 </table>
@@ -290,8 +290,8 @@ executable code to the notes for various equipment configurations and measuremen
 I decided to publish these notes as a response to requests for <a href="https://richmit.github.io/mrSCPI/"><code>mrSCPI</code></a> examples &#x2013; the <a href="https://richmit.github.io/mrSCPI/"><code>mrSCPI</code></a> blocks below being ready-made examples!  I expect most of the
 remaining content here isn't very useful to anyone other than myself.
 </p>
-<div id="outline-container-org40ebcd7" class="outline-2">
-<h2 id="org40ebcd7"><span class="section-number-2">1.</span> Table of Contents</h2>
+<div id="outline-container-orgf51282c" class="outline-2">
+<h2 id="orgf51282c"><span class="section-number-2">1.</span> Table of Contents</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="#DTOC">Detailed TOC</a>
@@ -300,7 +300,7 @@ remaining content here isn't very useful to anyone other than myself.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org40ebcd7">1. Table of Contents</a></li>
+<li><a href="#orgf51282c">1. Table of Contents</a></li>
 <li><a href="#scpi-inst">2. SCPI Connected Instruments</a>
 <ul>
 <li><a href="#MSIDhmc8043">2.1. Rohde &amp; Schwarz HMC8043 Power Supply</a></li>
@@ -348,11 +348,11 @@ remaining content here isn't very useful to anyone other than myself.
 <ul>
 <li><a href="#benchcomp-conf">6.1. Configuration</a></li>
 <li><a href="#benchcomp-access">6.2. Access To Bench From Off Bench</a></li>
-<li><a href="#org84dba41">6.3. Using <code>teAlias.rb</code> For Access Information</a></li>
-<li><a href="#orgde73df2">6.4. mrSCPIrc file</a></li>
+<li><a href="#orge885315">6.3. Using <code>teAlias.rb</code> For Access Information</a></li>
+<li><a href="#org83b9380">6.4. mrSCPIrc file</a></li>
 </ul>
 </li>
-<li><a href="#org47e2ec3">7. Document Meta Data</a></li>
+<li><a href="#orge690f4d">7. Document Meta Data</a></li>
 <li><a href="#DTOC">8. Detailed TOC</a></li>
 </ul>
 </div>
@@ -422,7 +422,7 @@ returned as a single line with the individual results separated by semicolons.
 <h5 id="MSIDhmc8043-remote-idn"><span class="section-number-5">2.1.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDhmc8043-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org9a14af8"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="org7dc9525"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*IDN?</span>
 </pre>
 </div>
@@ -438,7 +438,7 @@ Rohde&amp;Schwarz,HMC8043,042973185,HW42000000,SW01.400
 <h5 id="MSIDhmc8043-remote-rst"><span class="section-number-5">2.1.5.2.</span> Default Setup</h5>
 <div class="outline-text-5" id="text-MSIDhmc8043-remote-rst">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org173d112"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="orgbadfbaa"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:delay_after_complete</span> <span style="color: #fa8072;">50</span>
@@ -451,7 +451,7 @@ Rohde&amp;Schwarz,HMC8043,042973185,HW42000000,SW01.400
 <h5 id="MSIDhmc8043-remote-setmeasv"><span class="section-number-5">2.1.5.3.</span> Set voltage &amp; current for each channel</h5>
 <div class="outline-text-5" id="text-MSIDhmc8043-remote-setmeasv">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgb9d4ceb"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="org893800e"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:delay_after_complete</span> <span style="color: #fa8072;">200</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:OUTPut:MASTer:STATe OFF</span>
@@ -489,7 +489,7 @@ Check the values above to make sure the settings are correct, and then activate 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgefe1461"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="orgf6f9f34"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:delay_after_complete</span> <span style="color: #fa8072;">50</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">OUTPut:MASTer:STATe ON</span>
@@ -515,7 +515,7 @@ We can check the current voltage and current like so:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgec535e3"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="org80c9e83"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:delay_after_complete</span> <span style="color: #fa8072;">10</span>
 <span style="color: #00ffff;">:read_timeout_next_byte</span> <span style="color: #fa8072;">20</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
@@ -556,7 +556,7 @@ Here we sequence the thrid channel to come on 90ms after the first two.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org42de4cf"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
+<pre class="src src-mrscpi" id="orgd444891"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@hmc8043</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:delay_after_complete</span> <span style="color: #fa8072;">200</span>
@@ -699,7 +699,7 @@ Here we sequence the thrid channel to come on 90ms after the first two.
 <h5 id="MSID33210a-remote-idn"><span class="section-number-5">2.2.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSID33210a-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org08615c6"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@33210a</span>
+<pre class="src src-mrscpi" id="orgffaef9b"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@33210a</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*IDN?</span>
 </pre>
 </div>
@@ -1474,7 +1474,7 @@ The NPLC option will not accept "non-standard" values - when set to a non-standa
 <h5 id="MSID34401a-remote-idn"><span class="section-number-5">2.3.6.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSID34401a-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgc792651"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="orge14ae10"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_chomp</span> <span style="color: #8470ff; font-weight: bold;">true</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*IDN?</span>
 </pre>
@@ -1491,7 +1491,7 @@ HEWLETT-PACKARD,34401A,0,11-5-2
 <h5 id="MSID34401a-remote-rst"><span class="section-number-5">2.3.6.2.</span> Default Setup</h5>
 <div class="outline-text-5" id="text-MSID34401a-remote-rst">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org2c82219"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="org9e91160"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*RST</span>
@@ -1542,7 +1542,7 @@ For RS-232 remote control, one <b>must</b> run:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgf89e248"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">bench@34401a</span>
+<pre class="src src-mrscpi" id="org6261f4b"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">bench@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:DISPlay:TEXT "Remote" </span><span style="color: #ffa500;"># It's good to display a message when in remote mode so it's easy to notice:</span>
@@ -1554,7 +1554,7 @@ Return to local control by pressing the "shift/local" button on the front panel 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org5b2af20"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">bench@34401a</span>
+<pre class="src src-mrscpi" id="orgf72f33f"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">bench@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:LOCal</span>
 </pre>
@@ -1573,7 +1573,7 @@ For more accuracy, bump <code>:SENSe:VOLTage:DC:NPLCycles</code> up to 100, and 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgbb4b97e"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="orgf5072f5"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote                        </span><span style="color: #ffa500;"># Only required for rs-232, but no harm over GPIB</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*CLS</span>
@@ -1618,7 +1618,7 @@ For AC voltage, we should be carefull about setting the bandwidth.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org36fe1f9"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="orgc4764d8"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote                        </span><span style="color: #ffa500;"># Only required for rs-232, but no harm over GPIB</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*CLS</span>
@@ -1655,7 +1655,7 @@ For AC voltage, we should be carefull about setting the bandwidth.
 <h5 id="MSID34401a-remote-acf"><span class="section-number-5">2.3.6.7.</span> Measure Frequency</h5>
 <div class="outline-text-5" id="text-MSID34401a-remote-acf">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgb2c53c7"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="orgb063d80"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote                          </span><span style="color: #ffa500;"># Only required for rs-232, but no harm over GPIB</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*CLS</span>
@@ -1690,7 +1690,7 @@ For AC voltage, we should be carefull about setting the bandwidth.
 <h5 id="MSID34401a-remote-acp"><span class="section-number-5">2.3.6.8.</span> Measure Period</h5>
 <div class="outline-text-5" id="text-MSID34401a-remote-acp">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org44fc41a"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
+<pre class="src src-mrscpi" id="org18b0775"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@34401a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:REMote                          </span><span style="color: #ffa500;"># Only required for rs-232, but no harm over GPIB</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*CLS</span>
@@ -1829,7 +1829,7 @@ A Prologix Ethernet to GPIB adapter works well with this device.  I have one of 
 <h5 id="MSID53131a-remote-idn"><span class="section-number-5">2.4.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSID53131a-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org8b75f4c"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@53131a</span>
+<pre class="src src-mrscpi" id="org559c319"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@53131a</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*IDN?</span>
 </pre>
 </div>
@@ -1845,7 +1845,7 @@ HEWLETT-PACKARD,53131A,0,3703
 <h5 id="MSID53131a-remote-rst"><span class="section-number-5">2.4.5.2.</span> Default Setup &amp; Measure Frequency</h5>
 <div class="outline-text-5" id="text-MSID53131a-remote-rst">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org8328a67"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@53131a</span>
+<pre class="src src-mrscpi" id="orgf7fe8dd"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@53131a</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*RST                              </span><span style="color: #ffa500;"># Reset the counter</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*CLS                              </span><span style="color: #ffa500;"># Clear event registers and error queue</span>
@@ -2161,7 +2161,7 @@ HEWLETT-PACKARD,53131A,0,3703
 <h5 id="MSIDdmm6500-remote-idn"><span class="section-number-5">2.5.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDdmm6500-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgddb5b6d"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dmm6500</span>
+<pre class="src src-mrscpi" id="orga849db7"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dmm6500</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*idn?</span>
 </pre>
 </div>
@@ -2181,7 +2181,7 @@ For this one, we set NPLC 1o 10 with 100 averages &#x2013; that takes about 17 s
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgc704c39"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dmm6500</span>
+<pre class="src src-mrscpi" id="orgfa88932"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dmm6500</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*RST</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SENS:FUNCtion "VOLT:DC"</span>
@@ -2370,7 +2370,7 @@ For this one, we set NPLC 1o 10 with 100 averages &#x2013; that takes about 17 s
 <h5 id="MSIDdho4204-remote-idn"><span class="section-number-5">2.6.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDdho4204-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org66a39e9"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dho4204</span>
+<pre class="src src-mrscpi" id="org72ce0ce"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dho4204</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*idn?</span>
 </pre>
 </div>
@@ -2391,7 +2391,7 @@ followed by a terminator.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgc22a3c0"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dho4204</span>
+<pre class="src src-mrscpi" id="org4e47400"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dho4204</span>
 <span style="color: #00ffff;">:result_macro_block</span> <span style="color: #8470ff; font-weight: bold;">true</span>
 <span style="color: #ffa500;"># For mrSCPI "scripts", :print_cmd and :print_result are set to true.</span>
 <span style="color: #00ffff;">:print_cmd</span> <span style="color: #8470ff; font-weight: bold;">false</span>
@@ -2401,7 +2401,7 @@ followed by a terminator.
 </div>
 
 
-<div id="orgadd9170" class="figure">
+<div id="orgdcda146" class="figure">
 <p><a href="screenshot-dho4k.png" width="90%" align="center"><img src="screenshot-dho4k.png" alt="screenshot-dho4k.png" width="90%" align="center" /></a>
 </p>
 </div>
@@ -2411,7 +2411,7 @@ followed by a terminator.
 <h5 id="MSIDdho4204-remote-two-sin"><span class="section-number-5">2.6.5.3.</span> Two sinusoidal waveforms</h5>
 <div class="outline-text-5" id="text-MSIDdho4204-remote-two-sin">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org3735d99"><span style="color: #00ffff;">:url</span>  <span style="color: #fa8072;">@dho4204</span>
+<pre class="src src-mrscpi" id="org76f3d2e"><span style="color: #00ffff;">:url</span>  <span style="color: #fa8072;">@dho4204</span>
 <span style="color: #ffa500;"># Setup the measurements</span>
 <span style="color: #00ffff;">:print_cmd</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:verbose</span> <span style="color: #fa8072;">1</span>
@@ -2885,7 +2885,7 @@ Set fps to whatever works for the application (5fps is good for a rotating Loren
 <h5 id="MSIDsds2504xp-remote-idn"><span class="section-number-5">2.7.6.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDsds2504xp-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org8212378"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
+<pre class="src src-mrscpi" id="orgf38ba69"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*idn?</span>
 </pre>
 </div>
@@ -2924,7 +2924,7 @@ Siglent Technologies,SDS2504X Plus,SDS2PCBX4R0395,5.4.0.1.6.2
 <h5 id="MSIDsds2504xp-remote-measure2sin"><span class="section-number-5">2.7.6.3.</span> Two sinusoidal waveforms</h5>
 <div class="outline-text-5" id="text-MSIDsds2504xp-remote-measure2sin">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org554bbef"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
+<pre class="src src-mrscpi" id="org036686d"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
 <span style="color: #ffa500;"># Setup the measurements</span>
 <span style="color: #00ffff;">:print_cmd</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:verbose</span> <span style="color: #fa8072;">1</span>
@@ -2970,7 +2970,7 @@ ON;C4;FREQ;9.99955476E+02
 </div>
 
 
-<div id="org461a44a" class="figure">
+<div id="orgfd7a2e7" class="figure">
 <p><a href="screenshot-sds2k-pha.png" width="90%" align="center"><img src="screenshot-sds2k-pha.png" alt="screenshot-sds2k-pha.png" width="90%" align="center" /></a>
 </p>
 </div>
@@ -2980,7 +2980,7 @@ ON;C4;FREQ;9.99955476E+02
 <h5 id="MSIDsds2504xp-remote-screenshot"><span class="section-number-5">2.7.6.4.</span> Screenshot</h5>
 <div class="outline-text-5" id="text-MSIDsds2504xp-remote-screenshot">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgc1a0c59"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
+<pre class="src src-mrscpi" id="org5b09d62"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@sds2504xp</span>
 <span style="color: #00ffff;">:read_timeout_next_byte</span> <span style="color: #fa8072;">200</span>
 <span style="color: #00ffff;">:read_timeout_first_byte</span> <span style="color: #fa8072;">2000</span>
 <span style="color: #00ffff;">:read_retry_delay</span> <span style="color: #fa8072;">1</span>
@@ -2992,7 +2992,7 @@ ON;C4;FREQ;9.99955476E+02
 </div>
 
 
-<div id="org5fc68a1" class="figure">
+<div id="orgc4da12b" class="figure">
 <p><a href="screenshot-sds2k.png" width="90%" align="center"><img src="screenshot-sds2k.png" alt="screenshot-sds2k.png" width="90%" align="center" /></a>
 </p>
 </div>
@@ -3116,7 +3116,7 @@ ON;C4;FREQ;9.99955476E+02
 <h4 id="MSIDtds2024-idn"><span class="section-number-4">2.8.5.</span> *IDN?</h4>
 <div class="outline-text-4" id="text-MSIDtds2024-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org971aeae"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds2024</span>
+<pre class="src src-mrscpi" id="orgb72108f"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds2024</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*idn?</span>
 </pre>
 </div>
@@ -3327,7 +3327,7 @@ To crop just to waveform part of display: top: 17, bot: 57, left: 19, right: 57
 </div>
 
 
-<div id="orgd0ff733" class="figure">
+<div id="orgbe38ea5" class="figure">
 <p><a href="screencap-tek3k.png" width="90%" align="center"><img src="screencap-tek3k.png" alt="screencap-tek3k.png" width="90%" align="center" /></a>
 </p>
 </div>
@@ -3386,7 +3386,7 @@ The file <code>waveform.txt</code> will contain a preamble that needs to be dele
 <h5 id="MSIDtds3052b-remote-idn"><span class="section-number-5">2.9.8.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDtds3052b-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org3f1976e"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
+<pre class="src src-mrscpi" id="orge949633"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*idn?</span>
 </pre>
 </div>
@@ -3509,7 +3509,7 @@ Given two channels, pull the following measurements:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgca5f5c1"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
+<pre class="src src-mrscpi" id="org1e23049"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
 <span style="color: #00ffff;">:verbose</span> <span style="color: #fa8072;">1</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:MEASUrement:IMMed:SOUrce1 </span><span style="color: #7fffd4;">${chan1}</span>
@@ -3627,7 +3627,7 @@ Given two channels, set the system to measure the following:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org59bdaaa"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
+<pre class="src src-mrscpi" id="org82a0079"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@tds3052b</span>
 <span style="color: #00ffff;">:verbose</span> <span style="color: #fa8072;">1</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:MEASUrement:MEAS1:SOUrce1 </span><span style="color: #7fffd4;">${chan1}</span>
@@ -3670,7 +3670,7 @@ Given two channels, set the system to measure the following:
 </div>
 
 
-<div id="orge2f450c" class="figure">
+<div id="orgf579fea" class="figure">
 <p><a href="screencap-tek3k-sin.png" width="90%" align="center"><img src="screencap-tek3k-sin.png" alt="screencap-tek3k-sin.png" width="90%" align="center" /></a>
 </p>
 </div>
@@ -3744,8 +3744,8 @@ Given two channels, set the system to measure the following:
 </ul>
 </div>
 </div>
-<div id="outline-container-org077c430" class="outline-5">
-<h5 id="org077c430"><span class="section-number-5">2.10.4.2.</span> Remote control notes</h5>
+<div id="outline-container-org3f75ed1" class="outline-5">
+<h5 id="org3f75ed1"><span class="section-number-5">2.10.4.2.</span> Remote control notes</h5>
 <div class="outline-text-5" id="text-2-10-4-2">
 <p>
 When the DG2052 receives a remote SCPI command it will <b>usually</b> switch into "remote mode" (also called "remote programming command mode").  This mode is
@@ -3762,8 +3762,8 @@ occasionally.  The SCPI documentation is both incomplete and inaccurate.
 </p>
 </div>
 </div>
-<div id="outline-container-org943a5f6" class="outline-5">
-<h5 id="org943a5f6"><span class="section-number-5">2.10.4.3.</span> RAF File Format</h5>
+<div id="outline-container-orgb0e6a9e" class="outline-5">
+<h5 id="orgb0e6a9e"><span class="section-number-5">2.10.4.3.</span> RAF File Format</h5>
 <div class="outline-text-5" id="text-2-10-4-3">
 <p>
 The format Rigol uses by arbitrary waveform files is known as "RAF".  This is one of the file types that the UltraStation software package can produce.
@@ -3784,7 +3784,7 @@ negative value and 16383 represents the maximum positive value.  File can have b
 <h5 id="MSIDdg2052-remote-idn"><span class="section-number-5">2.10.5.1.</span> *IDN?</h5>
 <div class="outline-text-5" id="text-MSIDdg2052-remote-idn">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org02d4312"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="orgf8e06e6"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*IDN?</span>
 </pre>
 </div>
@@ -3800,7 +3800,7 @@ Rigol Technologies,DG2052,DG2P242400590,00.02.06.00.01
 <h5 id="MSIDdg2052-remote-rst"><span class="section-number-5">2.10.5.2.</span> Default Setup</h5>
 <div class="outline-text-5" id="text-MSIDdg2052-remote-rst">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org9024e38"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="org07a4348"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">*RST</span>
@@ -3812,7 +3812,7 @@ Rigol Technologies,DG2052,DG2P242400590,00.02.06.00.01
 <h5 id="MSIDdg2052-remote-err"><span class="section-number-5">2.10.5.3.</span> Error Condition Query</h5>
 <div class="outline-text-5" id="text-MSIDdg2052-remote-err">
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org209fe04"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="orgaf305f8"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:SYSTem:ERRor?</span>
 </pre>
 </div>
@@ -3836,7 +3836,7 @@ For example, the following will produce a 2kHz sine wave at 5v peek-peek with a 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org325978d"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="org928cf0c"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #00ffff;">:cmd</span> <span style="color: #00fa9a; font-weight: bold;">:OUTPut1:STATe OFF</span>
@@ -3865,7 +3865,7 @@ If we set channel 1 as above, then the following will get us what we want.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="org02d6f16"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="orgfa36351"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #ffa500;"># Reset the device</span>
@@ -3898,7 +3898,7 @@ One must turn on the sync signal as well set the marker
 </p>
 
 <div class="org-src-container">
-<pre class="src src-mrscpi" id="orgcb0c5f5"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
+<pre class="src src-mrscpi" id="org67e555b"><span style="color: #00ffff;">:url</span> <span style="color: #fa8072;">@dg2052</span>
 <span style="color: #00ffff;">:echo</span> <span style="color: #8470ff; font-weight: bold;">false</span>
 <span style="color: #00ffff;">:result_type</span> <span style="color: #8470ff; font-weight: bold;">nil</span>
 <span style="color: #ffa500;"># First set channel 1 to a sinusoid -- the frequncy &amp; phase are irrelevent, but we want to set the voltage &amp; offset to zero</span>
@@ -3945,8 +3945,8 @@ One must turn on the sync signal as well set the marker
 <h3 id="MSIDbuspirate5"><span class="section-number-3">3.1.</span> Bus Pirate 5</h3>
 <div class="outline-text-3" id="text-MSIDbuspirate5">
 </div>
-<div id="outline-container-orgdc8f0a5" class="outline-4">
-<h4 id="orgdc8f0a5"><span class="section-number-4">3.1.1.</span> Links</h4>
+<div id="outline-container-org4ae8af5" class="outline-4">
+<h4 id="org4ae8af5"><span class="section-number-4">3.1.1.</span> Links</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <ul class="org-ul">
 <li>Product page: <a href="https://buspirate.com/">https://buspirate.com/</a></li>
@@ -3962,8 +3962,8 @@ One must turn on the sync signal as well set the marker
 </ul>
 </div>
 </div>
-<div id="outline-container-org309acde" class="outline-4">
-<h4 id="org309acde"><span class="section-number-4">3.1.2.</span> Serial Settings (tio config)</h4>
+<div id="outline-container-org85714ae" class="outline-4">
+<h4 id="org85714ae"><span class="section-number-4">3.1.2.</span> Serial Settings (tio config)</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <div class="org-src-container">
 <pre class="src src-text">[buspirate5]
@@ -3979,8 +3979,8 @@ map = INLCRNL,ODELBS
 </div>
 </div>
 </div>
-<div id="outline-container-org835c8d1" class="outline-4">
-<h4 id="org835c8d1"><span class="section-number-4">3.1.3.</span> Host Computer Configuration</h4>
+<div id="outline-container-org9c6620b" class="outline-4">
+<h4 id="org9c6620b"><span class="section-number-4">3.1.3.</span> Host Computer Configuration</h4>
 <div class="outline-text-4" id="text-3-1-3">
 <ul class="org-ul">
 <li><a href="#benchcomp-conf-udev-MSIDbuspirate5">udev Configuration</a></li>
@@ -3992,8 +3992,8 @@ map = INLCRNL,ODELBS
 <h3 id="MSIDi2cd"><span class="section-number-3">3.2.</span> I2CDriver I2CD Protocol USB Host Adapter + display</h3>
 <div class="outline-text-3" id="text-MSIDi2cd">
 </div>
-<div id="outline-container-org955d910" class="outline-4">
-<h4 id="org955d910"><span class="section-number-4">3.2.1.</span> Links</h4>
+<div id="outline-container-org3425a92" class="outline-4">
+<h4 id="org3425a92"><span class="section-number-4">3.2.1.</span> Links</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
 <li>Product page: <a href="https://i2cdriver.com/">https://i2cdriver.com/</a></li>
@@ -4001,8 +4001,8 @@ map = INLCRNL,ODELBS
 </ul>
 </div>
 </div>
-<div id="outline-container-org3f6b939" class="outline-4">
-<h4 id="org3f6b939"><span class="section-number-4">3.2.2.</span> Serial Settings (tio config)</h4>
+<div id="outline-container-orgec7447c" class="outline-4">
+<h4 id="orgec7447c"><span class="section-number-4">3.2.2.</span> Serial Settings (tio config)</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <div class="org-src-container">
 <pre class="src src-text">[i2cdriver]
@@ -4019,8 +4019,8 @@ local-echo = true
 </div>
 </div>
 </div>
-<div id="outline-container-org32989ef" class="outline-4">
-<h4 id="org32989ef"><span class="section-number-4">3.2.3.</span> Host Computer Configuration</h4>
+<div id="outline-container-org453c7dd" class="outline-4">
+<h4 id="org453c7dd"><span class="section-number-4">3.2.3.</span> Host Computer Configuration</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <ul class="org-ul">
 <li><a href="#benchcomp-conf-soft-MSIDi2cd">Software Install</a></li>
@@ -4033,8 +4033,8 @@ local-echo = true
 <h3 id="MSIDspid"><span class="section-number-3">3.3.</span> SPIDriver SPI Protocol USB Host Adapter + display</h3>
 <div class="outline-text-3" id="text-MSIDspid">
 </div>
-<div id="outline-container-orge81f288" class="outline-4">
-<h4 id="orge81f288"><span class="section-number-4">3.3.1.</span> Links</h4>
+<div id="outline-container-org0c6cbda" class="outline-4">
+<h4 id="org0c6cbda"><span class="section-number-4">3.3.1.</span> Links</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
 <li>Product page: <a href="https://spidriver.com/">https://spidriver.com/</a></li>
@@ -4042,8 +4042,8 @@ local-echo = true
 </ul>
 </div>
 </div>
-<div id="outline-container-org145eda4" class="outline-4">
-<h4 id="org145eda4"><span class="section-number-4">3.3.2.</span> Serial Settings (tio config)</h4>
+<div id="outline-container-orgd901b14" class="outline-4">
+<h4 id="orgd901b14"><span class="section-number-4">3.3.2.</span> Serial Settings (tio config)</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <div class="org-src-container">
 <pre class="src src-text">[spidriver]
@@ -4059,8 +4059,8 @@ local-echo = true
 </div>
 </div>
 </div>
-<div id="outline-container-org3bcad3b" class="outline-4">
-<h4 id="org3bcad3b"><span class="section-number-4">3.3.3.</span> Host Computer Configuration</h4>
+<div id="outline-container-orge04a6f8" class="outline-4">
+<h4 id="orge04a6f8"><span class="section-number-4">3.3.3.</span> Host Computer Configuration</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <ul class="org-ul">
 <li><a href="#benchcomp-conf-soft-MSIDspid">Software Install</a></li>
@@ -4073,12 +4073,12 @@ local-echo = true
 <h3 id="MSIDdadddd"><span class="section-number-3">3.4.</span> Digilent Analog &amp; Digital Discovery</h3>
 <div class="outline-text-3" id="text-MSIDdadddd">
 </div>
-<div id="outline-container-org9364943" class="outline-4">
-<h4 id="org9364943"><span class="section-number-4">3.4.1.</span> Waveforms Software&#xa0;&#xa0;&#xa0;<span class="tag"><span class="WIP">WIP</span></span></h4>
+<div id="outline-container-org1370978" class="outline-4">
+<h4 id="org1370978"><span class="section-number-4">3.4.1.</span> Waveforms Software&#xa0;&#xa0;&#xa0;<span class="tag"><span class="WIP">WIP</span></span></h4>
 <div class="outline-text-4" id="text-3-4-1">
 </div>
-<div id="outline-container-orga902b59" class="outline-5">
-<h5 id="orga902b59"><span class="section-number-5">3.4.1.1.</span> Links</h5>
+<div id="outline-container-org7b950ee" class="outline-5">
+<h5 id="org7b950ee"><span class="section-number-5">3.4.1.1.</span> Links</h5>
 <div class="outline-text-5" id="text-3-4-1-1">
 <ul class="org-ul">
 <li>Product Page: <a href="https://store.digilentinc.com/digilent-waveforms/">https://store.digilentinc.com/digilent-waveforms/</a></li>
@@ -4086,8 +4086,8 @@ local-echo = true
 </ul>
 </div>
 </div>
-<div id="outline-container-org6d61d7f" class="outline-5">
-<h5 id="org6d61d7f"><span class="section-number-5">3.4.1.2.</span> Screenshot</h5>
+<div id="outline-container-orgfd1480a" class="outline-5">
+<h5 id="orgfd1480a"><span class="section-number-5">3.4.1.2.</span> Screenshot</h5>
 <div class="outline-text-5" id="text-3-4-1-2">
 <p>
 Grab all waveforms windows
@@ -4109,20 +4109,20 @@ Grab a window you click on
 </div>
 </div>
 </div>
-<div id="outline-container-org6fc8ddd" class="outline-4">
-<h4 id="org6fc8ddd"><span class="section-number-4">3.4.2.</span> Analog Discovery 2</h4>
+<div id="outline-container-org3b9e9db" class="outline-4">
+<h4 id="org3b9e9db"><span class="section-number-4">3.4.2.</span> Analog Discovery 2</h4>
 <div class="outline-text-4" id="text-3-4-2">
 </div>
-<div id="outline-container-org5740e9d" class="outline-5">
-<h5 id="org5740e9d"><span class="section-number-5">3.4.2.1.</span> Links</h5>
+<div id="outline-container-orgbd4667e" class="outline-5">
+<h5 id="orgbd4667e"><span class="section-number-5">3.4.2.1.</span> Links</h5>
 <div class="outline-text-5" id="text-3-4-2-1">
 <ul class="org-ul">
 <li>Resources: <a href="https://reference.digilentinc.com/reference/instrumentation/analog-discovery-2/start?redirect=1">https://reference.digilentinc.com/reference/instrumentation/analog-discovery-2/start?redirect=1</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb3d7288" class="outline-5">
-<h5 id="orgb3d7288"><span class="section-number-5">3.4.2.2.</span> Documentation (These links only work on my personal laptop)</h5>
+<div id="outline-container-org0cce3e5" class="outline-5">
+<h5 id="org0cce3e5"><span class="section-number-5">3.4.2.2.</span> Documentation (These links only work on my personal laptop)</h5>
 <div class="outline-text-5" id="text-3-4-2-2">
 <ul>
   <li><a href='zotero://select/items/0_NATV3UTR'>Analog Discovery 2: Calibration</a></li>
@@ -4141,20 +4141,20 @@ Grab a window you click on
 </div>
 </div>
 </div>
-<div id="outline-container-orgcc79481" class="outline-4">
-<h4 id="orgcc79481"><span class="section-number-4">3.4.3.</span> Digital Discovery</h4>
+<div id="outline-container-org750d5aa" class="outline-4">
+<h4 id="org750d5aa"><span class="section-number-4">3.4.3.</span> Digital Discovery</h4>
 <div class="outline-text-4" id="text-3-4-3">
 </div>
-<div id="outline-container-org56cb936" class="outline-5">
-<h5 id="org56cb936"><span class="section-number-5">3.4.3.1.</span> Links</h5>
+<div id="outline-container-org600c2d9" class="outline-5">
+<h5 id="org600c2d9"><span class="section-number-5">3.4.3.1.</span> Links</h5>
 <div class="outline-text-5" id="text-3-4-3-1">
 <ul class="org-ul">
 <li>Resources: <a href="https://reference.digilentinc.com/reference/instrumentation/digital-discovery/start">https://reference.digilentinc.com/reference/instrumentation/digital-discovery/start</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org38b2855" class="outline-5">
-<h5 id="org38b2855"><span class="section-number-5">3.4.3.2.</span> Documentation (These links only work on my personal laptop)</h5>
+<div id="outline-container-org676463a" class="outline-5">
+<h5 id="org676463a"><span class="section-number-5">3.4.3.2.</span> Documentation (These links only work on my personal laptop)</h5>
 <div class="outline-text-5" id="text-3-4-3-2">
 <ul>
   <li><a href='zotero://select/items/0_ETAL67DX'>Digital Discovery: Quick Start</a></li>
@@ -4756,8 +4756,8 @@ Grab a window you click on
 <h3 id="benchcomp-conf"><span class="section-number-3">6.1.</span> Configuration</h3>
 <div class="outline-text-3" id="text-benchcomp-conf">
 </div>
-<div id="outline-container-orgfedd7ec" class="outline-4">
-<h4 id="orgfedd7ec"><span class="section-number-4">6.1.1.</span> Install stuff</h4>
+<div id="outline-container-org551bc8f" class="outline-4">
+<h4 id="org551bc8f"><span class="section-number-4">6.1.1.</span> Install stuff</h4>
 <div class="outline-text-4" id="text-6-1-1">
 <div class="org-src-container">
 <pre class="src src-sh">apt --fix-broken install
@@ -4786,8 +4786,8 @@ sudo apt install                                             <span style="color:
 </div>
 </div>
 </div>
-<div id="outline-container-orga63d52e" class="outline-4">
-<h4 id="orga63d52e"><span class="section-number-4">6.1.2.</span> /usr/local/bin links</h4>
+<div id="outline-container-orgc6f5261" class="outline-4">
+<h4 id="orgc6f5261"><span class="section-number-4">6.1.2.</span> /usr/local/bin links</h4>
 <div class="outline-text-4" id="text-6-1-2">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #00ffff;">for</span> f<span style="color: #00ffff;"> in</span> ruby perl sbcl; <span style="color: #00ffff;">do</span>
@@ -4797,12 +4797,12 @@ sudo apt install                                             <span style="color:
 </div>
 </div>
 </div>
-<div id="outline-container-orga6593b8" class="outline-4">
-<h4 id="orga6593b8"><span class="section-number-4">6.1.3.</span> Acount Setup</h4>
+<div id="outline-container-orgeabb985" class="outline-4">
+<h4 id="orgeabb985"><span class="section-number-4">6.1.3.</span> Acount Setup</h4>
 <div class="outline-text-4" id="text-6-1-3">
 </div>
-<div id="outline-container-orgd09115f" class="outline-5">
-<h5 id="orgd09115f"><span class="section-number-5">6.1.3.1.</span> Create directories</h5>
+<div id="outline-container-org5210821" class="outline-5">
+<h5 id="org5210821"><span class="section-number-5">6.1.3.1.</span> Create directories</h5>
 <div class="outline-text-5" id="text-6-1-3-1">
 <div class="org-src-container">
 <pre class="src src-sh">mkdir -p ~/bin
@@ -4832,8 +4832,8 @@ mkdir -p ~/synced/core/;
 </div>
 </div>
 </div>
-<div id="outline-container-org5302756" class="outline-5">
-<h5 id="org5302756"><span class="section-number-5">6.1.3.2.</span> Create Links</h5>
+<div id="outline-container-orgf346599" class="outline-5">
+<h5 id="orgf346599"><span class="section-number-5">6.1.3.2.</span> Create Links</h5>
 <div class="outline-text-5" id="text-6-1-3-2">
 <div class="org-src-container">
 <pre class="src src-sh">ln -s synced/world world
@@ -4842,8 +4842,8 @@ ln -s synced/core core
 </div>
 </div>
 </div>
-<div id="outline-container-orga90cb02" class="outline-5">
-<h5 id="orga90cb02"><span class="section-number-5">6.1.3.3.</span> Change my shell</h5>
+<div id="outline-container-org7993178" class="outline-5">
+<h5 id="org7993178"><span class="section-number-5">6.1.3.3.</span> Change my shell</h5>
 <div class="outline-text-5" id="text-6-1-3-3">
 <div class="org-src-container">
 <pre class="src src-sh">sudo usermod -s /usr/bin/zsh richmit
@@ -4851,8 +4851,8 @@ ln -s synced/core core
 </div>
 </div>
 </div>
-<div id="outline-container-org156c4c0" class="outline-5">
-<h5 id="org156c4c0"><span class="section-number-5">6.1.3.4.</span> Setup up dot files</h5>
+<div id="outline-container-org00efbc8" class="outline-5">
+<h5 id="org00efbc8"><span class="section-number-5">6.1.3.4.</span> Setup up dot files</h5>
 <div class="outline-text-5" id="text-6-1-3-4">
 <p>
 Sync home directory data to the system first!  See 
@@ -4894,8 +4894,8 @@ date
 </div>
 </div>
 </div>
-<div id="outline-container-org0ba6ed9" class="outline-4">
-<h4 id="org0ba6ed9"><span class="section-number-4">6.1.5.</span> Display</h4>
+<div id="outline-container-org4ac5884" class="outline-4">
+<h4 id="org4ac5884"><span class="section-number-4">6.1.5.</span> Display</h4>
 <div class="outline-text-4" id="text-6-1-5">
 <p>
 We want screen blanking, but it can get confused if the display is blanked and then switches to another input.  Add the following to
@@ -4917,8 +4917,8 @@ hdmi_force_hotplug:0=1
 </div>
 </div>
 </div>
-<div id="outline-container-orgcc9431e" class="outline-4">
-<h4 id="orgcc9431e"><span class="section-number-4">6.1.6.</span> Waveforms</h4>
+<div id="outline-container-org22ef998" class="outline-4">
+<h4 id="org22ef998"><span class="section-number-4">6.1.6.</span> Waveforms</h4>
 <div class="outline-text-4" id="text-6-1-6">
 <div class="org-src-container">
 <pre class="src src-sh">sudo dpkg -i ~/synced/rpi-software/digilent-2025-01/digilent.adept.runtime_2.27.9-arm64.deb
@@ -4927,8 +4927,8 @@ sudo dpkg -i ~/synced/rpi-software/digilent-2025-01/digilent.waveforms_3.24.4_ar
 </div>
 </div>
 </div>
-<div id="outline-container-orga1cd202" class="outline-4">
-<h4 id="orga1cd202"><span class="section-number-4">6.1.7.</span> Serial'ish Hardware Setup</h4>
+<div id="outline-container-org142841e" class="outline-4">
+<h4 id="org142841e"><span class="section-number-4">6.1.7.</span> Serial'ish Hardware Setup</h4>
 <div class="outline-text-4" id="text-6-1-7">
 </div>
 <div id="outline-container-benchcomp-conf-udev-MSIDbuspirate5" class="outline-5">
@@ -4961,8 +4961,8 @@ sudo chmod a+r /etc/udev/rules.d/99-i2cdriver.rules
 </div>
 </div>
 </div>
-<div id="outline-container-org8eabb2b" class="outline-5">
-<h5 id="org8eabb2b"><span class="section-number-5">6.1.7.4.</span> HUP udev</h5>
+<div id="outline-container-orgfd506c9" class="outline-5">
+<h5 id="orgfd506c9"><span class="section-number-5">6.1.7.4.</span> HUP udev</h5>
 <div class="outline-text-5" id="text-6-1-7-4">
 <div class="org-src-container">
 <pre class="src src-sh">sudo udevadm control --reload-rules
@@ -4976,8 +4976,8 @@ sudo udevadm trigger
 <h4 id="benchcomp-conf-soft-MSIDspid"><span class="section-number-4">6.1.8.</span> SPI Driver Software</h4>
 <div class="outline-text-4" id="text-benchcomp-conf-soft-MSIDspid">
 </div>
-<div id="outline-container-org976cc38" class="outline-5">
-<h5 id="org976cc38"><span class="section-number-5">6.1.8.1.</span> Download Compile</h5>
+<div id="outline-container-org9cc4051" class="outline-5">
+<h5 id="org9cc4051"><span class="section-number-5">6.1.8.1.</span> Download Compile</h5>
 <div class="outline-text-5" id="text-6-1-8-1">
 <p>
 I install this stuff in the root of my home directory on the bench-pi.
@@ -4993,8 +4993,8 @@ gcc -o spicl -I c/common c/linux/spi.c c/common/spidriver.c
 </div>
 </div>
 </div>
-<div id="outline-container-orgabf693f" class="outline-5">
-<h5 id="orgabf693f"><span class="section-number-5">6.1.8.2.</span> Test</h5>
+<div id="outline-container-org9c20c9a" class="outline-5">
+<h5 id="org9c20c9a"><span class="section-number-5">6.1.8.2.</span> Test</h5>
 <div class="outline-text-5" id="text-6-1-8-2">
 <div class="org-src-container">
 <pre class="src src-sh">./spicl /dev/spidriver i
@@ -5008,8 +5008,8 @@ gcc -o spicl -I c/common c/linux/spi.c c/common/spidriver.c
 <h4 id="benchcomp-conf-soft-MSIDi2cd"><span class="section-number-4">6.1.9.</span> I2CDriver Software</h4>
 <div class="outline-text-4" id="text-benchcomp-conf-soft-MSIDi2cd">
 </div>
-<div id="outline-container-orgd40ed4c" class="outline-5">
-<h5 id="orgd40ed4c"><span class="section-number-5">6.1.9.1.</span> Download &amp; Compile</h5>
+<div id="outline-container-org0aa91f2" class="outline-5">
+<h5 id="org0aa91f2"><span class="section-number-5">6.1.9.1.</span> Download &amp; Compile</h5>
 <div class="outline-text-5" id="text-6-1-9-1">
 <p>
 I install this stuff in the root of my home directory on the bench-pi.
@@ -5025,8 +5025,8 @@ gcc -o i2ccl -I c/common c/linux/i2c.c c/common/i2cdriver.c
 </div>
 </div>
 </div>
-<div id="outline-container-org4020c29" class="outline-5">
-<h5 id="org4020c29"><span class="section-number-5">6.1.9.2.</span> Test</h5>
+<div id="outline-container-orga42613b" class="outline-5">
+<h5 id="orga42613b"><span class="section-number-5">6.1.9.2.</span> Test</h5>
 <div class="outline-text-5" id="text-6-1-9-2">
 <div class="org-src-container">
 <pre class="src src-sh">./i2ccl /dev/i2cdriver i
@@ -5040,8 +5040,8 @@ gcc -o i2ccl -I c/common c/linux/i2c.c c/common/i2cdriver.c
 <h3 id="benchcomp-access"><span class="section-number-3">6.2.</span> Access To Bench From Off Bench</h3>
 <div class="outline-text-3" id="text-benchcomp-access">
 </div>
-<div id="outline-container-orgb9cedd4" class="outline-4">
-<h4 id="orgb9cedd4"><span class="section-number-4">6.2.1.</span> SSH</h4>
+<div id="outline-container-org8c15dfe" class="outline-4">
+<h4 id="org8c15dfe"><span class="section-number-4">6.2.1.</span> SSH</h4>
 <div class="outline-text-4" id="text-6-2-1">
 <div class="org-src-container">
 <pre class="src src-sh">ssh bench-pi.home.mitchr.me
@@ -5049,8 +5049,8 @@ gcc -o i2ccl -I c/common c/linux/i2c.c c/common/i2cdriver.c
 </div>
 </div>
 </div>
-<div id="outline-container-org2a2a9ff" class="outline-4">
-<h4 id="org2a2a9ff"><span class="section-number-4">6.2.2.</span> SSH forwards</h4>
+<div id="outline-container-org2542d22" class="outline-4">
+<h4 id="org2542d22"><span class="section-number-4">6.2.2.</span> SSH forwards</h4>
 <div class="outline-text-4" id="text-6-2-2">
 <p>
 For systems on networks unable to access the bench network, I use SSH tunnels via <code>bench-pi</code> to connect to the instruments directly.  I prefer to create these
@@ -5092,8 +5092,8 @@ We use 5900 on local side for the oscope-sig VNC forward because the scope's bui
 </div>
 </div>
 </div>
-<div id="outline-container-org84dba41" class="outline-3">
-<h3 id="org84dba41"><span class="section-number-3">6.3.</span> Using <code>teAlias.rb</code> For Access Information</h3>
+<div id="outline-container-orge885315" class="outline-3">
+<h3 id="orge885315"><span class="section-number-3">6.3.</span> Using <code>teAlias.rb</code> For Access Information</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 teAlias.rb provides a way to keep track of instrument IP addresses and access methods.
@@ -5115,8 +5115,8 @@ Fire up chromium and connect to my Tektronix TDS3052B.
 </div>
 </div>
 </div>
-<div id="outline-container-orgde73df2" class="outline-3">
-<h3 id="orgde73df2"><span class="section-number-3">6.4.</span> mrSCPIrc file</h3>
+<div id="outline-container-org83b9380" class="outline-3">
+<h3 id="org83b9380"><span class="section-number-3">6.4.</span> mrSCPIrc file</h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
 The "<code>nickname</code>" section of my <code>mrSCPIrc</code> configuration provides information that lets <a href="https://richmit.github.io/mrSCPI/"><code>mrSCPI</code></a> find test equipment using short aliases.  I generate this part
@@ -5151,13 +5151,13 @@ nickname tds3052bw            tek3kw       =&gt; bench@http://oscope-tek.home.mi
 </div>
 </div>
 </div>
-<div id="outline-container-org47e2ec3" class="outline-2">
-<h2 id="org47e2ec3"><span class="section-number-2">7.</span> Document Meta Data</h2>
+<div id="outline-container-orge690f4d" class="outline-2">
+<h2 id="orge690f4d"><span class="section-number-2">7.</span> Document Meta Data</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
-<li>The master location for org-mode source code for this document:</li>
-<li>The master location for the HTML rendered from org-mode source for this document:</li>
-<li>Repository with all code and data for this document:</li>
+<li>The master location for org-mode source code for this document: <a href="https://github.com/richmit/TestEquipmentNotes/blob/main/index.org">https://github.com/richmit/TestEquipmentNotes/blob/main/index.org</a></li>
+<li>The master location for the HTML rendered from org-mode source for this document: <a href="https://richmit.github.io/TestEquipmentNotes/">https://richmit.github.io/TestEquipmentNotes/</a></li>
+<li>Repository with all code and data for this document: <a href="https://github.com/richmit/TestEquipmentNotes">https://github.com/richmit/TestEquipmentNotes</a></li>
 </ul>
 </div>
 </div>
@@ -5168,7 +5168,7 @@ nickname tds3052bw            tek3kw       =&gt; bench@http://oscope-tek.home.mi
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents-1" role="doc-toc">
 <ul>
-<li><a href="#org40ebcd7">1. Table of Contents</a></li>
+<li><a href="#orgf51282c">1. Table of Contents</a></li>
 <li><a href="#scpi-inst">2. SCPI Connected Instruments</a>
 <ul>
 <li><a href="#MSIDhmc8043">2.1. Rohde &amp; Schwarz HMC8043 Power Supply</a>
@@ -5372,8 +5372,8 @@ nickname tds3052bw            tek3kw       =&gt; bench@http://oscope-tek.home.mi
 <li><a href="#MSIDdg2052-notes">2.10.4. Notes</a>
 <ul>
 <li><a href="#MSIDdg2052-notes-perf">2.10.4.1. Performance &amp; Operational Facts</a></li>
-<li><a href="#org077c430">2.10.4.2. Remote control notes</a></li>
-<li><a href="#org943a5f6">2.10.4.3. RAF File Format</a></li>
+<li><a href="#org3f75ed1">2.10.4.2. Remote control notes</a></li>
+<li><a href="#orgb0e6a9e">2.10.4.3. RAF File Format</a></li>
 </ul>
 </li>
 <li><a href="#MSIDdg2052-remote">2.10.5. Remote Control</a>
@@ -5394,43 +5394,43 @@ nickname tds3052bw            tek3kw       =&gt; bench@http://oscope-tek.home.mi
 <ul>
 <li><a href="#MSIDbuspirate5">3.1. Bus Pirate 5</a>
 <ul>
-<li><a href="#orgdc8f0a5">3.1.1. Links</a></li>
-<li><a href="#org309acde">3.1.2. Serial Settings (tio config)</a></li>
-<li><a href="#org835c8d1">3.1.3. Host Computer Configuration</a></li>
+<li><a href="#org4ae8af5">3.1.1. Links</a></li>
+<li><a href="#org85714ae">3.1.2. Serial Settings (tio config)</a></li>
+<li><a href="#org9c6620b">3.1.3. Host Computer Configuration</a></li>
 </ul>
 </li>
 <li><a href="#MSIDi2cd">3.2. I2CDriver I2CD Protocol USB Host Adapter + display</a>
 <ul>
-<li><a href="#org955d910">3.2.1. Links</a></li>
-<li><a href="#org3f6b939">3.2.2. Serial Settings (tio config)</a></li>
-<li><a href="#org32989ef">3.2.3. Host Computer Configuration</a></li>
+<li><a href="#org3425a92">3.2.1. Links</a></li>
+<li><a href="#orgec7447c">3.2.2. Serial Settings (tio config)</a></li>
+<li><a href="#org453c7dd">3.2.3. Host Computer Configuration</a></li>
 </ul>
 </li>
 <li><a href="#MSIDspid">3.3. SPIDriver SPI Protocol USB Host Adapter + display</a>
 <ul>
-<li><a href="#orge81f288">3.3.1. Links</a></li>
-<li><a href="#org145eda4">3.3.2. Serial Settings (tio config)</a></li>
-<li><a href="#org3bcad3b">3.3.3. Host Computer Configuration</a></li>
+<li><a href="#org0c6cbda">3.3.1. Links</a></li>
+<li><a href="#orgd901b14">3.3.2. Serial Settings (tio config)</a></li>
+<li><a href="#orge04a6f8">3.3.3. Host Computer Configuration</a></li>
 </ul>
 </li>
 <li><a href="#MSIDdadddd">3.4. Digilent Analog &amp; Digital Discovery</a>
 <ul>
-<li><a href="#org9364943">3.4.1. Waveforms Software&#xa0;&#xa0;&#xa0;<span class="tag"><span class="WIP">WIP</span></span></a>
+<li><a href="#org1370978">3.4.1. Waveforms Software&#xa0;&#xa0;&#xa0;<span class="tag"><span class="WIP">WIP</span></span></a>
 <ul>
-<li><a href="#orga902b59">3.4.1.1. Links</a></li>
-<li><a href="#org6d61d7f">3.4.1.2. Screenshot</a></li>
+<li><a href="#org7b950ee">3.4.1.1. Links</a></li>
+<li><a href="#orgfd1480a">3.4.1.2. Screenshot</a></li>
 </ul>
 </li>
-<li><a href="#org6fc8ddd">3.4.2. Analog Discovery 2</a>
+<li><a href="#org3b9e9db">3.4.2. Analog Discovery 2</a>
 <ul>
-<li><a href="#org5740e9d">3.4.2.1. Links</a></li>
-<li><a href="#orgb3d7288">3.4.2.2. Documentation (These links only work on my personal laptop)</a></li>
+<li><a href="#orgbd4667e">3.4.2.1. Links</a></li>
+<li><a href="#org0cce3e5">3.4.2.2. Documentation (These links only work on my personal laptop)</a></li>
 </ul>
 </li>
-<li><a href="#orgcc79481">3.4.3. Digital Discovery</a>
+<li><a href="#org750d5aa">3.4.3. Digital Discovery</a>
 <ul>
-<li><a href="#org56cb936">3.4.3.1. Links</a></li>
-<li><a href="#org38b2855">3.4.3.2. Documentation (These links only work on my personal laptop)</a></li>
+<li><a href="#org600c2d9">3.4.3.1. Links</a></li>
+<li><a href="#org676463a">3.4.3.2. Documentation (These links only work on my personal laptop)</a></li>
 </ul>
 </li>
 </ul>
@@ -5530,52 +5530,52 @@ nickname tds3052bw            tek3kw       =&gt; bench@http://oscope-tek.home.mi
 <ul>
 <li><a href="#benchcomp-conf">6.1. Configuration</a>
 <ul>
-<li><a href="#orgfedd7ec">6.1.1. Install stuff</a></li>
-<li><a href="#orga63d52e">6.1.2. /usr/local/bin links</a></li>
-<li><a href="#orga6593b8">6.1.3. Acount Setup</a>
+<li><a href="#org551bc8f">6.1.1. Install stuff</a></li>
+<li><a href="#orgc6f5261">6.1.2. /usr/local/bin links</a></li>
+<li><a href="#orgeabb985">6.1.3. Acount Setup</a>
 <ul>
-<li><a href="#orgd09115f">6.1.3.1. Create directories</a></li>
-<li><a href="#org5302756">6.1.3.2. Create Links</a></li>
-<li><a href="#orga90cb02">6.1.3.3. Change my shell</a></li>
-<li><a href="#org156c4c0">6.1.3.4. Setup up dot files</a></li>
+<li><a href="#org5210821">6.1.3.1. Create directories</a></li>
+<li><a href="#orgf346599">6.1.3.2. Create Links</a></li>
+<li><a href="#org7993178">6.1.3.3. Change my shell</a></li>
+<li><a href="#org00efbc8">6.1.3.4. Setup up dot files</a></li>
 </ul>
 </li>
 <li><a href="#benchcomp-datasync">6.1.4. Bench Data Sync From Off Bench</a></li>
-<li><a href="#org0ba6ed9">6.1.5. Display</a></li>
-<li><a href="#orgcc9431e">6.1.6. Waveforms</a></li>
-<li><a href="#orga1cd202">6.1.7. Serial'ish Hardware Setup</a>
+<li><a href="#org4ac5884">6.1.5. Display</a></li>
+<li><a href="#org22ef998">6.1.6. Waveforms</a></li>
+<li><a href="#org142841e">6.1.7. Serial'ish Hardware Setup</a>
 <ul>
 <li><a href="#benchcomp-conf-udev-MSIDbuspirate5">6.1.7.1. buspirate5</a></li>
 <li><a href="#benchcomp-conf-udev-MSIDspid">6.1.7.2. SPI Driver</a></li>
 <li><a href="#benchcomp-conf-udev-MSIDi2cd">6.1.7.3. I2C Driver</a></li>
-<li><a href="#org8eabb2b">6.1.7.4. HUP udev</a></li>
+<li><a href="#orgfd506c9">6.1.7.4. HUP udev</a></li>
 </ul>
 </li>
 <li><a href="#benchcomp-conf-soft-MSIDspid">6.1.8. SPI Driver Software</a>
 <ul>
-<li><a href="#org976cc38">6.1.8.1. Download Compile</a></li>
-<li><a href="#orgabf693f">6.1.8.2. Test</a></li>
+<li><a href="#org9cc4051">6.1.8.1. Download Compile</a></li>
+<li><a href="#org9c20c9a">6.1.8.2. Test</a></li>
 </ul>
 </li>
 <li><a href="#benchcomp-conf-soft-MSIDi2cd">6.1.9. I2CDriver Software</a>
 <ul>
-<li><a href="#orgd40ed4c">6.1.9.1. Download &amp; Compile</a></li>
-<li><a href="#org4020c29">6.1.9.2. Test</a></li>
+<li><a href="#org0aa91f2">6.1.9.1. Download &amp; Compile</a></li>
+<li><a href="#orga42613b">6.1.9.2. Test</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#benchcomp-access">6.2. Access To Bench From Off Bench</a>
 <ul>
-<li><a href="#orgb9cedd4">6.2.1. SSH</a></li>
-<li><a href="#org2a2a9ff">6.2.2. SSH forwards</a></li>
+<li><a href="#org8c15dfe">6.2.1. SSH</a></li>
+<li><a href="#org2542d22">6.2.2. SSH forwards</a></li>
 </ul>
 </li>
-<li><a href="#org84dba41">6.3. Using <code>teAlias.rb</code> For Access Information</a></li>
-<li><a href="#orgde73df2">6.4. mrSCPIrc file</a></li>
+<li><a href="#orge885315">6.3. Using <code>teAlias.rb</code> For Access Information</a></li>
+<li><a href="#org83b9380">6.4. mrSCPIrc file</a></li>
 </ul>
 </li>
-<li><a href="#org47e2ec3">7. Document Meta Data</a></li>
+<li><a href="#orge690f4d">7. Document Meta Data</a></li>
 <li><a href="#DTOC">8. Detailed TOC</a></li>
 </ul>
 </div>

@@ -3,3 +3,9 @@
 * Test Equipment Notes
 
 Here you will find a collection of notes for the test equipment on [[https://www.mitchr.me/SS/eeBench/index.html][my electronics workbench]].
+
+If you came here looking for [[https://richmit.github.io/mrSCPI/][mrSCPI]] examples, then:
+ - A raw =org-mode= file with lots of [[https://richmit.github.io/mrSCPI/][mrSCPI]] blocks: 
+   https://github.com/richmit/TestEquipmentNotes/blob/main/index.org
+ - An HTML rendering of the above =org-mode= document: 
+   https://richmit.github.io/TestEquipmentNotes/
