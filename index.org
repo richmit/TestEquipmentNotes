@@ -379,16 +379,16 @@ Check the values above to make sure the settings are correct, and then activate 
 :url @hmc8043
 :result_type nil
 :delay_after_complete 50
-:cmd OUTPut:MASTer:STATe ON
+:cmd :OUTPut:MASTer:STATe ON
 :result_type string
 :delay_after_complete 10
-:cmd OUTPut:MASTer:STATe?
+:cmd :OUTPut:MASTer:STATe?
 #+end_src
 
 #+RESULTS: btn-hmc8043-master-on
 #+begin_src text :eval never :tangle no
->>OUTPut:MASTer:STATe ON>>
->>OUTPut:MASTer:STATe?>>
+>>":OUTPut:MASTer:STATe ON\n">>
+>>":OUTPut:MASTer:STATe?\n">>
 1
 #+end_src
 
@@ -593,12 +593,10 @@ Agilent Technologies,33210A,MY48001014,1.04-1.02-22-2
 :url @33210a
 :echo false
 :result_type nil
-:cmd APPLy:SINusoid 5 KHZ, 3.0 VPP, -1.0V
+:cmd :APPLy:SINusoid 5 KHZ, 3.0 VPP, -1.0V
 #+END_SRC
 
 #+RESULTS:
-#+begin_src text :eval never :tangle no
-#+end_src
 
 **** ARB
 :PROPERTIES:
@@ -612,22 +610,20 @@ We use the command =DATA= for floating point values in the range [-1.0, 1.0].
 :echo false
 :result_type nil
 # Turn off the output
-:cmd OUTPut OFF
+:cmd :OUTPut OFF
 # upload 4 floating point values for the waveform to VOLATILE memory
-:cmd DATA VOLATILE,-1.0,1.0,0.0
+:cmd :DATA VOLATILE,-1.0,1.0,0.0
 # Select the waveform in VOLATILE memory
-:cmd FUNCtion:USER VOLATILE
+:cmd :FUNCtion:USER VOLATILE
 # Set waveform properties
-:cmd FREQuency 5 kHz
-:cmd VOLTage 3.0 VPP
-:cmd VOLTage:OFFS 0
+:cmd :FREQuency 5 kHz
+:cmd :VOLTage 3.0 VPP
+:cmd :VOLTage:OFFS 0
 # Turn on the output
-:cmd OUTPut ON
+:cmd :OUTPut ON
 #+END_SRC
 
 #+RESULTS:
-#+begin_src text :eval never :tangle no
-#+end_src
 
 We use the command =DATA:DAC= for integer values in the range [-8191, 8191].
 
@@ -635,37 +631,37 @@ We use the command =DATA:DAC= for integer values in the range [-8191, 8191].
 :url @33210a
 :result_type nil
 # Turn off the output
-:cmd OUTPut OFF
+:cmd :OUTPut OFF
 # upload 4 (up to 8k supported) integer values for the waveform
-:cmd DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191
+:cmd :DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191
 # Move the VOLATILE waveform into non-VOLATILE storage.  The system can store 4 non-VOLATILE waveforms.  Names for waveforms may be up to 12 characters.
-:cmd DATA:COPY AN_ARB_NAME
+:cmd :DATA:COPY AN_ARB_NAME
 :result_type :string
 # List non-VOLATILE waveforms stored.
-:cmd DATA:NVOLatile:CATalog?
+:cmd :DATA:NVOLatile:CATalog?
 :result_type nil
 # Select the waveform we just saved
-:cmd FUNCtion:USER AN_ARB_NAME
+:cmd :FUNCtion:USER AN_ARB_NAME
 # Set waveform properties
-:cmd FREQuency 5 kHz
-:cmd VOLTage 3.0 VPP
-:cmd VOLTage:OFFS 0
+:cmd :FREQuency 5 kHz
+:cmd :VOLTage 3.0 VPP
+:cmd :VOLTage:OFFS 0
 # Turn on the output
-:cmd OUTPut ON
+:cmd :OUTPut ON
 #+END_SRC
 
 #+RESULTS:
 #+begin_src text :eval never :tangle no
->>OUTPut OFF>>
->>DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191>>
->>DATA:COPY AN_ARB_NAME>>
->>DATA:NVOLatile:CATalog?>>
+>>":OUTPut OFF\n">>
+>>":DATA:DAC VOLATILE,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,-8191,8191\n">>
+>>":DATA:COPY AN_ARB_NAME\n">>
+>>":DATA:NVOLatile:CATalog?\n">>
 "AN_ARB_NAME"
->>FUNCtion:USER AN_ARB_NAME>>
->>FREQuency 5 kHz>>
->>VOLTage 3.0 VPP>>
->>VOLTage:OFFS 0>>
->>OUTPut ON>>
+>>":FUNCtion:USER AN_ARB_NAME\n">>
+>>":FREQuency 5 kHz\n">>
+>>":VOLTage 3.0 VPP\n">>
+>>":VOLTage:OFFS 0\n">>
+>>":OUTPut ON\n">>
 #+end_src
 
 ** Keysight 34401A Bench Digital Multimeter
@@ -1053,22 +1049,22 @@ For more accuracy, bump =:SENSe:VOLTage:DC:NPLCycles= up to 100, and the =:delay
 :read_timeout_next_byte 20
 :cmd :READ?
 :result_type nil
-:cmd SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
+:cmd :SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
 #+end_src
 
 #+RESULTS: btn-34401a-dcV-hia
 #+begin_src text :eval never :tangle no
->>:SYSTem:REMote>>
->>*CLS>>
->>:SENSe:FUNCtion "VOLTage:DC">>
->>:SENSe:VOLTage:DC:RANGe:AUTO ON>>
->>:INPut:IMPedance:AUTO ON>>
->>:SENSe:VOLTage:DC:RESolution MAXimum>>
->>:SENSe:ZERO:AUTO ON>>
->>:SENSe:VOLTage:DC:NPLCycles 10>>
->>:READ?>>
-+1.00103070E+00
->>SYSTem:LOCal>>
+>>":SYSTem:REMote\n">>
+>>"*CLS\n">>
+>>":SENSe:FUNCtion \"VOLTage:DC\"\n">>
+>>":SENSe:VOLTage:DC:RANGe:AUTO ON\n">>
+>>":INPut:IMPedance:AUTO ON\n">>
+>>":SENSe:VOLTage:DC:RESolution MAXimum\n">>
+>>":SENSe:ZERO:AUTO ON\n">>
+>>":SENSe:VOLTage:DC:NPLCycles 10\n">>
+>>":READ?\n">>
+-2.87309150E-02
+>>":SYSTem:LOCal\n">>
 #+end_src
 
 **** Measure AC Voltage
@@ -1095,20 +1091,20 @@ For AC voltage, we should be carefull about setting the bandwidth.
 :read_timeout_next_byte 20
 :cmd :READ?
 :result_type nil
-:cmd SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
+:cmd :SYSTem:LOCal                          # Only required for rs-232, but no harm over GPIB
 #+end_src
 
 #+RESULTS: btn-34401a-acV-hia
 #+begin_src text :eval never :tangle no
->>:SYSTem:REMote>>
->>*CLS>>
->>:SENSe:FUNCtion "VOLTage:AC">>
->>:SENSe:VOLTage:AC:RANGe:AUTO ON>>
->>:SENSe:DETector:BANDwidth 200>>
->>:SENSe:VOLTage:AC:RESolution MAXimum>>
->>:READ?>>
-+3.52256990E-01
->>SYSTem:LOCal>>
+>>":SYSTem:REMote\n">>
+>>"*CLS\n">>
+>>":SENSe:FUNCtion \"VOLTage:AC\"\n">>
+>>":SENSe:VOLTage:AC:RANGe:AUTO ON\n">>
+>>":SENSe:DETector:BANDwidth 200\n">>
+>>":SENSe:VOLTage:AC:RESolution MAXimum\n">>
+>>":READ?\n">>
++1.15295240E-02
+>>":SYSTem:LOCal\n">>
 #+end_src
 
 **** Measure Frequency
@@ -1132,19 +1128,19 @@ For AC voltage, we should be carefull about setting the bandwidth.
 :read_timeout_next_byte 20
 :cmd :READ?
 :result_type nil
-:cmd SYSTem:LOCal                            # Only required for rs-232, but no harm over GPIB
+:cmd :SYSTem:LOCal                           # Only required for rs-232, but no harm over GPIB
 #+end_src
 
 #+RESULTS: btn-34401a-acF-hia
 #+begin_src text :eval never :tangle no
->>:SYSTem:REMote>>
->>*CLS>>
->>:SENSe:FUNCtion "FREQuency">>
->>:SENSe:FREQuency:APERture 1>>
->>:SENSe:FREQuency:VOLTage:RANGe:AUTO ON>>
->>:READ?>>
-+1.99999870E+02
->>SYSTem:LOCal>>
+>>":SYSTem:REMote\n">>
+>>"*CLS\n">>
+>>":SENSe:FUNCtion \"FREQuency\"\n">>
+>>":SENSe:FREQuency:APERture 1\n">>
+>>":SENSe:FREQuency:VOLTage:RANGe:AUTO ON\n">>
+>>":READ?\n">>
++2.15933960E+02
+>>":SYSTem:LOCal\n">>
 #+end_src
 
 **** Measure Period
@@ -1168,7 +1164,7 @@ For AC voltage, we should be carefull about setting the bandwidth.
 :read_timeout_next_byte 20
 :cmd :READ?
 :result_type nil
-:cmd SYSTem:LOCal                            # Only required for rs-232, but no harm over GPIB
+:cmd :SYSTem:LOCal                            # Only required for rs-232, but no harm over GPIB
 #+end_src
 
 #+RESULTS: btn-34401a-acP-hia
@@ -1917,7 +1913,7 @@ Siglent Technologies,SDS2504X Plus,SDS2PCBX4R0395,5.4.0.1.6.2
 :echo false
 :result_type nil
 # Turn off output:
-:cmd C1:OUTPut OFF
+:cmd :C1:OUTPut OFF
 # Set waveform type (SINE, SQUARE, RAMP, PULSE, NOISE, ARB, DC, PRBS, IQ)
 :cmd :C1:BaSic_WaVe WVTP,SQUARE
 # Set frequency
@@ -1927,7 +1923,7 @@ Siglent Technologies,SDS2504X Plus,SDS2PCBX4R0395,5.4.0.1.6.2
 # Set offset
 :cmd :C1:BaSic_WaVe OFST,0.2
 # Turn on output:
-:cmd C1:OUTPut ON
+:cmd :C1:OUTPut ON
 #+end_src
 
 #+RESULTS:
@@ -2304,13 +2300,13 @@ Possible channels: CH1, CH2, REFA, REFB, MATH
 :url @3052
 :echo false
 :result_type nil
-:cmd DATa:SOUrce ${chan}; DATa:ENCdg ASCII; DATa:WIDth 2; DATa:STARt 1; DATa:STOP 10000
+:cmd :DATa:SOUrce ${chan}; :DATa:ENCdg ASCII; :DATa:WIDth 2; :DATa:STARt 1; :DATa:STOP 10000
 :result_type :string
 :print_raw_result true
 :out_file waveform.pre
-:cmd WFMPRe?
+:cmd :WFMPRe?
 :out_file waveform.dat
-:cmd CURVe?
+:cmd :CURVe?
 #+end_src
 
 Plot it like so:
@@ -2340,13 +2336,13 @@ If we do it over serial or GPIB, then we can use binary and group commands with 
 :url @tds3052bs
 :echo false
 :result_type nil
-:cmd DATa:SOUrce ${chan}; DATa:ENCdg RIBinary; DATa:WIDth 2; DATa:STARt 1; DATa:STOP 10000
+:cmd :DATa:SOUrce ${chan}; :DATa:ENCdg RIBinary; :DATa:WIDth 2; :DATa:STARt 1; :DATa:STOP 10000
 :result_type :string
 :print_raw_result true
 :out_file waveform.pre
-:cmd WFMPRe?
+:cmd :WFMPRe?
 :out_file waveform.dat
-:cmd CURVe?
+:cmd :CURVe?
 #+end_src
 
 **** Programatically Measure two sinusoidal waveforms
