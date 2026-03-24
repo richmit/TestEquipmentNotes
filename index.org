@@ -268,6 +268,10 @@ TEQD-cname2ip
   <li><a href='zotero://select/items/0_D7EEVLYM'>HMC8043 Power Supply: User Manual version 5</a></li>
   <li><a href='zotero://select/items/0_QAVPMB45'>HMC8043 Power Supply: Programmers Manual version 2</a></li>
   <li><a href='zotero://select/items/0_4LKBERGC'>HMC8043 Power Supply: User Manual version 4</a></li>
+  <li><a href='zotero://select/items/0_N4MCR6NZ'>HMC8043 Power Supply: WAGO MULTI CONNECTION SYSTEM MINI HD</a></li>
+  <li><a href='zotero://select/items/0_XSM7QSJC'>HMC8043 Power Supply: WAGO 713-1108 With Lock And Strain Relief Plate</a></li>
+  <li><a href='zotero://select/items/0_EP38WEQB'>HMC8043 Power Supply: WAGO 713-1108 With Lock</a></li>
+  <li><a href='zotero://select/items/0_RZJ9QRWF'>HMC8043 Power Supply: WAGO 713-1108 Without Lock</a></li>
 </ul>
 #+END_EXPORT
 
@@ -293,7 +297,7 @@ TEQD-cname2ip
 [[file:MSIDhmc8043-BP.png][file:MSIDhmc8043-BP.png]]
 
  - Bottom (Right To Left)
-   - 2x8 Rectangular Connector -- Wago 713-1108 (non-latching) or 713-1108/037-000 (latching)
+   - 2x8 Rectangular Connector -- Wago 713-1108 (non-latching), 713-1108/037-000 (latching), 713-1108/037-9037/033-000 (latching + strain relief plate)
    - 10/100 Base-T Ethernet
    - USB Type B 2.0 Device
  - Center: IEC C14/C13: AC Power Connector
