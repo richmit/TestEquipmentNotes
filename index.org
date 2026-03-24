@@ -1,4 +1,4 @@
-# -*- Mode:Org; Coding:utf-8; fill-column:158 -*-
+# -*- Mode:Org; Coding:utf-8; fill-column:158  org-confirm-babel-evaluate:nil -*-
 # ######################################################################################################################################################.H.S.##
 # FILE:        tool-info.org
 #+TITLE:       Test Equipment
@@ -284,6 +284,25 @@ TEQD-cname2ip
 :CUSTOM_ID: MSIDhmc8043-notes
 :END:
 
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSIDhmc8043-notes-backIO
+:END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSIDhmc8043-BP.png][file:MSIDhmc8043-BP.png]]
+
+ - Bottom (Right To Left)
+   - 2x8 Rectangular Connector -- Wago 713-1108 (non-latching) or 713-1108/037-000 (latching)
+   - 10/100 Base-T Ethernet
+   - USB Type B 2.0 Device
+ - Center: IEC C14/C13: AC Power Connector
+
+The pinout of the rectangular connector, as viewed from the back:
+#+ATTR_HTML: :rules all solid #ccc :frame all :align center
+| CH3+ | CH3 SENSE+ | CH2+ | CH2 SENSE+ | CH1+ | CH1 SENSE+ | U+ interface / Trigger | I+ interface |
+| CH3- | CH3 SENSE- | CH2- | CH2 SENSE- | CH1- | CH1 SENSE- | U- interface           | I- interface |
+
 **** Remote control notes
 :PROPERTIES:
 :CUSTOM_ID: MSIDhmc8043-notes-remote
@@ -549,6 +568,9 @@ Here we sequence the thrid channel to come on 90ms after the first two.
 :CUSTOM_ID: MSID33210a-notes-backIO
 :END:
 
+#+ATTR_HTML: :width 90% :align center
+[[file:MSID33210a-BP.png][file:MSID33210a-BP.png]]
+
  - Right Side Top (4 ports arranged in a square)
    - Top Right: BNC External 10 MHz Reference Input (Option 001)
    - Top Left: BNC External 10 MHz Reference Output (Option 001)
@@ -760,6 +782,35 @@ We use the command =DATA:DAC= for integer values in the range [-8191, 8191].
    | 10MΩ  |  500nA  |
    | 100MΩ |  500nA  |
  - Continuity & Diode Test Current: 1mA
+
+
+ - VM Complete Output: 5V TTL normally high.  2 μs low pulse after the completion of each measurement.
+ - External Trigger Terminal: 5V TTL normally high.  Trigger measurement via a low pulse with a width greater than 1 μs.  This low pulse may be created by
+   shorting the input to ground.
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSID34401a-notes-backIO
+:END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSID34401a-BP.png][file:MSID34401a-BP.png]]
+
+ - Right Side (6 ports arranged 3x2 grid mirroring the front banana inputs)
+   - Top Right:    Banana HI Sense (4W Ω)
+   - Top Left:     Banana HI Input (V Ω Diode)
+   - Middle Right: Banana Sense LO 
+   - Middle Left:  Banana Input LO
+   - Bottom Right: Current Fuse
+   - Bottom Left:  Banana 3A input
+ - Bottom Center (Right To Left)
+   - BNC VM Complete Output
+   - BNC External Trigger
+ - Bottom Left (Right To Left)
+   - GPIB Interface
+   - DB9 Serial Interface
+ - Center: Chassis Ground Screw
+ - Top (Left of center): IEC C14/C13: AC Power Connector
 
 **** Remote control notes
 :PROPERTIES:
@@ -1221,7 +1272,7 @@ For AC voltage, we should be carefull about setting the bandwidth.
 
 **** Performance & Operational Facts
 :PROPERTIES:
-:CUSTOM_ID: MSID34401a-notes-perf
+:CUSTOM_ID: MSID53131a-notes-perf
 :END:
 
  - Channel 1-3 Input Characteristics
@@ -1236,8 +1287,11 @@ For AC voltage, we should be carefull about setting the bandwidth.
 
 **** Back Ports
 :PROPERTIES:
-:CUSTOM_ID: MSID34401a-notes-backIO
+:CUSTOM_ID: MSID53131a-notes-backIO
 :END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSID53131a-BP.png][file:MSID53131a-BP.png]]
 
  - Bottom Right To Left
    - BNC External Arm Trigger
@@ -1245,11 +1299,11 @@ For AC voltage, we should be carefull about setting the bandwidth.
    - BNC External 10 MHz Reference Output
    - GPIB Interface (near center)
    - RS232 Output
- - Bottom Center Left: IEC C14/C13: AC Power Connector
+ - Center: IEC C14/C13: AC Power Connector
 
 **** Quirks
 :PROPERTIES:
-:CUSTOM_ID: MSID34401a-notes-quirks
+:CUSTOM_ID: MSID53131a-notes-quirks
 :END:
 
 When it's plugged in, it consume power and runs the fan.  Presumably this is to keep a fancy OCXO warmed up and ready for when the unit is needed.  At least
@@ -1258,7 +1312,7 @@ to IEC C13 power cable with an inline switch.
 
 **** Remote control notes
 :PROPERTIES:
-:CUSTOM_ID: MSID34401a-notes-remote
+:CUSTOM_ID: MSID53131a-notes-remote
 :END:
 
 The RS-232 interface is "talk-only" -- i.e. for logging, printing, or limit-detect output.  It can not be used for SCPI control.
@@ -1435,6 +1489,33 @@ HEWLETT-PACKARD,53131A,0,3703
    | 10µF  |      1mA       |
    | 100µF |      1mA       |
 
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSIDdmm6500-notes-backIO
+:END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSIDdmm6500-BP.png][file:MSIDdmm6500-BP.png]]
+
+ - Right Side Bottom (6 ports arranged 2x3 grid mirroring the front banana inputs rotated clockwise 90 degrees)
+   - Top Right:     Banana 10A
+   - Top Middle:    Banana LO Sense
+   - Top Left:      Banana HI Sense (4W Ω)
+   - Bottom Right:  Fuse
+   - Bottom Middle: Banana LO Input
+   - Bottom Left:   Banana HI Input
+ - Top Left (Right To Left)
+   - 10/100 Base-T Ethernet
+   - BNC External Trigger IN
+   - BNC External Trigger OUT
+   - USB Type B 2.0 Device
+ - Bottom Left (Right To Left)
+   - GPIB Interface
+   - DB9 Serial Interface
+ - Center: Chassis Ground Screw
+ - Bottom Left: IEC C14/C13: AC Power Connector
+
 *** Remote Control
 :PROPERTIES:
 :CUSTOM_ID: MSIDdmm6500-remote
@@ -1577,6 +1658,9 @@ For this one, we set NPLC 1o 10 with 100 averages -- that takes about 17 seconds
 :PROPERTIES:
 :CUSTOM_ID: MSIDdho4204-notes-backIO
 :END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSIDdho4204-BP.png][file:MSIDdho4204-BP.png]]
 
  - Back
    - Right Side Top To Bottom
@@ -1791,6 +1875,9 @@ followed by a terminator.
 :PROPERTIES:
 :CUSTOM_ID: MSIDsds2504xp-notes-backIO
 :END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSIDsds2504xp-BP.png][file:MSIDsds2504xp-BP.png]]
 
  - Right Side Top (4 ports arranged in a square)
    - Top Right: BNC Auxilaury Output (Trigger (default) or pass/fail)
@@ -2132,6 +2219,27 @@ TEKTRONIX,TDS 2024,0,CF:91.1CT TDS2MEM:FV:v6.08
 :PROPERTIES:
 :CUSTOM_ID: MSIDtds3052b-notes
 :END:
+
+
+**** Back Ports
+:PROPERTIES:
+:CUSTOM_ID: MSIDtds3052b-notes-backIO
+:END:
+
+#+ATTR_HTML: :width 90% :align center
+[[file:MSIDtds3052b-BP.png][file:MSIDtds3052b-BP.png]]
+
+ - Left (Top To Bottom)
+   - 10/100 Base-T Ethernet
+   - 15V DC power output
+   - Ground terminal
+ - Center (Top To Bottom)
+   - Communications Module (Left To Right)
+     - VGA port
+     - RS-232 port
+     - GPIB port
+   - Parallel printer port
+   - IEC C14/C13: AC Power Connector
 
 **** Remote control notes
 :PROPERTIES:
@@ -2791,7 +2899,7 @@ One must turn on the sync signal as well set the marker
 *** Serial Settings (tio config)
 
 #+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
-sed -n '/^\[buspirate5\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+sed -n '/^\[buspirate5\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-bench_pi
 #+end_src
 
 #+RESULTS:
@@ -2824,7 +2932,7 @@ map = INLCRNL,ODELBS
 *** Serial Settings (tio config)
 
 #+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
-sed -n '/^\[i2cdriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+sed -n '/^\[i2cdriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-bench_pi
 #+end_src
 
 #+RESULTS:
@@ -2860,7 +2968,7 @@ local-echo = true
 *** Serial Settings (tio config)
 
 #+begin_src sh :results output verbatum :exports results :wrap "src text :eval never :tangle no"
-sed -n '/^\[spidriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-X-mjolnir
+sed -n '/^\[spidriver\]/,/^ *$/p' c:/Users/richmit/MJR/world/dotfiles/.tioconfig--SS-X-X-X-bench_pi
 #+end_src
 
 #+RESULTS:
@@ -2941,6 +3049,191 @@ import -screen `date +%Y%m%d%H%M%S`_AD2_screenshot.png
   <li><a href='zotero://select/items/0_YQYFYRE3'>Digital Discovery: Specs</a></li>
 </ul>
 #+END_EXPORT
+
+
+* ARM Programmers
+:PROPERTIES:
+:CUSTOM_ID: ARMprog
+:END:
+
+** Debug Ports
+*** 19-pin connector
+ - Keyed rectangular 2x10 1.27mm pitch connector
+ - Samtec FTSH-1110-01
+ - Supports JTAG debug, Serial-Wire debug, Serial Wire Viewer, and ETM instruction trace operations.
+ - Variants with removed pin 7 (keying) can be used as well.
+ - Alias: Cortex Debug+ETM Connector
+ - Alias: JTAG-19
+
+#+CAPTION: For JTAG/SDO
+#+ATTR_HTML: :rules all solid #ccc :frame all :align center
+|  1 | VTref     | TMS/SWDIO       |  2 |
+|  3 | GND       | TCK/SWCLK       |  4 |
+|  5 | GND       | TDO/SWO         |  6 |
+|  7 | --        | TDI/NC          |  8 |
+|  9 | GNDDetect | nRESET          | 10 |
+| 11 | 5V-Supply | TRACECLK/NC     | 12 |
+| 13 | 5V-Supply | TRACEDATA[0]/NC | 14 |
+| 15 | GND       | TRACEDATA[1]/NC | 16 |
+| 17 | GND       | TRACEDATA[2]/NC | 18 |
+| 19 | GND       | TRACEDATA[3]/NC | 20 |
+
+On most boards pin 9 is NC.
+
+*** 9-pin connector
+
+Essentially the first half of the 19-pin cable -- i.e. pins 1-10 all match in both cables.
+
+ - Keyed rectangular 2x5 1.27mm pitch connector
+ - Samtec FTSH-105-01
+ - Supports JTAG debug, Serial Wire debug and Serial Wire Viewer.
+ - Almost the same capabilities of the larger 20-Pin Standard Debug Connector
+ - Variants with removed pin 7 (keying) can be used as well.
+ - Alias: Cortex Debug Connector
+ - Alias: MIPI10
+ - Alias: JTAG-9
+
+#+CAPTION: For JTAG/SDO
+#+ATTR_HTML: :rules all solid #ccc :frame all :align center
+| 1 | VTref     | TMS/SWDIO |  2 |
+| 3 | GND       | TCK/SWCLK |  4 |
+| 5 | GND       | TDO/SWO   |  6 |
+| 7 | --        | TDI/NC    |  8 |
+| 9 | GNDDetect | nRESET    | 10 |
+
+*** Standard 20-pin connector
+
+ - Keyed rectangular 2x10 2.54mm pitch connector
+ - Samtec TST-110-01-L-D
+ - Supports JTAG debug, Serial-Wire debug, and Serial Wire Viewer
+ - Alias: ARM Standard JTAG Connector
+ - Alias: Legacy 20-pin ARM JTAG Connector
+ - Alias: JTAG-20
+
+#+CAPTION: For JTAG/SDO
+#+ATTR_HTML: :rules all solid #ccc :frame all :align center
+|  1 | VTref     | NC  |  2 |
+|  3 | nTRST/NC  | GND |  4 |
+|  5 | TDI/NC    | GND |  6 |
+|  7 | TMS/SWDIO | GND |  8 |
+|  9 | TCK/SWCLK | GND | 10 |
+| 11 | RTCK/NC   | GND | 12 |
+| 13 | TDO/SWO   | GND | 14 |
+| 15 | RESET     | GND | 16 |
+| 17 | DBGRQ/NC  | GND | 18 |
+| 19 | 5V-Supply | GND | 20 |
+
+** J-Link EDU Mini
+:PROPERTIES:
+:CUSTOM_ID: MSIDjlinkedumini
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDjlinkedumini-link
+:END:
+
+ - Product Page: https://www.segger.com/products/debug-probes/j-link/models/j-link-edu-mini/
+ - Knowledge Base Links:
+   - J-Trace_User_Guide: https://kb.segger.com/UM08001_J-Link_/_J-Trace_User_Guide
+   - J-Link Commander: https://kb.segger.com/J-Link_Commander
+   - J-Link Scripts: https://kb.segger.com/J-Link_script_files
+   - J-Link GDB Server: https://kb.segger.com/J-Link_GDB_Server
+   - J-Flash Lite: https://kb.segger.com/J-Flash_Lite
+   - J-Link SWO Viewer: https://kb.segger.com/J-Link_SWO_Viewer
+   - J-Scope: https://kb.segger.com/UM08028_J-Scope
+   - EDU Mini Connector: https://kb.segger.com/9-pin_JTAG/SWD_connector
+   - J-Link EDU Mini Specific: https://kb.segger.com/J-Link_EDU_Mini
+ - User/Support Forum: https://forum.segger.com/
+ - Software: https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
+ - Other Software:
+   - Embedded Studio: https://www.segger.com/downloads/embedded-studio/
+   - Ozone Debugger: https://www.segger.com/downloads/jlink/#Ozone
+
+*** Documentation (These links only work on my personal laptop)
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_HDL4GIT7'>SEGGER: J-Link / J-Trace Getting Started Version 9.26</a></li>
+  <li><a href='zotero://select/items/0_PM7WMU5U'>SEGGER: Embedded Studio Reference Manual Version 8.26c</a></li>
+  <li><a href='zotero://select/items/0_VUCRSYD8'>SEGGER: Ozone User Guide & Reference Manual Version 3.40</a></li>
+  <li><a href='zotero://select/items/0_2UN9K7IJ'>SEGGER: J-Link GDB Server Extensions Version 1.0</a></li>
+  <li><a href='zotero://select/items/0_IXUNDPJ2'>SEGGER: SystemView User Guide Version 3.62</a></li>
+  <li><a href='zotero://select/items/0_I6TPNR5Y'>SEGGER: J-Flash User guide Version 9.26</a></li>
+</ul>
+#+END_EXPORT
+
+*** Physical Interface
+:PROPERTIES:
+:CUSTOM_ID: MSIDjlinkedumini-iface
+:END:
+
+The Target Interface Port on the programmer is a male, 9-pin Cortex Debug Connector.
+
+The target interface cable that came with my unit is a combo ribbon cable with a female JTAG-9 plug at both ends and a female JTAG-19 (with pins 11-20 NC)
+connected mid-cable.
+
+On most boards nTRST is pulled up and may be left unconnected.  On other boards it is floating and must be controlled by the debug probe.
+
+Here is advice from Segger on this:
+
+#+begin_quote
+Should you run into issues setting up a JTAG connection, check the state of the nTRST signal. If it is pulled low either try to pull it high through an
+external wire manually or route nTRST to pin 9 of the J-Link EDU Mini debug interface. In the 9-pin Cortex-M specification pin 9 is usually defined as NC
+however in case of the J-Link EDU Mini that pin is used as nTRST instead to be able to connect to boards having that signal routed to their target device.
+#+end_quote
+
+** STLINK-V3SET
+:PROPERTIES:
+:CUSTOM_ID: MSIDstlinkv3set
+:END:
+
+*** Links
+:PROPERTIES:
+:CUSTOM_ID: MSIDstlinkv3set-link
+:END:
+
+ - Product Page: https://www.st.com/en/development-tools/stlink-v3set.html
+
+*** Documentation (These links only work on my personal laptop)
+:PROPERTIES:
+:CUSTOM_ID: MSIDstlinkv3set-doc
+:END:
+#+BEGIN_EXPORT html
+<ul>
+  <li><a href='zotero://select/items/0_LPJUGHDE'>STLINK-V3SET debugger/programmer for STM8 and STM32</a></li>
+</ul>
+#+END_EXPORT
+
+*** Physical Interface
+:PROPERTIES:
+:CUSTOM_ID: MSIDstlinkv3set-iface
+:END:
+
+The Target Interface Port on the programmer is a male, rectangular 2x7, 14-pin with 1.27 mm pitch (Samtec FTSH-107-01-L-DV-K-A):
+
+#+CAPTION: ST-Link 14-pin JTAG/SDO Cable
+#+ATTR_HTML: :rules all solid #ccc :frame all :align center
+|  1 | Reserved   |  2 | Reserved       |
+|  3 | T_VCC      |  4 | T_JTMS/T_SWDIO |
+|  5 | GND        |  6 | T_JCLK/T_SWCLK |
+|  7 | GND        |  8 | T_JTDO/T_SWO   |
+|  9 | T_JRCLK/NC | 10 | T_JTDI/NC      |
+| 11 | GNDDetect  | 12 | T_NRST         |
+| 13 | T_VCP_RX   | 14 | T_VCP_TX       |
+
+This connector has the normal pins for JTAG-9 as pins 3-12 -- note pin 9 would be NC for a standard JTAG-9 interface.  Pins 13 & 14 provide RX & TX for the
+"Virtual COM port".
+
+My unit came with three flat cables: 
+ - STDC14 :: Both ends have the female 14-pin connector that matches the programmer port (Samtec FFSD-07-D-05.90-01-N-R)
+ - JTAG-9 :: Pin 7 is connected to ~T_JRCLK~ and pin 9 is GND.
+ - JTAG-19 :: Pins 7 & 9 are as with MIPI10.  Pins 11 to 20 are NC.
+
+The MB1440B adds:
+  - SWD: CN6 (2.54 pitch header pin strip).  
+    - Pins: T_VCC, T_SWCLK, GND, T_SWDIO, T_NRST, T_SWO
+    - Note pin numbers are from right to left when viewed from the bottom.
+  - JTAG-20: CN2 (standard JTAG-20 rectangular connector)
 
 * Disconnected Instruments
 :PROPERTIES:
@@ -3369,7 +3662,7 @@ sudo apt install                                             \
     maxima maxima-doc xmaxima maxima-emacs                   \
     liblxi-dev lxi-tools                                     \
     pulseview sigrok-cli sigrok                              \
-    default-jre swaks enscript graphviz gawk  mplayer povray \
+    default-jre swaks enscript graphviz gawk  mplayer povray 
 #+END_SRC
 
 *** /usr/local/bin links
@@ -3412,6 +3705,7 @@ mkdir -p ~/synced/core/;
 **** Create Links
 
 #+begin_src sh
+cd 
 ln -s synced/world world
 ln -s synced/core core
 #+end_src
@@ -3422,9 +3716,28 @@ ln -s synced/core core
 sudo usermod -s /usr/bin/zsh richmit
 #+end_src
 
-**** Setup up dot files
+**** Setup up ssh keys
 
-Sync home directory data to the system first!  See [[#bench-data-sync][Bench Data Sync]] 
+Create ~.ssh~ directory on ~bench-pi~
+#+begin_src sh
+cd 
+mkdir .ssh
+chmod 700 .ssh
+#+end_src
+
+On primary workstation, extract public key and copy it to ~bench-pi~.
+#+begin_src sh
+cd ~/.ssh
+ssh-keygen -y -f $(ls id_rsa_benchpi_* | tail -n 1) > tmp
+scppw tmp bench-pi.home.mitchr.me:.ssh/authorized_keys
+rm tmp
+#+end_src
+
+**** Sync data from workstation
+
+See [[#bench-data-sync][Bench Data Sync]] 
+
+**** Setup up dot files
 
 #+begin_src sh
 ~/world/my_prog/UNIXutils/SelectSetup.rb --loc=HOME; ~/world/my_prog/UNIXutils/SetupBin.rb
@@ -3828,4 +4141,3 @@ Plug in the device, and use this to get data.
 #+begin_src sh :exports code
 dmesg | grep -Ei '(usb|tty)' | tail -n 50
 #+end_src
-
