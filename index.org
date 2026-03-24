@@ -4120,9 +4120,12 @@ sudo chmod a+r /etc/udev/rules.d/98-buspirate36.rules
 
 * Document Meta Data
 
- - The master location for org-mode source code for this document: https://github.com/richmit/TestEquipmentNotes/blob/main/index.org
- - The master location for the HTML rendered from org-mode source for this document: https://richmit.github.io/TestEquipmentNotes/
- - Repository with all code and data for this document: https://github.com/richmit/TestEquipmentNotes
+ - Master location for org-mode source code for this document ::
+   https://github.com/richmit/TestEquipmentNotes/blob/main/index.org
+ - Master location for the HTML rendered from org-mode source for this document :: 
+   https://richmit.github.io/TestEquipmentNotes/
+ - Repository with all code and data for this document :: 
+   https://github.com/richmit/TestEquipmentNotes
 
 * Detailed TOC
 :PROPERTIES:
